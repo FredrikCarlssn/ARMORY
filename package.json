@@ -1,0 +1,72 @@
+{
+  "name": "react-frontend",
+  "homepage": "https://fredrikcarlssn.github.io/Soulbound-Token",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@formkit/auto-animate": "^0.8.1",
+    "@headlessui/react": "^1.7.18",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@thirdweb-dev/react": "^4",
+    "@thirdweb-dev/sdk": "^4",
+    "assert": "^2.0.0",
+    "browserify-zlib": "latest",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^5",
+    "framer-motion": "^11.0.3",
+    "http": "npm:http-browserify",
+    "http-browserify": "latest",
+    "https": "npm:https-browserify",
+    "https-browserify": "latest",
+    "lucide-react": "^0.323.0",
+    "react": "^18.2",
+    "react-dom": "^18.2",
+    "react-flip-move": "^3.0.5",
+    "react-flip-toolkit": "^7.1.0",
+    "react-router-dom": "^6.21.1",
+    "react-scripts": "^5.0.1",
+    "stream": "^0.0.2",
+    "styled-components": "^6.1.1",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
+    "url": "latest",
+    "web-vitals": "^3.1.0",
+    "zlib": "npm:browserify-zlib"
+  },
+  "scripts": {
+    "start": "react-scripts start && npx tailwindcss -i ./src/styles/globals.css -o ./src/output.css --watch",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "yarn build && npx thirdweb@latest upload build",
+    "gh-pages": "react-scripts build && gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "daisyui": "^4.6.1",
+    "gh-pages": "^6.1.1",
+    "tailwindcss": "^3.4.1"
+  }
+}
