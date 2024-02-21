@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ARMORY/static/css/main.17f073f8.css",
-    "main.js": "/ARMORY/static/js/main.d4960e58.js",
+    "main.css": "/ARMORY/static/css/main.0b2f2f6b.css",
+    "main.js": "/ARMORY/static/js/main.b99734e8.js",
     "static/js/701.7d24b57d.chunk.js": "/ARMORY/static/js/701.7d24b57d.chunk.js",
     "static/js/892.cbd4dd48.chunk.js": "/ARMORY/static/js/892.cbd4dd48.chunk.js",
     "static/js/9189.8ddebe2b.chunk.js": "/ARMORY/static/js/9189.8ddebe2b.chunk.js",
@@ -103,8 +103,8 @@
     "static/media/medium-logo.png": "/ARMORY/static/media/medium-logo.5d9aebcf6dae6ddab97a.png",
     "static/media/con-flat.svg": "/ARMORY/static/media/con-flat.5c925a44e7d9e2d1f21beadf0ca0a0a2.svg",
     "index.html": "/ARMORY/index.html",
-    "main.17f073f8.css.map": "/ARMORY/static/css/main.17f073f8.css.map",
-    "main.d4960e58.js.map": "/ARMORY/static/js/main.d4960e58.js.map",
+    "main.0b2f2f6b.css.map": "/ARMORY/static/css/main.0b2f2f6b.css.map",
+    "main.b99734e8.js.map": "/ARMORY/static/js/main.b99734e8.js.map",
     "701.7d24b57d.chunk.js.map": "/ARMORY/static/js/701.7d24b57d.chunk.js.map",
     "892.cbd4dd48.chunk.js.map": "/ARMORY/static/js/892.cbd4dd48.chunk.js.map",
     "3115.c4ba2e5d.chunk.js.map": "/ARMORY/static/js/3115.c4ba2e5d.chunk.js.map",
@@ -164,7 +164,7 @@
     "737.fd75da8a.chunk.js.map": "/ARMORY/static/js/737.fd75da8a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.17f073f8.css",
-    "static/js/main.d4960e58.js"
+    "static/css/main.0b2f2f6b.css",
+    "static/js/main.b99734e8.js"
   ]
 }
