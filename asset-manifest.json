@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ARMORY/static/css/main.0b2f2f6b.css",
-    "main.js": "/ARMORY/static/js/main.b99734e8.js",
+    "main.css": "/ARMORY/static/css/main.245b7ff1.css",
+    "main.js": "/ARMORY/static/js/main.31900b45.js",
     "static/js/701.7d24b57d.chunk.js": "/ARMORY/static/js/701.7d24b57d.chunk.js",
     "static/js/892.cbd4dd48.chunk.js": "/ARMORY/static/js/892.cbd4dd48.chunk.js",
     "static/js/9189.8ddebe2b.chunk.js": "/ARMORY/static/js/9189.8ddebe2b.chunk.js",
@@ -94,6 +94,7 @@
     "static/media/vitalsBg.png": "/ARMORY/static/media/vitalsBg.ea2fef1cfb920c237677.png",
     "static/media/modal6.png": "/ARMORY/static/media/modal6.5410d2686c177301b931.png",
     "static/media/con-map.jpg": "/ARMORY/static/media/con-map.758a97573d4248bcbb0c.jpg",
+    "static/media/sphere.png": "/ARMORY/static/media/sphere.104d4c535a05ab3d9e1a.png",
     "static/media/instagram-logo.png": "/ARMORY/static/media/instagram-logo.1196b2f53960d1afc2a6.png",
     "static/media/headline.png": "/ARMORY/static/media/headline.6fa05f86f6cb9d060e97.png",
     "static/media/x-logo.png": "/ARMORY/static/media/x-logo.708e1150790640e50b97.png",
@@ -103,8 +104,8 @@
     "static/media/medium-logo.png": "/ARMORY/static/media/medium-logo.5d9aebcf6dae6ddab97a.png",
     "static/media/con-flat.svg": "/ARMORY/static/media/con-flat.5c925a44e7d9e2d1f21beadf0ca0a0a2.svg",
     "index.html": "/ARMORY/index.html",
-    "main.0b2f2f6b.css.map": "/ARMORY/static/css/main.0b2f2f6b.css.map",
-    "main.b99734e8.js.map": "/ARMORY/static/js/main.b99734e8.js.map",
+    "main.245b7ff1.css.map": "/ARMORY/static/css/main.245b7ff1.css.map",
+    "main.31900b45.js.map": "/ARMORY/static/js/main.31900b45.js.map",
     "701.7d24b57d.chunk.js.map": "/ARMORY/static/js/701.7d24b57d.chunk.js.map",
     "892.cbd4dd48.chunk.js.map": "/ARMORY/static/js/892.cbd4dd48.chunk.js.map",
     "3115.c4ba2e5d.chunk.js.map": "/ARMORY/static/js/3115.c4ba2e5d.chunk.js.map",
@@ -164,7 +165,7 @@
     "737.fd75da8a.chunk.js.map": "/ARMORY/static/js/737.fd75da8a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0b2f2f6b.css",
-    "static/js/main.b99734e8.js"
+    "static/css/main.245b7ff1.css",
+    "static/js/main.31900b45.js"
   ]
 }
