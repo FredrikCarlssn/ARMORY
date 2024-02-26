@@ -1,5 +1,5 @@
 export const SKILLS_CONTRACT = "0x42DF3C5E15Aa2cb0d0A61ED327DDF6278363322c";
-export const ITEMS_CONTRACT = "0x47C74BbD0c74D57e4e443c86442EF49E2a0969A1";
+export const ITEMS_CONTRACT = "0x526D9BB6E8AE5e0F643146c32CB16Ea41D5002A9";
 export const TOKEN_CONTRACT = "0x4cCd9a613A9CfB84F9c771Da7cad56F907cc357f";
 export const ipfsLink = (image) => {
   image = image.replace("ipfs://", "https://ipfs.io/ipfs/");

@@ -91,8 +91,8 @@ export const LandingPage = () => {
               <div className="bg-[url('/src/img/headline.png')] h-24 bg-cover w-full relative">
                 <StyledH1>ARMORY</StyledH1>
               </div>
-              <NavLink to={"/profile"}>
-                <StyledButton className="crg-button">Profile</StyledButton>
+              <NavLink to={"/Search"}>
+                <StyledButton className="crg-button">Search</StyledButton>
               </NavLink>
             </StyledDiv>
           </motion.div>

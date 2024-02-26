@@ -12,9 +12,7 @@ import {
 } from "@thirdweb-dev/react";
 import {
   ITEMS_CONTRACT,
-  SKILLS_CONTRACT,
   traitKeysItems,
-  traitKeysSkills,
   ITEMS_TRAIT_VALUES,
   SKILLS_TRAIT_VALUES,
 } from "../../CONST.js";
@@ -41,6 +39,17 @@ const SmallCard = styled.div`
     transform: scale(0.7);
     margin-top: -150px;
   }
+`;
+
+const StyledCard = styled.div`
+  height: 1200px;
+  width: 950px;
+  background-image: url(${CardBackground});
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 80px 50px;
+  transform: scale(0.8);
+  font-size: 1.15rem;
 `;
 
 const CardContent = styled.div`
@@ -72,51 +81,42 @@ const BigCard = styled.div`
 `;
 
 export const DisplayOwnedToken = () => {
-  const contractParam = useParams().contract;
   const tokenId = useParams().tokenId;
   const navigate = useNavigate();
   let dynamicTraits = [];
 
-  const { contract } = useContract(
-    `${contractParam == 0 ? ITEMS_CONTRACT : SKILLS_CONTRACT}`
-  );
+  const { contract } = useContract(ITEMS_CONTRACT);
   const { mutateAsync: burn } = useContractWrite(contract, "burn");
-  const { data: nft, isLoading } = useNFT(contract, tokenId);
-  const { data: dynamicTraitBytes, isLoading: isLoading2 } = useContractRead(
-    contract,
-    "getTraitValues",
-    [tokenId, traitKeysItems]
-  );
+  const { data: nft, isLoading, error } = useNFT(contract, tokenId);
 
-  if (!isLoading2) {
-    let traitTypes = {};
-    if (contractParam == 0) {
-      traitTypes = ITEMS_TRAIT_VALUES;
-    }
-    if (contractParam == 1) {
-      traitTypes = SKILLS_TRAIT_VALUES;
-    }
-    dynamicTraitBytes.forEach((trait, i) => {
-      if (
-        trait ===
-        "0x0000000000000000000000000000000000000000000000000000000000000000"
-      )
-        return;
-      let convertedTrait = {};
-      convertedTrait.trait_type = traitTypes[i];
-      convertedTrait.value = Buffer.from(trait.slice(2), "hex").toString(
-        "utf-8"
-      );
-      dynamicTraits.push(convertedTrait);
-    });
-  }
-
-  if (isLoading || isLoading2)
+  if (isLoading)
     return (
       <StyledClaimTokenPage>
         <Spinner />
       </StyledClaimTokenPage>
     );
+  if (error || !nft.metadata.properties) {
+    return (
+      <StyledClaimTokenPage>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <ContentWrapper>
+            <BigCard>
+              <StyledCard>
+                <h1 className="flex w-full h-full justify-center items-center font-bold text-5xl">
+                  No NFT found with tokenId: {nft.metadata.id}
+                </h1>
+              </StyledCard>
+            </BigCard>
+          </ContentWrapper>
+        </motion.div>
+      </StyledClaimTokenPage>
+    );
+  }
 
   return (
     <StyledClaimTokenPage>
@@ -128,11 +128,7 @@ export const DisplayOwnedToken = () => {
       >
         <ContentWrapper>
           <BigCard>
-            {contractParam == 0 ? (
-              <ItemCard token={nft} dynamicTraits={dynamicTraits} />
-            ) : (
-              <SkillCard token={nft} dynamicTraits={dynamicTraits} />
-            )}
+            <ItemCard token={nft} />
           </BigCard>
         </ContentWrapper>
       </motion.div>

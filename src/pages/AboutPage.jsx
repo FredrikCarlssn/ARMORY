@@ -135,15 +135,36 @@ export const AboutPage = () => {
               </StyledP>
             </Game>
             <StyledHl src={horisontalLine} />
-            <StyledH1>Soulbound Tokens</StyledH1>
+            <StyledH1>A Story in Season</StyledH1>
             <StyledP>
-              The Soulbound Token, an NFT characterized by its immutability and
-              non-tradability, possesses an exceptional uniqueness reserved for
-              its owner. It serves as a testament to your enduring loyalty to
-              the game, reflecting your steadfast support from the alpha stages
-              onward. Consider it a heartfelt expression of gratitude for your
-              unwavering commitment, showcasing to the world that you are indeed
-              a true OG fan!
+              Centuries ago, a catastrophic event struck the world of Naramunz,
+              turning it into post-apocalyptic ruin called “NEXUS”. The event
+              caused the world to split into separate, floating islands and its
+              inhabitants to mutate with animals. The collision resulted in the
+              scattering of glowing blue crystals rife with power which became
+              the primary source of energy in the world. The Nexus is a
+              recurring global event in the game that acts as a seasonal reset,
+              wiping the possessions and memories of all characters. Only the
+              legendary Aetherials items survive.
+            </StyledP>
+            <StyledHl src={horisontalLine} />
+            <StyledH1>Items</StyledH1>
+            <StyledP>
+              <h1>
+                - Sealed items can be traded on the open market and will survive
+                the seasonal resets
+              </h1>
+              <h1>
+                - upgrade the quality of the item in the artisan shop to improve
+                its stats
+              </h1>
+              <h1>
+                - Upgrade the rarity to improve its stats and unlock hidden mods
+              </h1>
+              <h1>
+                - Reroll and add affixes to change the abilities of the weapon
+              </h1>
+              <h1></h1>
             </StyledP>
           </Content>
         </Background>
