@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.de3eb582.css",
-    "main.js": "/static/js/main.b35254af.js",
+    "main.css": "/static/css/main.4d1ff020.css",
+    "main.js": "/static/js/main.57cd03a3.js",
     "static/js/701.7dc73b73.chunk.js": "/static/js/701.7dc73b73.chunk.js",
     "static/js/892.22b2b84b.chunk.js": "/static/js/892.22b2b84b.chunk.js",
     "static/js/9189.f8bb91aa.chunk.js": "/static/js/9189.f8bb91aa.chunk.js",
@@ -86,11 +86,13 @@
     "static/media/city.png": "/static/media/city.b7aa0c8afab0bcac96b8.png",
     "static/media/merchant.png": "/static/media/merchant.3aca9c0cab922f908ef9.png",
     "static/media/merchant-banner.png": "/static/media/merchant-banner.4e68e65830c89934ce20.png",
+    "static/media/workshop.png": "/static/media/workshop.dc2eef77cbe3862cb2fc.png",
     "static/media/city-back-drop.jpg": "/static/media/city-back-drop.43c6a0078aebcd1e69c8.jpg",
+    "static/media/example-nft.png": "/static/media/example-nft.2d4021c506554d93102c.png",
     "static/media/armory.png": "/static/media/armory.01993576c2597c2db533.png",
     "static/media/heavy-fog.png": "/static/media/heavy-fog.21df44857f737f20107d.png",
     "static/media/soft-light-fog.png": "/static/media/soft-light-fog.d4799cc656781c3ce1d2.png",
-    "static/media/con-web-logo.png": "/static/media/con-web-logo.e105f564daa4f289a055.png",
+    "static/media/nexus.png": "/static/media/nexus.7f99b07ce220a97e333f.png",
     "static/media/card.png": "/static/media/card.93b364a81ef72484f3ac.png",
     "static/media/big-text-box.png": "/static/media/big-text-box.a6da9cfac5534e043ce0.png",
     "static/media/vitalsBg.png": "/static/media/vitalsBg.ea2fef1cfb920c237677.png",
@@ -106,8 +108,8 @@
     "static/media/medium-logo.png": "/static/media/medium-logo.5d9aebcf6dae6ddab97a.png",
     "static/media/con-flat.svg": "/static/media/con-flat.5c925a44e7d9e2d1f21beadf0ca0a0a2.svg",
     "index.html": "/index.html",
-    "main.de3eb582.css.map": "/static/css/main.de3eb582.css.map",
-    "main.b35254af.js.map": "/static/js/main.b35254af.js.map",
+    "main.4d1ff020.css.map": "/static/css/main.4d1ff020.css.map",
+    "main.57cd03a3.js.map": "/static/js/main.57cd03a3.js.map",
     "701.7dc73b73.chunk.js.map": "/static/js/701.7dc73b73.chunk.js.map",
     "892.22b2b84b.chunk.js.map": "/static/js/892.22b2b84b.chunk.js.map",
     "3115.2f5cfb71.chunk.js.map": "/static/js/3115.2f5cfb71.chunk.js.map",
@@ -167,7 +169,7 @@
     "737.acf01f6f.chunk.js.map": "/static/js/737.acf01f6f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.de3eb582.css",
-    "static/js/main.b35254af.js"
+    "static/css/main.4d1ff020.css",
+    "static/js/main.57cd03a3.js"
   ]
 }
