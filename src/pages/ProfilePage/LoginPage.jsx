@@ -78,7 +78,8 @@ export const LoginPage = () => {
   const handleTokenSubmit = (event) => {
     event.preventDefault();
 
-    if (tokenId >= 0) {
+    if (tokenId >= 0 && tokenId != "") {
+      console.log(tokenId);
       navigate(`/token/${tokenId}`);
     } else {
       setError("Please enter a valid token ID.");

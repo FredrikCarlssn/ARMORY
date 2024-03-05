@@ -1,21 +1,23 @@
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import city from "../img/city.png";
 import card from "../img/card.png";
 import merchant from "../img/merchant.png";
-import gamelogo from "../img/con-web-logo.png";
+import gamelogo from "../img/armory.png";
 import horisontalLine from "../img/Line-fade-300.png";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef } from "react";
+import ScrollButton from "../components/ScrollButton";
 
 const StyledButton = styled.button`
   position: relative;
   margin-top: 20px;
   transform: scale(1.2);
   &:hover {
-    transform: scale(1.25) !important;
+    transform: scale(1.21) !important;
   }
 `;
 
@@ -48,6 +50,15 @@ const StyledHl = styled.img`
 `;
 
 export const LandingPage = () => {
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const newError = (errorMessage, duration) => {
+    setError(errorMessage);
+    setTimeout(() => {
+      setError("");
+    }, duration);
+  };
   const ref = useRef();
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -69,11 +80,36 @@ export const LandingPage = () => {
     setScale2(1);
   }, [isInView]);
 
+  const handleChange = (event) => {
+    setInput(event.target.value);
+    setError("");
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const isNumber = /^[0-9]+$/.test(input);
+    if (input >= 0 && isNumber) {
+      navigate(`/token/${input}`);
+    } else if (input === "") {
+      newError("Enter Value", 3000);
+    } else {
+      const isValid = /^0x[0-9a-fA-F]{40}$/.test(input);
+      if (isValid) {
+        navigate(`/profile/${input}`);
+      } else {
+        newError(
+          "Invalid address. It should start with 0x and followed by 40 hexadecimal characters.",
+          3000
+        );
+      }
+    }
+  };
+
   return (
     <>
-      <section className="relative flex justify-center items-center min-h-screen overflow-hidden">
+      <section className="relative flex justify-center items-center min-h-[97vh] overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-cover bg-[url('/src/img/city.png')]"
+          className="absolute inset-0 bg-cover bg-[url('/src/img/armory_v1.png')]"
           ref={ref}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -88,20 +124,40 @@ export const LandingPage = () => {
           >
             <StyledDiv>
               <img className="h-80 max-w-none" src={gamelogo} alt="city" />
-              <div className="bg-[url('/src/img/headline.png')] h-24 bg-cover w-full relative">
-                <StyledH1>ARMORY</StyledH1>
-              </div>
-              <NavLink to={"/Search"}>
-                <StyledButton className="crg-button">Search</StyledButton>
-              </NavLink>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col items-center"
+              >
+                <div className="bg-[url('/src/img/headline.png')] h-[98px] bg-cover w-[600px] flex justify-center">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={handleChange}
+                    className="border-2 border-none bg-transparent text-center text-white text-xl focus:border-none outline-none w-full"
+                    placeholder="Search by Address or Token ID"
+                  />
+                  {error ? (
+                    <p className="text-red-500 text-sm absolute top-96 animate-pulse">
+                      {error}
+                    </p>
+                  ) : null}
+                </div>
+                <StyledButton className="crg-button text-lg">
+                  Search Armory
+                </StyledButton>
+              </form>
+              <ScrollButton toSection={"welcome"} />
             </StyledDiv>
           </motion.div>
         </div>
       </section>
-      <section className="relative min-h-screen bg-slate-800 overflow-hidden bg-[url('/src/img/merchant-banner.png')] bg-cover">
+      <section
+        className="relative min-h-screen bg-slate-800 overflow-hidden bg-[url('/src/img/merchant-banner.png')] bg-cover"
+        id="welcome"
+      >
         <hr />
         <motion.div
-          className="absolute inset-0 bg-cover bg-[url('/src/img/soft-light-fog.png')]"
+          className="absolute inset-0 bg-cover bg-[url('/src/img/heavy-fog.png')]"
           style={{ y }} // apply the x transform
         />
         <div className="relative flex flex-col items-center justify-center h-full my-10">
@@ -110,7 +166,7 @@ export const LandingPage = () => {
           </h1>
           <StyledHl src={horisontalLine} />
           <br />
-          <p className="text-center text-xl mx-20">
+          <p className="text-center text-xl w-2/4">
             Aetherials are a special class of items that transcend gameplay and
             survive the seasonal resets. Craft, trade and utilize these
             extraordinary assets within the game and on the open market.

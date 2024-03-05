@@ -75,6 +75,7 @@ const ContentWrapper = styled.div`
 `;
 
 const BigCard = styled.div`
+  margin-top: -100px;
   @media screen and (max-width: 870px) {
     margin-top: -400px;
   }
