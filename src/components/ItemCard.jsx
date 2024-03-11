@@ -168,9 +168,12 @@ export const ItemCard = ({ token }) => {
 
   const mods = semanticToken[19].value.split(",");
 
-  const implicitMods = semanticToken[0].value.split(",");
+  const implicitMods = semanticToken[11].value.split(",");
+
+  const atherialMods = semanticToken[0].value.split(",");
 
   const allMods = implicitMods
+    .concat(atherialMods)
     .map((mod) => {
       return `\u2666 ${mod}`;
     })
@@ -197,7 +200,7 @@ export const ItemCard = ({ token }) => {
   return (
     <StyledCard>
       <StyledImageDiv>
-        <div className="relative flex flex-col justify-between">
+        <div className="relative flex flex-col justify-between w-[450px]">
           <div>
             <h1 className="text-5xl mt-4 break-words w-96">
               {token.metadata.name}
@@ -222,9 +225,9 @@ export const ItemCard = ({ token }) => {
             })}
           </div>
         </div>
-        <StyledImage src={ipfsLink(token.metadata.image)} />
+        <StyledImage src={token.metadata.image} />
         <div
-          className="bg-[url('/src/img/sphere.png')] bg-cover h-16 w-40 absolute top-[408px] right-16 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
+          className="bg-[url('/src/img/sphere.png')] bg-cover h-16 w-40 absolute top-[408px] right-14 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
           onClick={() =>
             window.open(
               `https://testnet.sphere.market/beam-testnet/nft/${ITEMS_CONTRACT}/${token.metadata.id}`

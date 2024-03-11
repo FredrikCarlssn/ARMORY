@@ -55,8 +55,8 @@ export const Header = () => {
             <NavLink className="menu-item" to={"/search"}>
               Search
             </NavLink>
-            <NavLink className="menu-item" to={"/listings"}>
-              Listings
+            <NavLink className="menu-item" to={"/crafted"}>
+              Browse
             </NavLink>
             <NavLink className="menu-item" to={"/about"}>
               About

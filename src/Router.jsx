@@ -4,7 +4,7 @@ import { Layout } from "./layout/Layout";
 import { LandingPage } from "./pages/LandingPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { LoginPage } from "./pages/ProfilePage/LoginPage";
-import { ListingsPage } from "./pages/ListingsPage";
+import { CraftedPage } from "./pages/CraftedPage";
 import { AboutPage } from "./pages/AboutPage";
 import { DisplayOwnedToken } from "./pages/ProfilePage/DisplayOwnedToken";
 
@@ -21,7 +21,7 @@ export const Router = createHashRouter([
         element: <DisplayOwnedToken />,
       },
       { path: "/about", element: <AboutPage /> },
-      { path: "/listings", element: <ListingsPage /> },
+      { path: "/crafted", element: <CraftedPage /> },
     ],
   },
 ]);

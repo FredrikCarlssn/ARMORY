@@ -8,6 +8,8 @@ import softLight from "../img/heavy-fog.png";
 import exampleNft from "../img/example-nft.png";
 import nexus from "../img/nexus.png";
 import horisontalLine from "../img/Line-fade-300.png";
+import downArrowLine from "../img/downArrowLineBlue.png";
+import upArrowLine from "../img/upArrowLineBlue.png";
 
 const StyledAboutPage = styled.div`
   background-image: url(${city});
@@ -34,7 +36,6 @@ const Background = styled.div`
   backdrop-filter: brightness(0.7) contrast(1) blur(10px); */
   background-color: #1b1a20;
   min-height: 80vh;
-  padding: 50px;
   border-radius: 3px;
 
   @media screen and (max-width: 870px) {
@@ -46,23 +47,10 @@ const Game = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 20px 0;
 
   @media screen and (max-width: 870px) {
     flex-direction: column;
-  }
-`;
-
-const StyledH1 = styled.h1`
-  padding-left: 15px;
-`;
-
-const YoutubePlayer = styled.div``;
-
-const StyledImg = styled.img`
-  width: 500px;
-
-  @media screen and (max-width: 870px) {
-    margin-top: -180px;
   }
 `;
 
@@ -95,12 +83,14 @@ export const AboutPage = () => {
     target: ref,
     offset: ["10%", "60%"],
   });
-  const translateY = useTransform(scrollYProgress, [0, 0.8], [-50, 0]);
-  const translateX = useTransform(scrollYProgress, [0, 0.8], [-30, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.8], [1.2, 1]);
+  const translateY = useTransform(scrollYProgress, [0, 0.8], [0, -50]);
+  const translateX = useTransform(scrollYProgress, [0, 0.8], [0, -30]);
+  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 1.2]);
 
   const ref2 = useRef();
+  const ref3 = useRef();
   const isInView = useInView(ref2);
+  const isInView2 = useInView(ref3);
   const scale2 = useTransform(scrollYProgress, [0.5, 1], [1, 1.05]);
   const translateY2 = useTransform(scrollYProgress, [0, 1], [100, 0]);
   return (
@@ -109,7 +99,7 @@ export const AboutPage = () => {
         <hr />
         <Background>
           <Content>
-            <div className="relative flex flex-col items-center h-64">
+            <div className="relative flex flex-col items-center py-24">
               <div className="mr-64 w-7/12">
                 <h1 className="text-4xl font-bold">A Story in Season</h1>
                 <p className="">
@@ -129,11 +119,14 @@ export const AboutPage = () => {
                 style={{ translateY, translateX, scale }}
                 ref={ref}
                 src={nexus}
-                className="absolute -bottom-4 -right-12 h-[500px] w-[300px]"
+                className="absolute -bottom-6 right-0 h-[500px] w-[300px]"
               />
             </div>
-            <img src={horisontalLine} className="w-full my-4 h-1.5" />
-            <div ref={ref2} className="flex justify-center min-h-[527px]">
+            <img src={upArrowLine} className="w-full -my-3 h-12" />
+            <div
+              ref={ref2}
+              className="flex justify-center min-h-[527px] bg-lightBlue bg-[url('/src/img/dungeon.png')] bg-blend-soft-light bg-cover p-20 -mt-3"
+            >
               {isInView ? (
                 <>
                   <motion.div
@@ -163,9 +156,12 @@ export const AboutPage = () => {
                     initial={{ opacity: 0, x: 300 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1.5, delay: 0.5 }}
-                    style={{ scale: scale2, translateY: translateY2 }}
+                    style={{
+                      scale: scale2,
+                      translateY: !isInView2 ? translateY2 : 0,
+                    }}
                     src={exampleNft}
-                    className="w-96  hover:cursor-pointer mt-10"
+                    className="w-96  hover:cursor-pointer"
                     onClick={() => {
                       navigate("/token/111111111111111111113");
                     }}
@@ -173,9 +169,9 @@ export const AboutPage = () => {
                 </>
               ) : null}
             </div>
-            <img src={horisontalLine} className="w-full my-10 h-1.5" />
+            <img src={downArrowLine} className="w-full h-12 -mt-3" ref={ref3} />
             <Game>
-              <YoutubePlayer>
+              <div className="px-10 pt-10 pb-20">
                 <StylediFrame
                   className="youtube-player"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -184,7 +180,7 @@ export const AboutPage = () => {
                   id="widget2"
                   data-gtm-yt-inspected-16="true"
                 ></StylediFrame>
-              </YoutubePlayer>
+              </div>
               <div className="ml-8 text-lg">
                 <h1 className="text-4xl ml-8 mb-4 font-bold">About the game</h1>
                 <p className="mx-4">

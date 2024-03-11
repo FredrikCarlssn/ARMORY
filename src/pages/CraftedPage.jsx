@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { useOwnedNFTs, useContract } from "@thirdweb-dev/react";
-import { ITEMS_CONTRACT } from "../CONST.js";
+import { ITEMS_CONTRACT, NILS_ADDRESS, MAGNUS_ADDRESS } from "../CONST.js";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -85,16 +85,31 @@ const Content = styled.div`
     transform: scale(0.7);
   }
 `;
-export const ListingsPage = () => {
+export const CraftedPage = () => {
   const [filteredData, setFilteredData] = useState([]);
-  const address = useParams().address;
+
   const { contract: contractItems } = useContract(ITEMS_CONTRACT);
-  const { data, isLoading } = useOwnedNFTs(contractItems, address);
+  const { data: dataNils, isLoading } = useOwnedNFTs(
+    contractItems,
+    NILS_ADDRESS
+  );
+  const { data: dataMagnus, isLoading2 } = useOwnedNFTs(
+    contractItems,
+    MAGNUS_ADDRESS
+  );
+
+  let data;
+
+  if (dataNils && dataMagnus) {
+    data = dataNils.concat(dataMagnus);
+  }
+
   const [activeSort, setActiveSort] = useState("Age");
   const [activeFilter, setActiveFilter] = useState("All");
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       let currentData = [...data];
       if (activeSort === "Age") {
         currentData.sort(
@@ -129,9 +144,9 @@ export const ListingsPage = () => {
         );
       }
     }
-  }, [activeSort, activeFilter, data]);
+  }, [activeSort, activeFilter, dataNils, dataMagnus]);
 
-  if (!data)
+  if (data == []) {
     return (
       <StyledProfilePage>
         <ContentWrapper>
@@ -143,43 +158,8 @@ export const ListingsPage = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
                 exit={{ opacity: 0 }}
-              >
-                <Account>
-                  <StyledH2>Logged in with account:</StyledH2>
-                  <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-                  <StyledP>{address}</StyledP>
-                  <StyledImg
-                    src={horisontalLine}
-                    style={{ marginBottom: 10 }}
-                  />
-                </Account>
-              </motion.div>
+              ></motion.div>
               <h2>Owned NFTs:</h2>
-              <Spinner />
-            </Content>
-          </Background>
-          <hr />
-        </ContentWrapper>
-      </StyledProfilePage>
-    );
-
-  if (data == 0) {
-    return (
-      <StyledProfilePage>
-        <ContentWrapper>
-          <hr />
-          <Background>
-            <Content>
-              <Account>
-                <StyledH2>Logged in with account:</StyledH2>
-                <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-                <StyledP>{address}</StyledP>
-                <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
-              </Account>
-              <h2 className="mt-4">Owned Tokens:</h2>
-              <StyledP>
-                Oooopsss, looks like you dont own any tokens yet!
-              </StyledP>
             </Content>
           </Background>
           <hr />
@@ -193,48 +173,46 @@ export const ListingsPage = () => {
       <ContentWrapper>
         <hr />
         <Background>
-          <Content>
-            <Account className="mb-2">
-              <StyledH2>Logged in with account:</StyledH2>
-              <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-              <StyledP>{address}</StyledP>
-              <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
-            </Account>
-            <div className="absolute end-12">
-              <Dropdown
-                Items={["All", "Items", "Skills"]}
-                Title={"Filter"}
-                activeItem={activeFilter}
-                setActiveItem={setActiveFilter}
-              />
-              <Dropdown
-                Items={["Age", "Name", "Type"]}
-                Title={"Sort"}
-                activeItem={activeSort}
-                setActiveItem={setActiveSort}
-              />
-            </div>
-            <h2 className="mt-20">Owned NFTs:</h2>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <StyledTokenList>
-                {filteredData.map((token, i) => {
-                  return (
-                    <DisplayToken
-                      name={token.metadata.name}
-                      key={i}
-                      linkTo={`token/${token.metadata.id}`}
-                      img={token.metadata.image}
-                    />
-                  );
-                })}
-              </StyledTokenList>
-            </motion.div>
-          </Content>
+          {isLoading || isLoading2 ? (
+            <Spinner />
+          ) : (
+            <Content>
+              <div className="absolute end-12">
+                <Dropdown
+                  Items={["All", "Items", "Skills"]}
+                  Title={"Filter"}
+                  activeItem={activeFilter}
+                  setActiveItem={setActiveFilter}
+                />
+                <Dropdown
+                  Items={["Age", "Name", "Type"]}
+                  Title={"Sort"}
+                  activeItem={activeSort}
+                  setActiveItem={setActiveSort}
+                />
+              </div>
+              <h2 className="mt-20">Owned NFTs:</h2>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <StyledTokenList>
+                  {filteredData.map((token, i) => {
+                    return (
+                      <DisplayToken
+                        name={token.metadata.name}
+                        key={i}
+                        linkTo={`token/${token.metadata.id}`}
+                        img={token.metadata.image}
+                      />
+                    );
+                  })}
+                </StyledTokenList>
+              </motion.div>
+            </Content>
+          )}
         </Background>
         <hr />
       </ContentWrapper>
