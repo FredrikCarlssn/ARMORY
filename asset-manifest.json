@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.9ec2f53d.css",
-    "main.js": "/static/js/main.bcb7e85e.js",
+    "main.js": "/static/js/main.2e57232b.js",
     "static/js/701.7dc73b73.chunk.js": "/static/js/701.7dc73b73.chunk.js",
     "static/js/892.22b2b84b.chunk.js": "/static/js/892.22b2b84b.chunk.js",
     "static/js/9189.f8bb91aa.chunk.js": "/static/js/9189.f8bb91aa.chunk.js",
@@ -87,7 +87,7 @@
     "static/media/armory_v1.png": "/static/media/armory_v1.7a96039c6c868cb2f2b8.png",
     "static/media/dungeon.png": "/static/media/dungeon.1256f3ef91be5afc49f7.png",
     "static/media/city-back-drop.jpg": "/static/media/city-back-drop.43c6a0078aebcd1e69c8.jpg",
-    "static/media/example-nft.png": "/static/media/example-nft.2d4021c506554d93102c.png",
+    "static/media/example-nft.png": "/static/media/example-nft.b235f567eddd951447ed.png",
     "static/media/armory.png": "/static/media/armory.01993576c2597c2db533.png",
     "static/media/heavy-fog.png": "/static/media/heavy-fog.21df44857f737f20107d.png",
     "static/media/soft-light-fog.png": "/static/media/soft-light-fog.d4799cc656781c3ce1d2.png",
@@ -106,7 +106,7 @@
     "static/media/medium-logo.png": "/static/media/medium-logo.5d9aebcf6dae6ddab97a.png",
     "index.html": "/index.html",
     "main.9ec2f53d.css.map": "/static/css/main.9ec2f53d.css.map",
-    "main.bcb7e85e.js.map": "/static/js/main.bcb7e85e.js.map",
+    "main.2e57232b.js.map": "/static/js/main.2e57232b.js.map",
     "701.7dc73b73.chunk.js.map": "/static/js/701.7dc73b73.chunk.js.map",
     "892.22b2b84b.chunk.js.map": "/static/js/892.22b2b84b.chunk.js.map",
     "3115.2f5cfb71.chunk.js.map": "/static/js/3115.2f5cfb71.chunk.js.map",
@@ -167,6 +167,6 @@
   },
   "entrypoints": [
     "static/css/main.9ec2f53d.css",
-    "static/js/main.bcb7e85e.js"
+    "static/js/main.2e57232b.js"
   ]
 }
