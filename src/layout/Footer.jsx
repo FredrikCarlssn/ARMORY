@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import "../styles/footer.css";
+import { useNavigate } from "react-router-dom";
 
 import crglogo from "../img/crg/crg-logo.png";
 import xlogo from "../img/crg/x-logo.png";
@@ -16,6 +17,7 @@ const StyledWrapper = styled.div`
 `;
 
 export const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="main-footer">
       <StyledWrapper>
@@ -33,6 +35,15 @@ export const Footer = () => {
             <img src={crglogo} alt="Company Logo" />
           </div>
           <div className="footer-social">
+            <p
+              className="cursor-pointer font-bold underline"
+              onClick={() => {
+                navigate("/about");
+                window.scrollTo(0, 0);
+              }}
+            >
+              About
+            </p>
             <h4>Official Channels</h4>
             <div className="social-icons">
               <a href="https://twitter.com/naramunz" target="_blank">

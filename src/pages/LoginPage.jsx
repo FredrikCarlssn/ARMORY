@@ -1,44 +1,73 @@
-import { styled } from "styled-components";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { useRef } from "react";
-import { ITEMS_CONTRACT, ABI_ITEMS } from "../CONST";
-import { Web3 } from "web3";
+import { useEffect, useState, useRef } from "react";
 
-import ScrollButton from "../components/ScrollButton";
-import gamelogo from "../img/armory.png";
-import horisontalLine from "../img/Line-fade-300.png";
+import card from "../../img/card.png";
+import merchant from "../../img/merchant.png";
+import styled from "styled-components";
+import city from "../../img/city-back-drop.jpg";
+import softLight from "../../img/soft-light-fog.png";
+import horisontalLine from "../../img/Line-fade-300.png";
 
-const StyledButton = styled.button`
-  position: relative;
-  margin-top: 20px;
-  &:hover {
-    transform: scale(1.21) !important;
-  }
-`;
-
-const StyledDiv = styled.div`
+const StyledProfilePage = styled.div`
+  background-image: url(${city});
+  min-height: 120vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: bottom;
+  background-attachment: fixed;
+  padding: 120px 0px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-
-  padding-bottom: 100px;
-  padding: 10px 30px;
-  border-radius: 10px;
-  @media screen and (max-width: 600px) {
-    transform: scale(0.5);
-  }
 `;
 
 const StyledHl = styled.img`
   width: 700px;
 `;
 
-export const LandingPage = () => {
-  const web3 = new Web3("https://13337.rpc.thirdweb.com");
-  const contract = new web3.eth.Contract(ABI_ITEMS, ITEMS_CONTRACT);
+export const LoginPage = () => {
+  const [address, setAddress] = useState("");
+  const [tokenId, setTokenId] = useState("");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [error2, setError2] = useState("");
+
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+    setError2("");
+  };
+
+  const handleTokenIdChange = (event) => {
+    setTokenId(event.target.value);
+    setError("");
+  };
+
+  const handleTokenSubmit = (event) => {
+    event.preventDefault();
+
+    if (tokenId >= 0 && tokenId != "") {
+      console.log(tokenId);
+      navigate(`/token/${tokenId}`);
+    } else {
+      setError("Please enter a valid token ID.");
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const isValid = /^0x[0-9a-fA-F]{40}$/.test(address);
+
+    if (isValid) {
+      navigate(`/profile/${address}`);
+    } else {
+      setError2(
+        "Invalid address. It should start with 0x and followed by 40 hexadecimal characters."
+      );
+    }
+  };
 
   const ref3 = useRef(null);
   const isInView = useInView(ref3);
@@ -47,168 +76,14 @@ export const LandingPage = () => {
     setScale2(1);
   }, [isInView]);
 
-  const [address, setAddress] = useState("");
-  const [tokenId, setTokenId] = useState("");
-  const [error2, setError2] = useState("");
-  const [error3, setError3] = useState("");
-
-  const newError2 = (errorMessage, duration) => {
-    setError2(errorMessage);
-    setTimeout(() => {
-      setError2("");
-    }, duration);
-  };
-  const newError3 = (errorMessage, duration) => {
-    setError3(errorMessage);
-    setTimeout(() => {
-      setError3("");
-    }, duration);
-  };
-
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
-    newError3("");
-  };
-
-  const handleTokenIdChange = (event) => {
-    setTokenId(event.target.value);
-    newError2("");
-  };
-
-  const handleTokenSubmit = (event) => {
-    event.preventDefault();
-
-    if (tokenId >= 0 && tokenId != "") {
-      contract.methods
-        .ownerOf(tokenId)
-        .call()
-        .then(() => {
-          navigate(`/token/${tokenId}`);
-        })
-        .catch((error) => {
-          newError2("Token not found", 3000);
-        });
-    } else {
-      newError2("Please enter a valid token ID.", 3000);
-    }
-  };
-
-  const handleAddressSubmit = (event) => {
-    event.preventDefault();
-
-    const isValid = /^0x[0-9a-fA-F]{40}$/.test(address);
-
-    if (isValid) {
-      navigate(`/profile/${address}`);
-    } else {
-      newError3(
-        "Invalid address. It should start with 0x and followed by 40 hexadecimal characters.",
-        3000
-      );
-    }
-  };
-
   const ref2 = useRef();
   const { scrollYProgress: scrollYProgress2 } = useScroll({
     target: ref2,
   });
   const y = useTransform(scrollYProgress2, [0, 2], ["0%", "100%"]);
 
-  /// FUCNTION FOR SEARCHING BY ADDRESS OR TOKEN ID
-  const [input, setInput] = useState("");
-  const navigate = useNavigate();
-  const [error, setError] = useState("");
-  const newError = (errorMessage, duration) => {
-    setError(errorMessage);
-    setTimeout(() => {
-      setError("");
-    }, duration);
-  };
-  const ref = useRef();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["0%", "50%"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-
-  const handleChange = (event) => {
-    setInput(event.target.value);
-    setError("");
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const isNumber = /^[0-9]+$/.test(input);
-    if (input >= 0 && isNumber) {
-      contract.methods
-        .ownerOf(input)
-        .call()
-        .then(() => {
-          navigate(`/token/${input}`);
-        })
-        .catch((error) => {
-          newError("Token not found", 3000);
-        });
-    } else if (input === "") {
-      newError("Enter Value", 3000);
-    } else {
-      const isValid = /^0x[0-9a-fA-F]{40}$/.test(input);
-      if (isValid) {
-        navigate(`/profile/${input}`);
-      } else {
-        newError(
-          "Invalid address. It should start with 0x and followed by 40 hexadecimal characters.",
-          3000
-        );
-      }
-    }
-  };
-
   return (
-    <>
-      <section className="relative flex justify-center items-center min-h-[97vh] overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-cover bg-[url('/src/img/armory_v1.png')]"
-          ref={ref}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          style={{ scale }}
-        />
-        <div className="relative flex flex-col justify-center items-center h-full scale-110">
-          <motion.div
-            className="flex flex-col items-center justify-center"
-            transition={{ duration: 1.5, style: "easeInOut" }}
-            exit={{ opacity: 0 }}
-          >
-            <StyledDiv>
-              <img className="h-80 max-w-none" src={gamelogo} alt="city" />
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col items-center"
-              >
-                <div className="bg-[url('/src/img/headline.png')] h-[98px] bg-cover w-[600px] flex justify-center">
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={handleChange}
-                    className="border-2 border-none bg-transparent text-center text-white text-xl focus:border-none outline-none w-full"
-                    placeholder="Search by wallet address or token id"
-                  />
-                  {error ? (
-                    <p className="text-red-500 text-sm absolute top-96 animate-pulse">
-                      {error}
-                    </p>
-                  ) : null}
-                </div>
-                <StyledButton className="crg-button text-lg">
-                  Search Armory
-                </StyledButton>
-              </form>
-            </StyledDiv>
-          </motion.div>
-        </div>
-      </section>
+    <StyledProfilePage>
       <section
         className="w-full relative min-h-screen bg-slate-800 overflow-hidden bg-[url('/src/img/merchant-banner.png')] bg-cover"
         id="welcome"
@@ -262,7 +137,7 @@ export const LandingPage = () => {
                   <h1 className="flex justify-center">Search</h1>
                   <div className=" flex flex-col h-5/6 mt-4 justify-center">
                     <form
-                      onSubmit={handleAddressSubmit}
+                      onSubmit={handleSubmit}
                       className="flex flex-col items-center"
                     >
                       <label className="mb-2">
@@ -275,9 +150,9 @@ export const LandingPage = () => {
                           placeholder="Address: 0x..."
                         />
                       </label>
-                      {error3 && (
-                        <p className="text-red-500 text-sm ml-4 mr-4 -mb-2 animate-pulse">
-                          {error3}
+                      {error2 && (
+                        <p className="text-red-500 text-sm ml-4 mr-4 -mb-2">
+                          {error2}
                         </p>
                       )}
                       <input
@@ -299,9 +174,7 @@ export const LandingPage = () => {
                           placeholder=" Token ID"
                         />
                       </label>
-                      {error2 && (
-                        <p className="text-red-500 animate-pulse">{error2}</p>
-                      )}
+                      {error && <p className="text-red-500">{error}</p>}
                       <input
                         type="submit"
                         value="Search Token ID"
@@ -333,7 +206,7 @@ export const LandingPage = () => {
           </div>
         </div>
       </section>
-      <hr />
-    </>
+      <hr className="w-full" />
+    </StyledProfilePage>
   );
 };

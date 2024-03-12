@@ -21,6 +21,8 @@ import { motion } from "framer-motion";
 import conMap from "../../img/con-map.jpg";
 import CardBackground from "../../img/big-text-box.png";
 
+import { Header } from "../../layout/Header.jsx";
+
 const StyledClaimTokenPage = styled.div`
   background-image: url(${conMap});
   background-size: cover;
@@ -92,12 +94,42 @@ export const DisplayOwnedToken = () => {
 
   if (isLoading)
     return (
-      <StyledClaimTokenPage>
-        <Spinner />
-      </StyledClaimTokenPage>
+      <>
+        <Header />
+        <StyledClaimTokenPage>
+          <Spinner />
+        </StyledClaimTokenPage>
+      </>
     );
   if (error || !nft.metadata.properties) {
     return (
+      <>
+        <Header />
+        <StyledClaimTokenPage>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <ContentWrapper>
+              <BigCard>
+                <StyledCard>
+                  <h1 className="flex w-full h-full justify-center items-center font-bold text-5xl">
+                    No NFT found with tokenId: {nft.metadata.id}
+                  </h1>
+                </StyledCard>
+              </BigCard>
+            </ContentWrapper>
+          </motion.div>
+        </StyledClaimTokenPage>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Header />
       <StyledClaimTokenPage>
         <motion.div
           initial={{ opacity: 0 }}
@@ -107,33 +139,12 @@ export const DisplayOwnedToken = () => {
         >
           <ContentWrapper>
             <BigCard>
-              <StyledCard>
-                <h1 className="flex w-full h-full justify-center items-center font-bold text-5xl">
-                  No NFT found with tokenId: {nft.metadata.id}
-                </h1>
-              </StyledCard>
+              <ItemCard token={nft} />
             </BigCard>
           </ContentWrapper>
         </motion.div>
       </StyledClaimTokenPage>
-    );
-  }
-
-  return (
-    <StyledClaimTokenPage>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <ContentWrapper>
-          <BigCard>
-            <ItemCard token={nft} />
-          </BigCard>
-        </ContentWrapper>
-      </motion.div>
-    </StyledClaimTokenPage>
+    </>
   );
 };
 

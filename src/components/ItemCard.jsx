@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "./Modal";
 import { useNavigate } from "react-router-dom";
 import { ITEMS_CONTRACT } from "../CONST";
+import { Header } from "../layout/Header";
 
 const customAnimation = keyframes`
   0% {
@@ -172,27 +173,19 @@ export const ItemCard = ({ token }) => {
 
   const atherialMods = semanticToken[0].value.split(",");
 
-  const allMods = implicitMods
-    .concat(atherialMods)
-    .map((mod) => {
-      return `\u2666 ${mod}`;
-    })
-    .concat(mods);
+  const allMods = implicitMods.concat(atherialMods).concat(mods);
   const requirements = semanticToken
-    .filter((trait) => trait.trait_type.includes("Requirement"))
+    .filter(
+      (trait) =>
+        trait.trait_type.includes("Requirement") &&
+        !trait.trait_type.includes("Attribute")
+    )
     .map((trait) => {
       if (trait.trait_type.includes("Class")) {
-        return { ...trait, value: `Class-${trait.value}, ` };
+        return { ...trait, value: `Class: ${trait.value}, ` };
       }
       if (trait.trait_type.includes("Level")) {
-        return { ...trait, value: `Level-${trait.value}` };
-      }
-      if (trait.trait_type.includes("Attribute")) {
-        let attribute = trait.value.split(",");
-        return {
-          ...trait,
-          value: `Toughness-${attribute[0]}, Trickery-${attribute[1]}, Caliber-${attribute[2]}, Brilliance-${attribute[3]}, `,
-        };
+        return { ...trait, value: `Level: ${trait.value}` };
       }
       return trait;
     });
@@ -213,16 +206,6 @@ export const ItemCard = ({ token }) => {
                 return <span key={i}>{trait.value}</span>;
               })}
             </h3>
-          </div>
-          <div>
-            <p className="mt-5">Aethereal Mods:</p>
-            {implicitMods.map((trait, i) => {
-              return (
-                <TraitBox className="bottom-0 w-5/6" key={i}>
-                  &#9830; {trait}
-                </TraitBox>
-              );
-            })}
           </div>
         </div>
         <StyledImage src={token.metadata.image} />
