@@ -1,6 +1,7 @@
 import { styled, keyframes } from "styled-components";
 
 import Tokens from "../Tokens/TokenData.json";
+import closeButton from "../img/closeModal.png";
 
 import CardBackground from "../img/big-text-box.png";
 import horisontalLine from "../img/Line-fade-300.png";
@@ -151,29 +152,15 @@ export const ItemCard = ({ token }) => {
     },
   ].concat(newArray(semanticToken, 21, 22, 8, 1, 23, 18));
 
-  const traits = newArray(
-    semanticToken,
-    3,
-    4,
-    9,
-    10,
-    12,
-    14,
-    15,
-    16,
-    22,
-    24,
-    25,
-    26
-  );
+  const traits = newArray(semanticToken, 3, 4, 10, 12, 14, 15, 24, 25, 26);
 
   const mods = semanticToken[19].value.split(",");
 
   const implicitMods = semanticToken[11].value.split(",");
 
-  const atherialMods = semanticToken[0].value.split(",");
+  const aetherialMods = semanticToken[0].value.split(",");
 
-  const allMods = implicitMods.concat(atherialMods).concat(mods);
+  const allMods = implicitMods.concat(aetherialMods).concat(mods);
   const requirements = semanticToken
     .filter(
       (trait) =>
@@ -193,19 +180,50 @@ export const ItemCard = ({ token }) => {
   return (
     <StyledCard>
       <StyledImageDiv>
+        <div
+          className="absolute left-2 -top-9 h-12 w-20 font-extrabold text-4xl cursor-pointer"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          ←
+        </div>
         <div className="relative flex flex-col justify-between w-[450px]">
           <div>
             <h1 className="text-5xl mt-4 break-words w-96">
               {token.metadata.name}
             </h1>
             <img src={horisontalLine} className="w-full h-1 my-2" />
-            <p className="text-2xl mr-2">{token.metadata.description}</p>
             <h3 className="mt-2">
               <b>Requirements: </b>
               {requirements.map((trait, i) => {
                 return <span key={i}>{trait.value}</span>;
               })}
             </h3>
+            <div className="mt-6">
+              Mods:
+              {implicitMods ? (
+                <>
+                  {implicitMods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })}
+                  <img src={horisontalLine} alt="" />
+                </>
+              ) : null}
+              {mods ? (
+                <>
+                  {mods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })}
+                  <img src={horisontalLine} alt="" />
+                </>
+              ) : null}
+              {aetherialMods
+                ? aetherialMods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })
+                : null}
+            </div>
           </div>
         </div>
         <StyledImage src={token.metadata.image} />
@@ -239,9 +257,6 @@ export const ItemCard = ({ token }) => {
         })}
       </StyledMetadata>
       <img src={downArrowLine} className="w-full h-10" />
-      {mods.length > 0 ? (
-        <Modal list={allMods} buttonText={`Show All Mods: ${allMods.length}`} />
-      ) : null}
     </StyledCard>
   );
 };

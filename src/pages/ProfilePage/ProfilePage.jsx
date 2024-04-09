@@ -148,7 +148,7 @@ export const ProfilePage = () => {
                   exit={{ opacity: 0 }}
                 >
                   <Account>
-                    <StyledH2>Logged in with account:</StyledH2>
+                    <StyledH2>Viewing account:</StyledH2>
                     <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
                     <StyledP>{address}</StyledP>
                     <StyledImg
@@ -176,7 +176,7 @@ export const ProfilePage = () => {
             <Background>
               <Content>
                 <Account>
-                  <StyledH2>Logged in with account:</StyledH2>
+                  <StyledH2>Viewing account:</StyledH2>
                   <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
                   <StyledP>{address}</StyledP>
                   <StyledImg
@@ -206,7 +206,7 @@ export const ProfilePage = () => {
           <Background>
             <Content>
               <Account className="mb-2">
-                <StyledH2>Logged in with account:</StyledH2>
+                <StyledH2>Viewing account:</StyledH2>
                 <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
                 <StyledP>{address}</StyledP>
                 <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
@@ -234,6 +234,7 @@ export const ProfilePage = () => {
                         key={i}
                         linkTo={`token/${token.metadata.id}`}
                         img={token.metadata.image}
+                        tokenID={token.metadata.id}
                       />
                     );
                   })}

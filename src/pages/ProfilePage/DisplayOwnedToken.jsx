@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 
 import conMap from "../../img/con-map.jpg";
 import CardBackground from "../../img/big-text-box.png";
+import closeButton from "../../img/closeModal.png";
 
 import { Header } from "../../layout/Header.jsx";
 
@@ -95,16 +96,15 @@ export const DisplayOwnedToken = () => {
   if (isLoading)
     return (
       <>
-        <Header />
         <StyledClaimTokenPage>
           <Spinner />
         </StyledClaimTokenPage>
+        <hr />
       </>
     );
   if (error || !nft.metadata.properties) {
     return (
       <>
-        <Header />
         <StyledClaimTokenPage>
           <motion.div
             initial={{ opacity: 0 }}
@@ -123,13 +123,13 @@ export const DisplayOwnedToken = () => {
             </ContentWrapper>
           </motion.div>
         </StyledClaimTokenPage>
+        <hr />
       </>
     );
   }
 
   return (
     <>
-      <Header />
       <StyledClaimTokenPage>
         <motion.div
           initial={{ opacity: 0 }}
@@ -144,6 +144,7 @@ export const DisplayOwnedToken = () => {
           </ContentWrapper>
         </motion.div>
       </StyledClaimTokenPage>
+      <hr />
     </>
   );
 };
