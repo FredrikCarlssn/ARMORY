@@ -52,7 +52,7 @@ export const Modal = ({ list, buttonText }) => {
                   className="bg-blue border-2 border-solid border-grey m-2"
                 >
                   <TraitBox>
-                    {i + 1}: {item}
+                    {i}: {item}
                   </TraitBox>
                 </div>
               );

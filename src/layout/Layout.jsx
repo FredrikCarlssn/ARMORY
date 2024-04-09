@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 import { styled } from "styled-components";
 import { AnimatePresence } from "framer-motion";
@@ -13,6 +13,7 @@ const StyledMain = styled.main`
 export const Layout = () => {
   return (
     <>
+      <Header />
       <StyledMain>
         <AnimatePresence>
           <Outlet />

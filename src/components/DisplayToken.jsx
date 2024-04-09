@@ -22,7 +22,6 @@ const StyledP = styled.p`
 const StyledDiv = styled.div`
   height: 251px;
   width: 200px;
-  margin: 10px;
   display: flex;
   align-items: center;
   justify-content: center;

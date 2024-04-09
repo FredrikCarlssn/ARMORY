@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { DisplayToken } from "../../components/DisplayToken.jsx";
 import { Spinner } from "../../components/Spinner.jsx";
 import { Dropdown } from "../../components/Dropdown.jsx";
-import { Header } from "../../layout/Header.jsx";
 
 import city from "../../img/city-back-drop.jpg";
 import softLight from "../../img/soft-light-fog.png";
@@ -90,7 +89,7 @@ export const ProfilePage = () => {
   const [filteredData, setFilteredData] = useState([]);
   const address = useParams().address;
   const { contract: contractItems } = useContract(ITEMS_CONTRACT);
-  const { data, isLoading, error } = useOwnedNFTs(contractItems, address);
+  const { data, isLoading } = useOwnedNFTs(contractItems, address);
   const [activeSort, setActiveSort] = useState("Age");
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -132,51 +131,21 @@ export const ProfilePage = () => {
     }
   }, [activeSort, activeFilter, data]);
 
-  if (isLoading)
+  if (!data)
     return (
-      <>
-        <Header />
-        <StyledProfilePage>
-          <ContentWrapper>
-            <hr />
-            <Background>
-              <Content>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Account>
-                    <StyledH2>Viewing account:</StyledH2>
-                    <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-                    <StyledP>{address}</StyledP>
-                    <StyledImg
-                      src={horisontalLine}
-                      style={{ marginBottom: 10 }}
-                    />
-                  </Account>
-                </motion.div>
-                <h2>Owned NFTs:</h2>
-                <Spinner />
-              </Content>
-            </Background>
-            <hr />
-          </ContentWrapper>
-        </StyledProfilePage>
-      </>
-    );
-  if (data == 0) {
-    return (
-      <>
-        <Header />
-        <StyledProfilePage>
-          <ContentWrapper>
-            <hr />
-            <Background>
-              <Content>
+      <StyledProfilePage>
+        <ContentWrapper>
+          <hr />
+          <Background>
+            <Content>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                exit={{ opacity: 0 }}
+              >
                 <Account>
-                  <StyledH2>Viewing account:</StyledH2>
+                  <StyledH2>Logged in with account:</StyledH2>
                   <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
                   <StyledP>{address}</StyledP>
                   <StyledImg
@@ -184,67 +153,91 @@ export const ProfilePage = () => {
                     style={{ marginBottom: 10 }}
                   />
                 </Account>
-                <h2 className="mt-4">Owned Tokens:</h2>
-                <StyledP>
-                  Oooopsss, looks like you dont own any tokens yet!
-                </StyledP>
-              </Content>
-            </Background>
-            <hr />
-          </ContentWrapper>
-        </StyledProfilePage>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <Header />
-      <StyledProfilePage>
-        <ContentWrapper>
-          <hr />
-          <Background>
-            <Content>
-              <Account className="mb-2">
-                <StyledH2>Viewing account:</StyledH2>
-                <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-                <StyledP>{address}</StyledP>
-                <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
-              </Account>
-              <div className="absolute end-12">
-                <Dropdown
-                  Items={["Age", "Name"]}
-                  Title={"Sort"}
-                  activeItem={activeSort}
-                  setActiveItem={setActiveSort}
-                />
-              </div>
-              <h2 className="mt-20">Owned NFTs:</h2>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <StyledTokenList>
-                  {filteredData.map((token, i) => {
-                    return (
-                      <DisplayToken
-                        name={token.metadata.name}
-                        key={i}
-                        linkTo={`token/${token.metadata.id}`}
-                        img={token.metadata.image}
-                        tokenID={token.metadata.id}
-                      />
-                    );
-                  })}
-                </StyledTokenList>
               </motion.div>
+              <h2>Owned NFTs:</h2>
+              <Spinner />
             </Content>
           </Background>
           <hr />
         </ContentWrapper>
       </StyledProfilePage>
-    </>
+    );
+
+  if (data == 0) {
+    return (
+      <StyledProfilePage>
+        <ContentWrapper>
+          <hr />
+          <Background>
+            <Content>
+              <Account>
+                <StyledH2>Logged in with account:</StyledH2>
+                <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
+                <StyledP>{address}</StyledP>
+                <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
+              </Account>
+              <h2 className="mt-4">Owned Tokens:</h2>
+              <StyledP>
+                Oooopsss, looks like you dont own any tokens yet!
+              </StyledP>
+            </Content>
+          </Background>
+          <hr />
+        </ContentWrapper>
+      </StyledProfilePage>
+    );
+  }
+
+  return (
+    <StyledProfilePage>
+      <ContentWrapper>
+        <hr />
+        <Background>
+          <Content>
+            <Account className="mb-2">
+              <StyledH2>Logged in with account:</StyledH2>
+              <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
+              <StyledP>{address}</StyledP>
+              <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
+            </Account>
+            <div className="absolute end-12">
+              <Dropdown
+                Items={["All", "Items", "Skills"]}
+                Title={"Filter"}
+                activeItem={activeFilter}
+                setActiveItem={setActiveFilter}
+              />
+              <Dropdown
+                Items={["Age", "Name", "Type"]}
+                Title={"Sort"}
+                activeItem={activeSort}
+                setActiveItem={setActiveSort}
+              />
+            </div>
+            <h2 className="mt-20">Owned NFTs:</h2>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <StyledTokenList>
+                {filteredData.map((token, i) => {
+                  return (
+                    <DisplayToken
+                      name={token.metadata.name}
+                      key={i}
+                      linkTo={`token/${token.metadata.id}`}
+                      img={token.metadata.image}
+                    />
+                  );
+                })}
+              </StyledTokenList>
+            </motion.div>
+          </Content>
+        </Background>
+        <hr />
+      </ContentWrapper>
+    </StyledProfilePage>
   );
 };

@@ -1,20 +1,23 @@
 import { styled } from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useContract, useContractRead } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT, ABI_ITEMS } from "../CONST";
 import { Web3 } from "web3";
 
 import ScrollButton from "../components/ScrollButton";
 import gamelogo from "../img/armory.png";
-import horisontalLine from "../img/Line-fade-300.png";
+
+import { LatestMintedTokens } from "../components/LatestMintedTokens";
 
 const StyledButton = styled.button`
   position: relative;
   margin-top: 20px;
+  transform: scale(1.2);
   &:hover {
-    transform: scale(1.02) !important;
+    transform: scale(1.21) !important;
   }
 `;
 
@@ -69,10 +72,10 @@ export const LandingPage = () => {
           navigate(`/token/${input}`);
         })
         .catch((error) => {
-          newError("Token not found", 8000);
+          newError("Token not found", 3000);
         });
     } else if (input === "") {
-      newError("Enter Value", 8000);
+      newError("Enter Value", 3000);
     } else {
       const isValid = /^0x[0-9a-fA-F]{40}$/.test(input);
       if (isValid) {
@@ -80,7 +83,7 @@ export const LandingPage = () => {
       } else {
         newError(
           "Invalid address. It should start with 0x and followed by 40 hexadecimal characters.",
-          8000
+          3000
         );
       }
     }
@@ -88,7 +91,7 @@ export const LandingPage = () => {
 
   return (
     <>
-      <section className="relative flex justify-center items-center min-h-[100vh] overflow-hidden">
+      <section className="relative flex justify-center items-center min-h-[97vh] overflow-hidden">
         <motion.div
           className="absolute inset-0 bg-cover bg-[url('/src/img/armory_v1.png')]"
           ref={ref}
@@ -97,7 +100,7 @@ export const LandingPage = () => {
           transition={{ duration: 1 }}
           style={{ scale }}
         />
-        <div className="relative flex flex-col justify-center items-center h-full scale-110">
+        <div className="relative flex flex-col justify-center items-center h-full">
           <motion.div
             className="flex flex-col items-center justify-center"
             transition={{ duration: 1.5, style: "easeInOut" }}
@@ -115,7 +118,7 @@ export const LandingPage = () => {
                     value={input}
                     onChange={handleChange}
                     className="border-2 border-none bg-transparent text-center text-white text-xl focus:border-none outline-none w-full"
-                    placeholder="Search by wallet address or token id"
+                    placeholder="Search by Address or Token ID"
                   />
                   {error ? (
                     <p className="text-red-500 text-sm absolute top-96 animate-pulse">
@@ -123,13 +126,18 @@ export const LandingPage = () => {
                     </p>
                   ) : null}
                 </div>
-                <StyledButton className="crg-button text-lg scale-80">
+                <StyledButton className="crg-button text-lg">
                   Search Armory
                 </StyledButton>
               </form>
+              <ScrollButton toSection={"page"} />
             </StyledDiv>
           </motion.div>
         </div>
+      </section>
+      <hr />
+      <section className="h-screen bg-page p-10" id="page">
+        <LatestMintedTokens />
       </section>
       <hr />
     </>
