@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import { useOwnedNFTs, useAddress, useContract } from "@thirdweb-dev/react";
-import { ITEMS_CONTRACT, SKILLS_CONTRACT } from "../../CONST.js";
+import { useOwnedNFTs, useContract } from "@thirdweb-dev/react";
+import { ITEMS_CONTRACT } from "../../CONST.js";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -11,6 +11,7 @@ import { Dropdown } from "../../components/Dropdown.jsx";
 import city from "../../img/city-back-drop.jpg";
 import softLight from "../../img/soft-light-fog.png";
 import horisontalLine from "../../img/Line-fade-300.png";
+import { useParams } from "react-router";
 
 const StyledProfilePage = styled.div`
   background-image: url(${city});
@@ -85,26 +86,14 @@ const Content = styled.div`
   }
 `;
 export const ProfilePage = () => {
-  let data = undefined;
   const [filteredData, setFilteredData] = useState([]);
-  const address = useAddress();
+  const address = useParams().address;
   const { contract: contractItems } = useContract(ITEMS_CONTRACT);
-  const { data: dataItems, isLoading } = useOwnedNFTs(contractItems, address);
-  const { contract: contractSkills } = useContract(SKILLS_CONTRACT);
-  const { data: dataSkills } = useOwnedNFTs(contractSkills, address);
+  const { data, isLoading } = useOwnedNFTs(contractItems, address);
   const [activeSort, setActiveSort] = useState("Age");
   const [activeFilter, setActiveFilter] = useState("All");
 
   useEffect(() => {
-    if (dataItems && dataSkills) {
-      if (dataItems.length > 0 && dataSkills.length > 0) {
-        data = dataItems.concat(dataSkills);
-      } else if (dataItems.length === 0) {
-        data = dataSkills;
-      } else {
-        data = dataItems;
-      }
-    }
     if (data) {
       let currentData = [...data];
       if (activeSort === "Age") {
@@ -140,39 +129,9 @@ export const ProfilePage = () => {
         );
       }
     }
-  }, [activeSort, activeFilter, dataItems, dataSkills]);
+  }, [activeSort, activeFilter, data]);
 
-  if (address === undefined)
-    return (
-      <StyledProfilePage>
-        <ContentWrapper>
-          <hr />
-          <Background>
-            <Content>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <Account>
-                  <StyledH2>Logged in with account:</StyledH2>
-                  <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-                  <StyledP>NO ACCOUNT CONNECTED</StyledP>
-                  <StyledImg
-                    src={horisontalLine}
-                    style={{ marginBottom: 10 }}
-                  />
-                </Account>
-              </motion.div>
-            </Content>
-          </Background>
-          <hr />
-        </ContentWrapper>
-      </StyledProfilePage>
-    );
-
-  if (!dataItems || !dataSkills)
+  if (!data)
     return (
       <StyledProfilePage>
         <ContentWrapper>
@@ -204,7 +163,7 @@ export const ProfilePage = () => {
       </StyledProfilePage>
     );
 
-  if (dataItems.length === 0 && dataSkills.length === 0) {
+  if (data == 0) {
     return (
       <StyledProfilePage>
         <ContentWrapper>
@@ -217,7 +176,7 @@ export const ProfilePage = () => {
                 <StyledP>{address}</StyledP>
                 <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
               </Account>
-              <h2>Owned Tokens:</h2>
+              <h2 className="mt-4">Owned Tokens:</h2>
               <StyledP>
                 Oooopsss, looks like you dont own any tokens yet!
               </StyledP>
@@ -268,9 +227,7 @@ export const ProfilePage = () => {
                     <DisplayToken
                       name={token.metadata.name}
                       key={i}
-                      linkTo={`profile/${
-                        token.metadata.type === "Skill" ? 1 : 0
-                      }/${token.metadata.id}`}
+                      linkTo={`token/${token.metadata.id}`}
                       img={token.metadata.image}
                     />
                   );

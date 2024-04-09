@@ -14,7 +14,7 @@ const StyledImg = styled.img`
 `;
 const StyledP = styled.p`
   all: unset;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 900;
   color: #fff;
 `;
@@ -26,7 +26,6 @@ const StyledDiv = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-right: 30px;
   background-image: url(${CardBackground});
   background-size: contain;
   padding: 20px;
@@ -54,14 +53,15 @@ const StyledIPFS = styled.img`
   transition: 0.5s ease;
 `;
 
-export const DisplayToken = ({ name, linkTo, img }) => {
+export const DisplayToken = ({ name, linkTo, img, tokenID }) => {
   return (
     <NavLink to={`/${linkTo}`}>
       <StyledDiv>
-        <StyledIPFS src={ipfsLink(img)} />
+        <StyledIPFS src={img} />
         <StyledImg src={horisontalLine} alt={name} style={{ marginTop: 10 }} />
         <StyledP>{name}</StyledP>
         <StyledImg src={horisontalLine} alt={name} />
+        {tokenID ? <StyledP>ID: {tokenID}</StyledP> : null}
       </StyledDiv>
     </NavLink>
   );

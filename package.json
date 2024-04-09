@@ -1,6 +1,6 @@
 {
-  "name": "react-frontend",
-  "homepage": "https://fredrikcarlssn.github.io/ARMORY",
+  "name": "ARMORY",
+  "homepage": "https://armory.naramunz.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -36,6 +36,7 @@
     "tailwindcss-animate": "^1.0.7",
     "url": "latest",
     "web-vitals": "^3.1.0",
+    "web3": "^4.6.0",
     "zlib": "npm:browserify-zlib"
   },
   "scripts": {

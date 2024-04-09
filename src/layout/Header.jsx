@@ -19,13 +19,6 @@ const StyledHeader = styled.header`
   }
 `;
 
-const WalletStyle = styled.div`
-  font-size: 0.5 !important;
-  position: absolute;
-  top: 10px;
-  right: 20px;
-`;
-
 const supportedTokens = {
   // use chain id of the network as key and pass an array of tokens to show
   // you can directly pass the number or import the chain object from @thirdweb-dev/chains to get the chain id
@@ -59,22 +52,15 @@ export const Header = () => {
             <NavLink className="menu-item" to={"/"}>
               Home
             </NavLink>
-            <NavLink className="menu-item" to={"/profile"}>
-              Profile
+            <NavLink className="menu-item" to={"/search"}>
+              Search
+            </NavLink>
+            <NavLink className="menu-item" to={"/crafted"}>
+              Browse
             </NavLink>
             <NavLink className="menu-item" to={"/about"}>
               About
             </NavLink>
-          </div>
-          <div className="menu-buttons">
-            <WalletStyle>
-              <ConnectWallet
-                className="web3button"
-                supportedTokens={supportedTokens}
-                displayBalanceToken={displayBalanceToken}
-                switchToActiveChain={true}
-              />
-            </WalletStyle>
           </div>
         </div>
       </div>
