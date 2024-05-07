@@ -45,6 +45,7 @@ const Background = styled.div`
 
 const StyledTokenList = styled.ul`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   row-gap: 10px;
 `;
@@ -101,33 +102,36 @@ export const ProfilePage = () => {
                 <div className="flex justify-center">
                   <ConnectedWallet wallet={address} />
                 </div>
-                {isLoading && address != "undefined" ? (
-                  <Spinner className="mt-12" />
-                ) : !nfts ? (
-                  <div className="flex justify-center font-bold mt-10">
-                    There are no NFTs associated with your account.
-                  </div>
-                ) : null}
+                <StyledTokenList>
+                  {isLoading && address != "undefined" ? (
+                    <Spinner className="mt-12" />
+                  ) : !nfts ? (
+                    <div className="flex justify-center font-bold mt-10">
+                      There are no NFTs associated with your account.
+                    </div>
+                  ) : (
+                    (filteredNFTs.length = 0 ? (
+                      <div className="flex justify-center font-bold mt-10">
+                        No NFTs were found matching your current filters.
+                      </div>
+                    ) : (
+                      <>
+                        {filteredNFTs.map((token, i) => {
+                          return (
+                            <DisplayToken
+                              name={token.metadata.name}
+                              key={i}
+                              linkTo={`token/${token.metadata.id}`}
+                              img={token.metadata.image}
+                              tokenID={token.metadata.id}
+                            />
+                          );
+                        })}
+                      </>
+                    ))
+                  )}
+                </StyledTokenList>
               </div>
-              <StyledTokenList>
-                {filteredNFTs.length != 0 ? (
-                  <>
-                    {filteredNFTs.map((token, i) => {
-                      return (
-                        <DisplayToken
-                          name={token.metadata.name}
-                          key={i}
-                          linkTo={`token/${token.metadata.id}`}
-                          img={token.metadata.image}
-                          tokenID={token.metadata.id}
-                        />
-                      );
-                    })}
-                  </>
-                ) : (
-                  <div>No NFTs were found matching your current filters.</div>
-                )}
-              </StyledTokenList>
             </div>
           </Background>
           <hr />
