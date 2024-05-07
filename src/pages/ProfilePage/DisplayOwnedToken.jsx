@@ -1,25 +1,14 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import { Spinner } from "../../components/Spinner.jsx";
-import { ItemCard } from "../../components/ItemCard.jsx";
-import { SkillCard } from "../../components/SkillCard.jsx";
-import {
-  useContract,
-  Web3Button,
-  useContractWrite,
-  useNFT,
-  useContractRead,
-} from "@thirdweb-dev/react";
-import {
-  ITEMS_CONTRACT,
-  traitKeysItems,
-  ITEMS_TRAIT_VALUES,
-  SKILLS_TRAIT_VALUES,
-} from "../../CONST.js";
+import { useContract, useNFT } from "@thirdweb-dev/react";
+import { ITEMS_CONTRACT } from "../../CONST.js";
 import { motion } from "framer-motion";
 
-import conMap from "../../img/con-map.jpg";
-import CardBackground from "../../img/big-text-box.png";
+import { Spinner } from "../../components/ui/Spinner.jsx";
+import { ItemCard } from "../../components/ItemCard.jsx";
+
+import conMap from "../../img/images/con-map.jpg";
+import CardBackground from "../../img/ui/big-text-box.png";
 
 const StyledClaimTokenPage = styled.div`
   background-image: url(${conMap});
@@ -31,16 +20,6 @@ const StyledClaimTokenPage = styled.div`
   padding-right: 80px;
 `;
 
-const SmallCard = styled.div`
-  background-image: url(${CardBackground});
-  background-size: contain;
-  background-repeat: no-repeat;
-  @media screen and (max-width: 870px) {
-    transform: scale(0.7);
-    margin-top: -150px;
-  }
-`;
-
 const StyledCard = styled.div`
   height: 1200px;
   width: 950px;
@@ -50,18 +29,6 @@ const StyledCard = styled.div`
   padding: 80px 50px;
   transform: scale(0.8);
   font-size: 1.15rem;
-`;
-
-const CardContent = styled.div`
-  height: 400px;
-  width: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (max-width: 870px) {
-    transform: scale(1.4);
-  }
 `;
 
 const ContentWrapper = styled.div`
@@ -83,11 +50,7 @@ const BigCard = styled.div`
 
 export const DisplayOwnedToken = () => {
   const tokenId = useParams().tokenId;
-  const navigate = useNavigate();
-  let dynamicTraits = [];
-
   const { contract } = useContract(ITEMS_CONTRACT);
-  const { mutateAsync: burn } = useContractWrite(contract, "burn");
   const { data: nft, isLoading, error } = useNFT(contract, tokenId);
 
   if (isLoading)
@@ -136,22 +99,3 @@ export const DisplayOwnedToken = () => {
     </StyledClaimTokenPage>
   );
 };
-
-{
-  /* <SmallCard>
-          <CardContent>
-            <Web3Button
-              contractAddress={SOULBOUND_CONTRACT}
-              action={() =>
-                burn({ args: [tokenID] })
-                  .then(() => alert("Token burned!"))
-                  .then(() => navigate("/profile"))
-              }
-              onError={(error) => alert("Something went wrong!")}
-              className="crg-button"
-            >
-              Burn Token
-            </Web3Button>
-          </CardContent>
-        </SmallCard> */
-}

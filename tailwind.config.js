@@ -7,8 +7,24 @@ module.exports = {
         brown: "#694e43",
         lightBlue: "#2D3142",
         grey: "#77716E",
+        epicGrey: "#2F2D2E",
         page: "#1b1a20",
-        text: "#c7c4c3",
+        text: "#C7C4C3",
+        cyan: "#10CAE0",
+      },
+      animation: {
+        "fade-in": "fadeIn 2s ease-in-out",
+        "fade-out": "fadeOut 2s ease-in-out",
+      },
+      keyframes: {
+        fadeIn: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        fadeOut: {
+          from: { opacity: 1 },
+          to: { opacity: 0 },
+        },
       },
     },
   },

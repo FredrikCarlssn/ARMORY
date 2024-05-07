@@ -1,14 +1,10 @@
 import { styled, keyframes } from "styled-components";
 
-import Tokens from "../Tokens/TokenData.json";
-
-import CardBackground from "../img/big-text-box.png";
-import horisontalLine from "../img/Line-fade-300.png";
-import downArrowLine from "../img/downArrowLine.png";
-import upArrowLine from "../img/upArrowLine.png";
-import { ipfsLink, traitTypes } from "../CONST";
-import { useEffect, useState } from "react";
-import { Modal } from "./Modal";
+import CardBackground from "../img/ui/big-text-box.png";
+import horisontalLine from "../img/ui/Line-fade-300.png";
+import downArrowLine from "../img/ui/downArrowLine.png";
+import upArrowLine from "../img/ui/upArrowLine.png";
+import { Modal } from "./buttons/Modal";
 import { useNavigate } from "react-router-dom";
 import { ITEMS_CONTRACT } from "../CONST";
 
@@ -227,7 +223,7 @@ export const ItemCard = ({ token }) => {
         </div>
         <StyledImage src={token.metadata.image} />
         <div
-          className="bg-[url('/src/img/sphere.png')] bg-cover h-16 w-40 absolute top-[408px] right-14 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
+          className="bg-[url('/src/img/buttons/sphere.png')] bg-cover h-16 w-40 absolute top-[408px] right-14 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
           onClick={() =>
             window.open(
               `https://testnet.sphere.market/beam-testnet/nft/${ITEMS_CONTRACT}/${token.metadata.id}`
@@ -236,7 +232,7 @@ export const ItemCard = ({ token }) => {
         ></div>
       </StyledImageDiv>
       <img src={upArrowLine} className="w-full h-10 my-2" />
-      <div className="bg-[url('/src/img/vitalsBg.png')] bg-cover h-62 pt-4">
+      <div className="bg-[url('/src/img/ui/vitalsBg.png')] bg-cover h-62 pt-4">
         {vitals.map((trait, i) => {
           return (
             <Vitals key={i}>

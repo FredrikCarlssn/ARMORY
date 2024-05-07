@@ -3,21 +3,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { useContract, useContractRead } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT, ABI_ITEMS } from "../CONST";
 import { Web3 } from "web3";
 
-import ScrollButton from "../components/ScrollButton";
-import gamelogo from "../img/armory.png";
-
-import { LatestMintedTokens } from "../components/LatestMintedTokens";
+import gamelogo from "../img/images/armory.png";
 
 const StyledButton = styled.button`
   position: relative;
   margin-top: 20px;
-  transform: scale(1.2);
   &:hover {
-    transform: scale(1.21) !important;
+    transform: scale(1.02) !important;
   }
 `;
 
@@ -72,10 +67,10 @@ export const LandingPage = () => {
           navigate(`/token/${input}`);
         })
         .catch((error) => {
-          newError("Token not found", 3000);
+          newError("Token not found", 8000);
         });
     } else if (input === "") {
-      newError("Enter Value", 3000);
+      newError("Enter Value", 8000);
     } else {
       const isValid = /^0x[0-9a-fA-F]{40}$/.test(input);
       if (isValid) {
@@ -83,7 +78,7 @@ export const LandingPage = () => {
       } else {
         newError(
           "Invalid address. It should start with 0x and followed by 40 hexadecimal characters.",
-          3000
+          8000
         );
       }
     }
@@ -91,16 +86,16 @@ export const LandingPage = () => {
 
   return (
     <>
-      <section className="relative flex justify-center items-center min-h-[97vh] overflow-hidden">
+      <div className="relative flex justify-center items-center overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-cover bg-[url('/src/img/armory_v1.png')]"
+          className="absolute inset-0 bg-cover bg-[url('/src/img/images/armory_v1.png')]"
           ref={ref}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
           style={{ scale }}
         />
-        <div className="relative flex flex-col justify-center items-center h-full">
+        <div className="relative flex flex-col justify-center items-center h-full scale-110">
           <motion.div
             className="flex flex-col items-center justify-center"
             transition={{ duration: 1.5, style: "easeInOut" }}
@@ -112,13 +107,13 @@ export const LandingPage = () => {
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center"
               >
-                <div className="bg-[url('/src/img/headline.png')] h-[98px] bg-cover w-[600px] flex justify-center">
+                <div className="bg-[url('/src/img/ui/headline.png')] h-[98px] bg-cover w-[600px] flex justify-center">
                   <input
                     type="text"
                     value={input}
                     onChange={handleChange}
                     className="border-2 border-none bg-transparent text-center text-white text-xl focus:border-none outline-none w-full"
-                    placeholder="Search by Address or Token ID"
+                    placeholder="Search by wallet address or token id"
                   />
                   {error ? (
                     <p className="text-red-500 text-sm absolute top-96 animate-pulse">
@@ -126,20 +121,14 @@ export const LandingPage = () => {
                     </p>
                   ) : null}
                 </div>
-                <StyledButton className="crg-button text-lg">
+                <StyledButton className="crg-button text-lg scale-80">
                   Search Armory
                 </StyledButton>
               </form>
-              <ScrollButton toSection={"page"} />
             </StyledDiv>
           </motion.div>
         </div>
-      </section>
-      <hr />
-      <section className="h-screen bg-page p-10" id="page">
-        <LatestMintedTokens />
-      </section>
-      <hr />
+      </div>
     </>
   );
 };

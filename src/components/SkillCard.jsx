@@ -2,10 +2,10 @@ import { styled, keyframes } from "styled-components";
 
 import Tokens from "../Tokens/TokenData.json";
 
-import CardBackground from "../img/big-text-box.png";
-import horisontalLine from "../img/Line-fade-300.png";
-import downArrowLine from "../img/downArrowLine.png";
-import upArrowLine from "../img/upArrowLine.png";
+import CardBackground from "../img/ui/big-text-box.png";
+import horisontalLine from "../img/ui/Line-fade-300.png";
+import downArrowLine from "../img/ui/downArrowLine.png";
+import upArrowLine from "../img/ui/upArrowLine.png";
 import { ipfsLink, traitTypes } from "../CONST";
 import { useEffect, useState } from "react";
 import { Modal } from "./Modal";
@@ -165,7 +165,7 @@ export const SkillCard = ({ token, dynamicTraits }) => {
         <StyledImage src={ipfsLink(token.metadata.image)} />
       </StyledImageDiv>
       <img src={upArrowLine} className="w-full h-10" />
-      <div className="bg-[url('/src/img/vitalsBg.png')] bg-cover h-62 pt-4">
+      <div className="bg-[url('/src/img/ui/vitalsBg.png')] bg-cover h-62 pt-4">
         {vitals.map((trait, i) => {
           return (
             <Vitals key={i}>

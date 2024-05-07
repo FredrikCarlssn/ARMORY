@@ -1,33 +1,46 @@
 import { styled } from "styled-components";
 import { useOwnedNFTs, useContract } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../../CONST.js";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-
-import { DisplayToken } from "../../components/DisplayToken.jsx";
-import { Spinner } from "../../components/Spinner.jsx";
-import { Dropdown } from "../../components/Dropdown.jsx";
-
-import city from "../../img/city-back-drop.jpg";
-import softLight from "../../img/soft-light-fog.png";
-import horisontalLine from "../../img/Line-fade-300.png";
+import { useState } from "react";
 import { useParams } from "react-router";
 
+import { DisplayToken } from "../../components/ui/DisplayToken.jsx";
+import { Spinner } from "../../components/ui/Spinner.jsx";
+import { SortingSidebar } from "../../components/MenuComponents/SortingSidebar.jsx";
+import { Expandable } from "../../components/buttons/Expandable.jsx";
+import { ConnectedWallet } from "../../components/ui/ConnectedWallet.jsx";
+
+import softLight from "../../img/images/soft-light-fog.png";
+import vault from "../../img/images/vault.png";
+import epicSignInWhite from "../../img/buttons/epic-sign-in-white.png";
+import conWebLogo from "../../img/images/con-web-logo.png";
+import link from "../../img/ui/link.png";
+
 const StyledProfilePage = styled.div`
-  background-image: url(${city});
-  min-height: 100vh;
+  background-image: url(${vault});
   background-size: cover;
   background-position: bottom;
   background-attachment: fixed;
-  padding: 120px 0px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  animation: fadeIn 0.5s;
 `;
 
 const ContentWrapper = styled.div`
   width: 100%;
   max-width: 1500px;
+`;
+
+const Background = styled.div`
+  background-image: url(${softLight});
+  background-size: cover;
+  position: relative;
+  background-color: #1b1a20;
+  min-height: 80vh;
+
+  @media screen and (max-width: 870px) {
+    padding: 0px;
+  }
 `;
 
 const StyledTokenList = styled.ul`
@@ -36,151 +49,86 @@ const StyledTokenList = styled.ul`
   row-gap: 10px;
 `;
 
-const Background = styled.div`
-  background-image: url(${softLight});
-  background-size: cover;
-  background-position: bottom;
-  backdrop-filter: brightness(0.8) blur(10px);
-  min-height: 80vh;
-  padding: 50px;
-  border-radius: 3px;
-
-  @media screen and (max-width: 870px) {
-    padding: 0px;
-  }
-`;
-
-const Account = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #1b1a20;
-  border: 4px solid #694e43;
-  padding: 0 20px;
-`;
-
-const StyledP = styled.p`
-  all: unset;
-  transition: 0.2s ease;
-  &:hover {
-    color: #b7a99c;
-  }
-`;
-
-const StyledH2 = styled.h2`
-  all: unset;
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 700;
-`;
-
-const StyledImg = styled.img`
-  width: 350px;
-  transform: scaleY(3);
-  filter: brightness(1.7) contrast(1.5);
-`;
-
-const Content = styled.div`
-  @media screen and (max-width: 870px) {
-    transform: scale(0.7);
-  }
-`;
 export const ProfilePage = () => {
-  const [filteredData, setFilteredData] = useState([]);
-  const address = useParams().address;
+  // ADDRESS LOGIC
+  const [address, setAddress] = useState(
+    useParams().address ||
+      (localStorage.getItem("walletAddress") &&
+        localStorage.getItem("walletAddress").replace(/"/g, ""))
+  );
+
+  const loginWithEpic = async () => {
+    const url =
+      "https://www.epicgames.com/id/authorize?client_id=xyza7891JqURqLDsngnChqqfNdWvDsup&response_type=code&scope=basic_profile&redirect_uri=http://localhost:3000/coderesponse";
+    window.open(url, "_self");
+  };
+
+  // SIDEBAR LOGIC
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [filteredNFTs, setFilteredNFTs] = useState([]);
+
+  // THIRDWEB
   const { contract: contractItems } = useContract(ITEMS_CONTRACT);
-  const { data, isLoading } = useOwnedNFTs(contractItems, address);
-  const [activeSort, setActiveSort] = useState("Age");
-  const [activeFilter, setActiveFilter] = useState("All");
 
-  useEffect(() => {
-    if (data) {
-      let currentData = [...data];
-      if (activeSort === "Age") {
-        currentData.sort(
-          (a, b) => a.metadata.originallyMinted - b.metadata.originallyMinted
-        );
-      }
-      if (activeSort === "Name") {
-        currentData.sort((a, b) =>
-          a.metadata.name.localeCompare(b.metadata.name)
-        );
-      }
-      if (activeSort === "Type") {
-        currentData.sort((a, b) =>
-          a.metadata.type.localeCompare(b.metadata.type)
-        );
-      }
-      if (activeFilter === "All") {
-        setFilteredData(currentData);
-      }
-      if (activeFilter === "Items") {
-        setFilteredData(
-          currentData.filter((token) => {
-            return token.metadata.type == "Item";
-          })
-        );
-      }
-      if (activeFilter === "Skills") {
-        setFilteredData(
-          currentData.filter((token) => {
-            return token.metadata.type == "Skill";
-          })
-        );
-      }
-    }
-  }, [activeSort, activeFilter, data]);
+  const { nfts, isLoading } = useOwnedNFTs(contractItems, address);
 
-  if (!data)
+  if (address) {
     return (
       <StyledProfilePage>
         <ContentWrapper>
           <hr />
           <Background>
-            <Content>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <Account>
-                  <StyledH2>Logged in with account:</StyledH2>
-                  <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-                  <StyledP>{address}</StyledP>
-                  <StyledImg
-                    src={horisontalLine}
-                    style={{ marginBottom: 10 }}
-                  />
-                </Account>
-              </motion.div>
-              <h2>Owned NFTs:</h2>
-              <Spinner />
-            </Content>
-          </Background>
-          <hr />
-        </ContentWrapper>
-      </StyledProfilePage>
-    );
+            <SortingSidebar
+              isSidebarOpen={isSidebarOpen}
+              nfts={nfts}
+              setFilteredNFTs={setFilteredNFTs}
+            />
 
-  if (data == 0) {
-    return (
-      <StyledProfilePage>
-        <ContentWrapper>
-          <hr />
-          <Background>
-            <Content>
-              <Account>
-                <StyledH2>Logged in with account:</StyledH2>
-                <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-                <StyledP>{address}</StyledP>
-                <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
-              </Account>
-              <h2 className="mt-4">Owned Tokens:</h2>
-              <StyledP>
-                Oooopsss, looks like you dont own any tokens yet!
-              </StyledP>
-            </Content>
+            <div
+              style={{
+                marginLeft: isSidebarOpen ? "330px" : "30px",
+                marginRight: "20px",
+                transition: "all 0.5s",
+                animation: "fadeIn 0.5s",
+              }}
+            >
+              <Expandable
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+                className={""}
+              />
+              <div className="pt-14">
+                <div className="flex justify-center">
+                  <ConnectedWallet wallet={address} />
+                </div>
+                {isLoading && address != "undefined" ? (
+                  <Spinner className="mt-12" />
+                ) : !nfts ? (
+                  <div className="flex justify-center font-bold mt-10">
+                    There are no NFTs associated with your account.
+                  </div>
+                ) : null}
+              </div>
+              <StyledTokenList>
+                {filteredNFTs.length != 0 ? (
+                  <>
+                    {filteredNFTs.map((token, i) => {
+                      return (
+                        <DisplayToken
+                          name={token.metadata.name}
+                          key={i}
+                          linkTo={`token/${token.metadata.id}`}
+                          img={token.metadata.image}
+                          tokenID={token.metadata.id}
+                        />
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div>No NFTs were found matching your current filters.</div>
+                )}
+              </StyledTokenList>
+            </div>
           </Background>
           <hr />
         </ContentWrapper>
@@ -193,48 +141,30 @@ export const ProfilePage = () => {
       <ContentWrapper>
         <hr />
         <Background>
-          <Content>
-            <Account className="mb-2">
-              <StyledH2>Logged in with account:</StyledH2>
-              <StyledImg src={horisontalLine} style={{ marginTop: 10 }} />
-              <StyledP>{address}</StyledP>
-              <StyledImg src={horisontalLine} style={{ marginBottom: 10 }} />
-            </Account>
-            <div className="absolute end-12">
-              <Dropdown
-                Items={["All", "Items", "Skills"]}
-                Title={"Filter"}
-                activeItem={activeFilter}
-                setActiveItem={setActiveFilter}
-              />
-              <Dropdown
-                Items={["Age", "Name", "Type"]}
-                Title={"Sort"}
-                activeItem={activeSort}
-                setActiveItem={setActiveSort}
-              />
+          <div className="h-[80vh] flex flex-col items-center justify-center">
+            {/* <div className="text-4xl font-bold -mb-12 z-10 text-epicGrey to-white">
+              Sign In With EPIC Account
+            </div> */}
+            <div className="relative flex bg-[url('/src/img/images/hero-image.jpg')] bg-cover rounded-xl">
+              <div className="w-72 h-96 flex items-center justify-center relative">
+                <img
+                  src={conWebLogo}
+                  className="absolute -right-10 mt-6 top-1/4 w-96 object-contain z-10"
+                />
+              </div>
+              <div className="inset-0 bg-gradient-to-r from-transparent to-white h-96 w-36 relative">
+                <img src={link} className="absolute top-44 -right-4" alt="" />
+              </div>
+              <div className="w-96 h-96 bg-white flex items-center justify-center rounded-r-xl">
+                <div
+                  className="bg-epicGrey h-48 w-48 flex items-center justify-center rounded-md hover:scale-105 cursor-pointer transition duration-500 ease-in-out active:scale-75"
+                  onClick={loginWithEpic}
+                >
+                  <img src={epicSignInWhite} className="h-36" />
+                </div>
+              </div>
             </div>
-            <h2 className="mt-20">Owned NFTs:</h2>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <StyledTokenList>
-                {filteredData.map((token, i) => {
-                  return (
-                    <DisplayToken
-                      name={token.metadata.name}
-                      key={i}
-                      linkTo={`token/${token.metadata.id}`}
-                      img={token.metadata.image}
-                    />
-                  );
-                })}
-              </StyledTokenList>
-            </motion.div>
-          </Content>
+          </div>
         </Background>
         <hr />
       </ContentWrapper>

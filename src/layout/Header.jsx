@@ -4,8 +4,6 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 import { BeamTestnet } from "@thirdweb-dev/chains";
 import { TOKEN_CONTRACT } from "../CONST";
 
-import "../styles/header.css";
-
 import gamelogo from "../img/crg/con-flat.svg";
 
 const StyledHeader = styled.header`
@@ -52,14 +50,11 @@ export const Header = () => {
             <NavLink className="menu-item" to={"/"}>
               Home
             </NavLink>
-            <NavLink className="menu-item" to={"/search"}>
-              Search
-            </NavLink>
-            <NavLink className="menu-item" to={"/crafted"}>
+            <NavLink className="menu-item" to={"/browse"}>
               Browse
             </NavLink>
-            <NavLink className="menu-item" to={"/about"}>
-              About
+            <NavLink className="menu-item" to={"/profile"}>
+              Profile
             </NavLink>
           </div>
         </div>

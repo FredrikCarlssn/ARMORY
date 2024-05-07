@@ -1,13 +1,11 @@
 import { styled } from "styled-components";
-import "../styles/footer.css";
+import { NavLink } from "react-router-dom";
 
 import crglogo from "../img/crg/crg-logo.png";
 import xlogo from "../img/crg/x-logo.png";
 import instagramlogo from "../img/crg/instagram-logo.png";
 import mediumlogo from "../img/crg/medium-logo.png";
 import discordlogo from "../img/crg/discord-logo.png";
-
-const StyledFooter = styled.footer``;
 
 const StyledWrapper = styled.div`
   @media screen and (max-width: 870px) {
@@ -33,9 +31,16 @@ export const Footer = () => {
             <img src={crglogo} alt="Company Logo" />
           </div>
           <div className="footer-social">
+            <NavLink className="underline text-current" to={"/about"}>
+              About
+            </NavLink>
             <h4>Official Channels</h4>
             <div className="social-icons">
-              <a href="https://twitter.com/naramunz" target="_blank">
+              <a
+                href="https://twitter.com/naramunz"
+                target="_blank"
+                className="social-icon"
+              >
                 <img src={xlogo} alt="Twitter" />
               </a>
               <a href="https://www.instagram.com/naramunz/" target="_blank">

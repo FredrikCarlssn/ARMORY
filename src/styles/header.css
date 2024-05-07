@@ -5,7 +5,8 @@
 
 .menu-bar {
   z-index: 1;
-  position: absolute;
+  position: relative;
+  top: 0;
   background-color: #1b1a20;
   height: 80px;
   border: 4px solid #694e43;

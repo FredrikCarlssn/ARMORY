@@ -3,9 +3,13 @@ import reportWebVitals from "./reportWebVitals";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { BeamTestnet } from "@thirdweb-dev/chains";
 import "./styles/globals.css";
+
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { Router } from "./Router";
+
+import { BrowserRouter } from "react-router-dom";
+import { CodeResponse } from "./pages/CodeResponse";
 
 // This is the chain your dApp will work on.
 // Change this to the chain your app is built for.
@@ -19,6 +23,9 @@ root.render(
       activeChain={BeamTestnet}
       clientId={process.env.REACT_APP_TEMPLATE_CLIENT_ID}
     >
+      <BrowserRouter>
+        <CodeResponse />
+      </BrowserRouter>
       <RouterProvider router={Router} />
     </ThirdwebProvider>
   </React.StrictMode>

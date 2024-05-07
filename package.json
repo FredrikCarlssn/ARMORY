@@ -4,8 +4,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@formkit/auto-animate": "^0.8.1",
     "@headlessui/react": "^1.7.18",
+    "@mui/material": "^5.15.15",
     "@radix-ui/react-popover": "^1.0.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -28,6 +31,7 @@
     "react-dom": "^18.2",
     "react-flip-move": "^3.0.5",
     "react-flip-toolkit": "^7.1.0",
+    "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.21.1",
     "react-scripts": "^5.0.1",
     "stream": "^0.0.2",
@@ -66,7 +70,7 @@
     ]
   },
   "devDependencies": {
-    "daisyui": "^4.6.1",
+    "daisyui": "^4.10.1",
     "gh-pages": "^6.1.1",
     "tailwindcss": "^3.4.1"
   }
