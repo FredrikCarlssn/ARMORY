@@ -56,6 +56,9 @@ export const Header = () => {
             <NavLink className="menu-item" to={"/profile"}>
               Profile
             </NavLink>
+            <NavLink className="menu-item" to={"/about"}>
+              About
+            </NavLink>
           </div>
         </div>
       </div>

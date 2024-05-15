@@ -6,7 +6,8 @@ import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { BrowsePage } from "./pages/BrowsePage";
 import { AboutPage } from "./pages/AboutPage/AboutPage";
 import { DisplayOwnedToken } from "./pages/ProfilePage/DisplayOwnedToken";
-import { CodeResponse } from "./pages/CodeResponse";
+import { Page404 } from "./pages/Page404";
+
 export const Router = createHashRouter([
   {
     path: "/",
@@ -21,7 +22,7 @@ export const Router = createHashRouter([
       },
       { path: "/about", element: <AboutPage /> },
       { path: "/browse", element: <BrowsePage /> },
-      { path: "/coderesponse/:code", element: <CodeResponse /> },
+      { path: "*", element: <Page404 /> },
     ],
   },
 ]);

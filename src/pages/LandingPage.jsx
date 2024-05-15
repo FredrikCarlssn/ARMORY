@@ -5,8 +5,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ITEMS_CONTRACT, ABI_ITEMS } from "../CONST";
 import { Web3 } from "web3";
+import { Search } from "lucide-react";
 
 import gamelogo from "../img/images/armory.png";
+
+import { codeResponse } from "./codeResponse.js";
 
 const StyledButton = styled.button`
   position: relative;
@@ -33,6 +36,10 @@ const StyledDiv = styled.div`
 export const LandingPage = () => {
   const web3 = new Web3("https://13337.rpc.thirdweb.com");
   const contract = new web3.eth.Contract(ABI_ITEMS, ITEMS_CONTRACT);
+
+  const pathName = new URLSearchParams(window.location.search).get("code");
+  console.log(pathName);
+  if (pathName != null) codeResponse();
 
   /// FUCNTION FOR SEARCHING BY ADDRESS OR TOKEN ID
   const [input, setInput] = useState("");
@@ -122,7 +129,7 @@ export const LandingPage = () => {
                   ) : null}
                 </div>
                 <StyledButton className="crg-button text-lg scale-80">
-                  Search Armory
+                  <Search strokeWidth={3} />
                 </StyledButton>
               </form>
             </StyledDiv>

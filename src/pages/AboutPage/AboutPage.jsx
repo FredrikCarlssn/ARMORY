@@ -27,6 +27,7 @@ const Game = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   padding: 20px 0;
 
   @media screen and (max-width: 870px) {
@@ -35,8 +36,8 @@ const Game = styled.div`
 `;
 
 const Content = styled.div`
-  max-width: 1500px;
-
+  max-width: 2000px;
+  max-width: 100%;
   @media screen and (max-width: 1000px) {
     transform: scale(0.7);
   }
@@ -75,7 +76,7 @@ export const AboutPage = () => {
       <Content>
         <SearchPage />
         <div className="relative flex flex-col items-center py-24">
-          <div className="mr-64 w-7/12">
+          <div className="mr-64 w-2/5">
             <h1 className="text-4xl font-bold">A Story in Season</h1>
             <p className="">
               Centuries ago, a catastrophic event struck the world of Naramunz,
@@ -148,7 +149,7 @@ export const AboutPage = () => {
               data-gtm-yt-inspected-16="true"
             ></StylediFrame>
           </div>
-          <div className="ml-8 text-lg">
+          <div className="ml-8 text-lg w-2/5">
             <h1 className="text-4xl ml-8 mb-4 font-bold">About the game</h1>
             <p className="mx-4">
               Crystals of Naramunz is an upcoming free-to-play action RPG set in

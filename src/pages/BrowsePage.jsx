@@ -26,7 +26,7 @@ const StyledProfilePage = styled.div`
 const ContentWrapper = styled.div`
   position: relative;
   width: 100vw;
-  max-width: 1500px;
+  max-width: 2000px;
 `;
 
 const StyledTokenList = styled.ul`
@@ -81,12 +81,16 @@ export const BrowsePage = () => {
     start: i * 100,
   });
 
-  useEffect(() => {
-    if (nfts && (i < totalCount / 100 || i === 0)) {
-      setAllNFTs(() => allNFTs.concat(nfts));
-      setI((prevI) => prevI + 1);
-    }
-  }, [nfts]);
+  if (nfts) {
+    console.log(nfts);
+  }
+
+  // useEffect(() => {
+  //   if (nfts && (i < totalCount / 100 || i === 0)) {
+  //     setAllNFTs(() => allNFTs.concat(nfts));
+  //     setI((prevI) => prevI + 1);
+  //   }
+  // }, [nfts]);
   useEffect(() => {
     setDisplayedNfts(
       filteredNFTs.slice(count * nftsPerPage, (count + 1) * nftsPerPage)

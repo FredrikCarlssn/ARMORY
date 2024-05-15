@@ -43,7 +43,7 @@ body {
   font-size: 20px !important;
   position: relative !important;
   width: 200px !important;
-  height: 70px !important;
+  height: 56px !important;
   background-color: rgba(255, 255, 255, 0) !important;
   background-image: url(../img/buttons/main/button-default.png) !important;
   background-size: contain !important;
@@ -53,6 +53,9 @@ body {
   bottom: 0px !important;
   left: 0px !important;
   transition: 0.5s ease !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
   &:hover {
     color: #e7e8e8 !important;
     background-image: url(../img/buttons/main/button-hover.png) !important;

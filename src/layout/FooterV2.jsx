@@ -291,9 +291,6 @@ export const FooterV2 = () => {
               data-widget_type="heading.default"
             >
               <div className="elementor-widget-container">
-                <NavLink className="underline text-current" to={"/about"}>
-                  About
-                </NavLink>
                 <h2 className="elementor-heading-title elementor-size-small">
                   Official Channels
                 </h2>

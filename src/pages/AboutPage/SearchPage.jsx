@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import { Search } from "lucide-react";
+import { Input } from "../../components/ui/Input";
 
 import horisontalLine from "../../img/ui/Line-fade-300.png";
 
@@ -129,47 +131,51 @@ export const SearchPage = () => {
                   className="flex flex-col items-center"
                 >
                   <label className="mb-2">
-                    {" "}
-                    <input
+                    <Input
                       type="text"
                       value={address}
                       onChange={handleAddressChange}
-                      className="border-2 border-gray-300 p-2 rounded-md text-center"
+                      className="w-[220px] h-[45px]"
                       placeholder="Address: 0x..."
+                      error={error2}
                     />
                   </label>
                   {error2 && (
-                    <p className="text-red-500 text-sm ml-4 mr-4 -mb-2 animate-pulse">
+                    <p className="text-red-500 text-sm px-6 animate-pulse">
                       {error2}
                     </p>
                   )}
-                  <input
+                  <button
                     type="submit"
                     value="Search Address"
                     className="bg-blue-500 text-white p-2 rounded-md crg-button scale-75"
-                  />
+                  >
+                    <Search strokeWidth={3} />
+                  </button>
                 </form>
                 <form
                   onSubmit={handleTokenSubmit}
                   className="flex flex-col items-center mt-4"
                 >
                   <label className="mb-2">
-                    <input
+                    <Input
                       type="number"
                       value={tokenId}
                       onChange={handleTokenIdChange}
-                      className="border-2 border-gray-300 p-2 rounded-md text-center"
+                      className="w-[220px] h-[45px]"
                       placeholder=" Token ID"
+                      error={error}
                     />
                   </label>
                   {error && (
                     <p className="text-red-500 animate-pulse">{error}</p>
                   )}
-                  <input
+                  <button
                     type="submit"
-                    value="Search Token ID"
                     className="bg-blue-500 text-white p-2 rounded-md crg-button scale-75"
-                  />
+                  >
+                    <Search strokeWidth={3} />
+                  </button>
                 </form>
               </div>
             </motion.div>

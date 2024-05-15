@@ -28,7 +28,7 @@ const StyledProfilePage = styled.div`
 
 const ContentWrapper = styled.div`
   width: 100%;
-  max-width: 1500px;
+  max-width: 2000px;
 `;
 
 const Background = styled.div`
@@ -59,8 +59,9 @@ export const ProfilePage = () => {
   );
 
   const loginWithEpic = async () => {
-    const url =
-      "https://www.epicgames.com/id/authorize?client_id=xyza7891JqURqLDsngnChqqfNdWvDsup&response_type=code&scope=basic_profile&redirect_uri=http://localhost:3000/coderesponse";
+    const url = `https://www.epicgames.com/id/authorize?client_id=${process.env.REACT_APP_EPIC_CLIENT_ID}&response_type=code&scope=basic_profile&redirect_uri=${process.env.REACT_APP_EPIC_REDIRECT}`;
+    console.log(url);
+    console.log(process.env.REACT_APP_ENVIRONMENT);
     window.open(url, "_self");
   };
 
@@ -105,30 +106,28 @@ export const ProfilePage = () => {
                 <StyledTokenList>
                   {isLoading && address != "undefined" ? (
                     <Spinner className="mt-12" />
-                  ) : !nfts ? (
+                  ) : !nfts && address != "undefined" ? (
                     <div className="flex justify-center font-bold mt-10">
                       There are no NFTs associated with your account.
                     </div>
+                  ) : filteredNFTs.length == 0 && address != "undefined" ? (
+                    <div className="flex justify-center font-bold mt-10">
+                      No NFTs were found matching your current filters.
+                    </div>
                   ) : (
-                    (filteredNFTs.length = 0 ? (
-                      <div className="flex justify-center font-bold mt-10">
-                        No NFTs were found matching your current filters.
-                      </div>
-                    ) : (
-                      <>
-                        {filteredNFTs.map((token, i) => {
-                          return (
-                            <DisplayToken
-                              name={token.metadata.name}
-                              key={i}
-                              linkTo={`token/${token.metadata.id}`}
-                              img={token.metadata.image}
-                              tokenID={token.metadata.id}
-                            />
-                          );
-                        })}
-                      </>
-                    ))
+                    <>
+                      {filteredNFTs.map((token, i) => {
+                        return (
+                          <DisplayToken
+                            name={token.metadata.name}
+                            key={i}
+                            linkTo={`token/${token.metadata.id}`}
+                            img={token.metadata.image}
+                            tokenID={token.metadata.id}
+                          />
+                        );
+                      })}
+                    </>
                   )}
                 </StyledTokenList>
               </div>

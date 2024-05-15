@@ -51,11 +51,13 @@ export const SortingSidebar = ({ isSidebarOpen, nfts, setFilteredNFTs }) => {
   /////////////////// STEP 2 ///////////////////
   // Filter NFTs
   /////////////////// STEP 2 ///////////////////
+
   useEffect(() => {
     const filterNFTs = (nfts) => {
       if (!nfts || activeCategoryClassFilters.length <= 0) return [];
       return nfts.filter((nft) => {
         const metadata = nft.metadata;
+        console.log("metadata.properties", metadata);
         let activeCategoryFilters = [];
         let activeSubCategoryFilters = [];
         let activeClassFilters = [];

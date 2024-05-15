@@ -4,7 +4,6 @@ import CardBackground from "../img/ui/big-text-box.png";
 import horisontalLine from "../img/ui/Line-fade-300.png";
 import downArrowLine from "../img/ui/downArrowLine.png";
 import upArrowLine from "../img/ui/upArrowLine.png";
-import { Modal } from "./buttons/Modal";
 import { useNavigate } from "react-router-dom";
 import { ITEMS_CONTRACT } from "../CONST";
 
@@ -146,49 +145,27 @@ export const ItemCard = ({ token }) => {
     },
   ].concat(newArray(semanticToken, 21, 22, 8, 1, 23, 18));
 
-  const traits = newArray(
-    semanticToken,
-    3,
-    4,
-    9,
-    10,
-    12,
-    14,
-    15,
-    16,
-    22,
-    24,
-    25,
-    26
-  );
+  const traits = newArray(semanticToken, 3, 4, 10, 12, 14, 15, 24, 25, 26);
 
   const mods = semanticToken[19].value.split(",");
 
   const implicitMods = semanticToken[11].value.split(",");
 
-  const atherialMods = semanticToken[0].value.split(",");
+  const aetherialMods = semanticToken[0].value.split(",");
 
-  const allMods = implicitMods
-    .concat(atherialMods)
-    .map((mod) => {
-      return `\u2666 ${mod}`;
-    })
-    .concat(mods);
+  const allMods = implicitMods.concat(aetherialMods).concat(mods);
   const requirements = semanticToken
-    .filter((trait) => trait.trait_type.includes("Requirement"))
+    .filter(
+      (trait) =>
+        trait.trait_type.includes("Requirement") &&
+        !trait.trait_type.includes("Attribute")
+    )
     .map((trait) => {
       if (trait.trait_type.includes("Class")) {
-        return { ...trait, value: `Class-${trait.value}, ` };
+        return { ...trait, value: `Class: ${trait.value}, ` };
       }
       if (trait.trait_type.includes("Level")) {
-        return { ...trait, value: `Level-${trait.value}` };
-      }
-      if (trait.trait_type.includes("Attribute")) {
-        let attribute = trait.value.split(",");
-        return {
-          ...trait,
-          value: `Toughness-${attribute[0]}, Trickery-${attribute[1]}, Caliber-${attribute[2]}, Brilliance-${attribute[3]}, `,
-        };
+        return { ...trait, value: `Level: ${trait.value}` };
       }
       return trait;
     });
@@ -196,29 +173,50 @@ export const ItemCard = ({ token }) => {
   return (
     <StyledCard>
       <StyledImageDiv>
+        <div
+          className="absolute left-2 -top-9 h-12 w-20 font-extrabold text-4xl cursor-pointer"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          ←
+        </div>
         <div className="relative flex flex-col justify-between w-[450px]">
           <div>
             <h1 className="text-5xl mt-4 break-words w-96">
               {token.metadata.name}
             </h1>
             <img src={horisontalLine} className="w-full h-1 my-2" />
-            <p className="text-2xl mr-2">{token.metadata.description}</p>
             <h3 className="mt-2">
               <b>Requirements: </b>
               {requirements.map((trait, i) => {
                 return <span key={i}>{trait.value}</span>;
               })}
             </h3>
-          </div>
-          <div>
-            <p className="mt-5">Aethereal Mods:</p>
-            {implicitMods.map((trait, i) => {
-              return (
-                <TraitBox className="bottom-0 w-5/6" key={i}>
-                  &#9830; {trait}
-                </TraitBox>
-              );
-            })}
+            <div className="mt-6">
+              Mods:
+              {implicitMods ? (
+                <>
+                  {implicitMods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })}
+                  <img src={horisontalLine} alt="" />
+                </>
+              ) : null}
+              {mods ? (
+                <>
+                  {mods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })}
+                  <img src={horisontalLine} alt="" />
+                </>
+              ) : null}
+              {aetherialMods
+                ? aetherialMods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })
+                : null}
+            </div>
           </div>
         </div>
         <StyledImage src={token.metadata.image} />
@@ -252,9 +250,6 @@ export const ItemCard = ({ token }) => {
         })}
       </StyledMetadata>
       <img src={downArrowLine} className="w-full h-10" />
-      {mods.length > 0 ? (
-        <Modal list={allMods} buttonText={`Show All Mods: ${allMods.length}`} />
-      ) : null}
     </StyledCard>
   );
 };
