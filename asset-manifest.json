@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.0a7ee0f6.css",
-    "main.js": "/static/js/main.0b09314a.js",
+    "main.css": "/static/css/main.cbe626cf.css",
+    "main.js": "/static/js/main.e06b6ae7.js",
     "static/js/701.7dc73b73.chunk.js": "/static/js/701.7dc73b73.chunk.js",
     "static/js/1092.0a1dbe24.chunk.js": "/static/js/1092.0a1dbe24.chunk.js",
     "static/js/9189.6e016ed4.chunk.js": "/static/js/9189.6e016ed4.chunk.js",
@@ -92,7 +92,6 @@
     "static/js/5316.3a00e5d3.chunk.js": "/static/js/5316.3a00e5d3.chunk.js",
     "static/js/737.19f4e19e.chunk.js": "/static/js/737.19f4e19e.chunk.js",
     "static/js/5419.7f5b4f1c.chunk.js": "/static/js/5419.7f5b4f1c.chunk.js",
-    "static/media/hero-image.jpg": "/static/media/hero-image.427606f44d5fb161a295.jpg",
     "static/media/merchant-banner.png": "/static/media/merchant-banner.4e68e65830c89934ce20.png",
     "static/media/armory_v1.png": "/static/media/armory_v1.7a96039c6c868cb2f2b8.png",
     "static/media/vault.png": "/static/media/vault.52c02184b99742102dc2.png",
@@ -128,12 +127,12 @@
     "static/media/crg-logo.png": "/static/media/crg-logo.baa679325db9fad353cd.png",
     "static/media/button-hover.png": "/static/media/button-hover.1d5dd6deb8a78a7591bd.png",
     "static/media/button-default.png": "/static/media/button-default.07cdfdb35bef4727b716.png",
-    "static/media/epic-sign-in-white.png": "/static/media/epic-sign-in-white.bc7d8c0c57181fefd660.png",
     "static/media/expandable.png": "/static/media/expandable.ad2623997d8eb2e9360b.png",
+    "static/media/epicLogoWhite.png": "/static/media/epicLogoWhite.d3556aa5aab1b2e1ad99.png",
     "static/media/con-flat.svg": "/static/media/con-flat.5c925a44e7d9e2d1f21beadf0ca0a0a2.svg",
     "index.html": "/index.html",
-    "main.0a7ee0f6.css.map": "/static/css/main.0a7ee0f6.css.map",
-    "main.0b09314a.js.map": "/static/js/main.0b09314a.js.map",
+    "main.cbe626cf.css.map": "/static/css/main.cbe626cf.css.map",
+    "main.e06b6ae7.js.map": "/static/js/main.e06b6ae7.js.map",
     "701.7dc73b73.chunk.js.map": "/static/js/701.7dc73b73.chunk.js.map",
     "1092.0a1dbe24.chunk.js.map": "/static/js/1092.0a1dbe24.chunk.js.map",
     "6274.8d01ce66.chunk.js.map": "/static/js/6274.8d01ce66.chunk.js.map",
@@ -201,7 +200,7 @@
     "5419.7f5b4f1c.chunk.js.map": "/static/js/5419.7f5b4f1c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0a7ee0f6.css",
-    "static/js/main.0b09314a.js"
+    "static/css/main.cbe626cf.css",
+    "static/js/main.e06b6ae7.js"
   ]
 }
