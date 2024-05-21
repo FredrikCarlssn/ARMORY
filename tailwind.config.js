@@ -11,6 +11,8 @@ module.exports = {
         page: "#1b1a20",
         text: "#C7C4C3",
         cyan: "#10CAE0",
+        b7a99c: "#b7a99c",
+        e7e8e8: "#e7e8e8",
       },
       animation: {
         "fade-in": "fadeIn 2s ease-in-out",
@@ -25,6 +27,9 @@ module.exports = {
           from: { opacity: 1 },
           to: { opacity: 0 },
         },
+      },
+      screens: {
+        m: { max: "869px" },
       },
     },
   },

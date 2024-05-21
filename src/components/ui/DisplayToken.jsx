@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
+import React, { useRef, useEffect } from "react";
 
 import horisontalLine from "../../img/ui/Line-fade-300.png";
 import CardBackground from "../../img/ui/big-text-box.png";
 
-import { ipfsLink } from "../../CONST";
 import { NavLink } from "react-router-dom";
 
 const StyledImg = styled.img`
@@ -27,6 +27,7 @@ const StyledDiv = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  transform-origin: top left;
   background-image: url(${CardBackground});
   background-size: contain;
   padding: 20px;
@@ -42,6 +43,10 @@ const StyledDiv = styled.div`
       filter: brightness(1.1);
     }
   }
+  @media screen and (max-width: 870px) {
+    scale: 0.75;
+    margin: 0px;
+  }
 `;
 
 const StyledIPFS = styled.img`
@@ -54,10 +59,20 @@ const StyledIPFS = styled.img`
   transition: 0.5s ease;
 `;
 
-export const DisplayToken = ({ name, linkTo, img, tokenID }) => {
+export const DisplayToken = ({ name, linkTo, img, tokenID, className }) => {
+  const ref = useRef();
+  const containerRef = useRef();
+  useEffect(() => {
+    if (ref.current && containerRef.current) {
+      const { width, height } = ref.current.getBoundingClientRect();
+      containerRef.current.style.width = `${width}px`;
+      containerRef.current.style.height = `${height}px`;
+    }
+  }, []);
+
   return (
-    <NavLink to={`/${linkTo}`}>
-      <StyledDiv>
+    <NavLink ref={containerRef} to={`/${linkTo}`}>
+      <StyledDiv ref={ref} className={`${className}`}>
         <StyledIPFS src={img} />
         <StyledImg src={horisontalLine} alt={name} style={{ marginTop: 10 }} />
         <StyledP>{name}</StyledP>

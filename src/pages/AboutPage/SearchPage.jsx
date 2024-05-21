@@ -97,11 +97,11 @@ export const SearchPage = () => {
           </p>
           <div
             ref={ref3}
-            className="flex justify-center items-center m-20 gap-8"
+            className="flex justify-center items-center m:flex-col m-20 gap-8 m:mt-6"
           >
             <motion.div
               alt="card"
-              className="bg-[url('/src/img/ui/card.png')] bg-cover h-96 w-80 flex justify-start flex-col pt-4 "
+              className="bg-[url('/src/img/ui/card.png')] bg-cover h-96 w-80 flex justify-start flex-col pt-4"
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 2, delay: 0.5 }}
@@ -148,7 +148,7 @@ export const SearchPage = () => {
                   <button
                     type="submit"
                     value="Search Address"
-                    className="bg-blue-500 text-white p-2 rounded-md crg-button scale-75"
+                    className="bg-blue-500 text-white p-2 rounded-md crg-button scale-[0.7]"
                   >
                     <Search strokeWidth={3} />
                   </button>
@@ -172,7 +172,7 @@ export const SearchPage = () => {
                   )}
                   <button
                     type="submit"
-                    className="bg-blue-500 text-white p-2 rounded-md crg-button scale-75"
+                    className="bg-blue-500 text-white p-2 rounded-md crg-button scale-[0.7]"
                   >
                     <Search strokeWidth={3} />
                   </button>

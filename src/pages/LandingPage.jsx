@@ -9,7 +9,7 @@ import { Search } from "lucide-react";
 
 import gamelogo from "../img/images/armory.png";
 
-import { codeResponse } from "./codeResponse.js";
+import { codeResponse } from "../services/codeResponse";
 
 const StyledButton = styled.button`
   position: relative;
@@ -38,7 +38,6 @@ export const LandingPage = () => {
   const contract = new web3.eth.Contract(ABI_ITEMS, ITEMS_CONTRACT);
 
   const pathName = new URLSearchParams(window.location.search).get("code");
-  console.log(pathName);
   if (pathName != null) codeResponse();
 
   /// FUCNTION FOR SEARCHING BY ADDRESS OR TOKEN ID
@@ -128,7 +127,7 @@ export const LandingPage = () => {
                     </p>
                   ) : null}
                 </div>
-                <StyledButton className="crg-button text-lg scale-80">
+                <StyledButton className="crg-button text-lg scale-[0.8]">
                   <Search strokeWidth={3} />
                 </StyledButton>
               </form>

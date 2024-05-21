@@ -1,5 +1,6 @@
 import crglogo from "../img/crg/crg-logo.png";
 import eyeGuard from "../img/images/naramunz-eye-guard.png";
+import closeModal from "../img/buttons/closeModal.png";
 
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -24,6 +25,56 @@ export const FooterV2 = () => {
       className="elementor elementor-22 elementor-location-footer"
       data-elementor-post-type="elementor_library"
     >
+      <div className="mobile fixed -left-6 bottom-6 z-50">
+        <button
+          className="crg-button z-20 -left-4 scale-50"
+          onClick={() => document.getElementById("my_modal_5").showModal()}
+        >
+          Menu
+        </button>
+        <dialog
+          id="my_modal_5"
+          className="modal modal-bottom sm:modal-middle flex items-center justify-center"
+        >
+          <div className="modal-box bg-[url('/src/img/ui/modal/modal6.png')] bg-contain bg-no-repeat bg-transparent h-[23.5rem] w-[18.5rem] !rounded-none">
+            <div
+              className="absolute bg-contain right-1 top-1 h-6 w-6 z-50 cursor-pointer"
+              style={{ backgroundImage: `url(${closeModal})` }}
+              onClick={() => document.getElementById("my_modal_5").close()}
+            ></div>
+            <div className="overflow-y-scroll h-[16.8rem] flex flex-col space-between items-center justify-center gap-2">
+              <NavLink
+                className="text-left px-5 whitespace-nowrap text-lg text-b7a99c mr-2 font-semibold transition-all duration-500 ease-in-out hover:text-e7e8e8"
+                to={"/"}
+                onClick={() => document.getElementById("my_modal_5").close()}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                className="text-left px-5 whitespace-nowrap text-lg text-b7a99c mr-2 font-semibold transition-all duration-500 ease-in-out hover:text-e7e8e8"
+                to={"/browse"}
+                onClick={() => document.getElementById("my_modal_5").close()}
+              >
+                Browse
+              </NavLink>
+              <NavLink
+                className="text-left px-5 whitespace-nowrap text-lg text-b7a99c mr-2 font-semibold transition-all duration-500 ease-in-out hover:text-e7e8e8"
+                to={"/profile"}
+                onClick={() => document.getElementById("my_modal_5").close()}
+              >
+                Profile
+              </NavLink>
+              <NavLink
+                className="text-left px-5 whitespace-nowrap text-lg text-b7a99c mr-2 font-semibold transition-all duration-500 ease-in-out hover:text-e7e8e8"
+                to={"/about"}
+                onClick={() => document.getElementById("my_modal_5").close()}
+              >
+                About
+              </NavLink>
+            </div>
+          </div>
+        </dialog>
+      </div>
       <div
         className="elementor-element elementor-element-4d48bcc e-flex e-con-boxed e-con e-parent"
         data-id="4d48bcc"
@@ -213,7 +264,7 @@ export const FooterV2 = () => {
               data-element_type="container"
             >
               <div
-                className="elementor-element elementor-element-55dfa5c elementor-align-left elementor-widget elementor-widget-button"
+                className="elementor-element elementor-element-55dfa5c elementor-align-left elementor-widget elementor-widget-button m:justify-center grid m:grid"
                 data-id="55dfa5c"
                 data-element_type="widget"
                 data-widget_type="button.default"
@@ -221,7 +272,7 @@ export const FooterV2 = () => {
                 <div className="elementor-widget-container">
                   <div className="elementor-button-wrapper">
                     <a
-                      className="elementor-button elementor-button-link elementor-size-sm"
+                      className="elementor-button elementor-button-link elementor-size-sm m:pr-0"
                       href="https://naramunz.com/privacy-notice/"
                     >
                       <span className="elementor-button-content-wrapper">
@@ -234,7 +285,7 @@ export const FooterV2 = () => {
                 </div>
               </div>
               <div
-                className="elementor-element elementor-element-fb467db elementor-align-left elementor-widget elementor-widget-button"
+                className="elementor-element elementor-element-fb467db elementor-align-left elementor-widget elementor-widget-button m:justify-center grid m:grid"
                 data-id="fb467db"
                 data-element_type="widget"
                 data-widget_type="button.default"
@@ -242,7 +293,7 @@ export const FooterV2 = () => {
                 <div className="elementor-widget-container">
                   <div className="elementor-button-wrapper">
                     <a
-                      className="elementor-button elementor-button-link elementor-size-sm"
+                      className="elementor-button elementor-button-link elementor-size-sm m:pr-0"
                       href="https://naramunz.com/terms-of-use"
                     >
                       <span className="elementor-button-content-wrapper">
@@ -267,7 +318,7 @@ export const FooterV2 = () => {
               data-element_type="widget"
               data-widget_type="image.default"
             >
-              <div className="elementor-widget-container">
+              <div className="elementor-widget-container m:flex m:justify-center">
                 <img
                   width="150"
                   height="150"

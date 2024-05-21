@@ -39,15 +39,14 @@ const Content = styled.div`
   max-width: 2000px;
   max-width: 100%;
   @media screen and (max-width: 1000px) {
-    transform: scale(0.7);
   }
 `;
 
 const StylediFrame = styled.iframe`
   width: 635px;
   height: 357px;
-  @media screen and (max-width: 1000px) {
-    width: 500px;
+  @media screen and (max-width: 870px) {
+    width: 330px;
     height: 281px;
   }
 `;
@@ -67,7 +66,6 @@ export const AboutPage = () => {
 
   const ref2 = useRef();
   const ref3 = useRef();
-  const isInView = useInView(ref2);
   const isInView2 = useInView(ref3);
   const scale2 = useTransform(scrollYProgress, [0.6, 1], [1, 1.05]);
   const translateY2 = useTransform(scrollYProgress, [0.3, 1], [100, 0]);
@@ -75,8 +73,9 @@ export const AboutPage = () => {
     <Background>
       <Content>
         <SearchPage />
-        <div className="relative flex flex-col items-center py-24">
-          <div className="mr-64 w-2/5">
+        <hr />
+        <div className="relative flex flex-col items-center py-24 m:pb-[430px]">
+          <div className="mr-64 w-2/5 m:mr-0 m:w-4/5">
             <h1 className="text-4xl font-bold">A Story in Season</h1>
             <p className="">
               Centuries ago, a catastrophic event struck the world of Naramunz,
@@ -97,16 +96,16 @@ export const AboutPage = () => {
             className="absolute -bottom-6 right-0 h-[500px] w-[300px]"
           />
         </div>
-        <img src={upArrowLine} className="w-full -my-3 h-12" />
+        <img src={upArrowLine} className="w-full -my-3 h-12 m:w-96" />
         <div
           ref={ref2}
-          className="flex justify-center min-h-[527px] bg-lightBlue bg-[url('/src/img/images/dungeon.png')] bg-blend-soft-light bg-cover p-20 -mt-3"
+          className="flex justify-center min-h-[527px] bg-lightBlue bg-[url('/src/img/images/dungeon.png')] bg-blend-soft-light bg-cover p-20 -mt-3 m:flex-col m:p-10"
         >
           <motion.div
             initial={{ opacity: 0, x: -300 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.5, delay: 0.5 }}
-            className="flex flex-col justify-center mr-10 text-lg w-4/12"
+            className="flex flex-col justify-center mr-10 text-lg w-4/12 m:w-full m:mb-8"
           >
             <h1 className="text-4xl ml-4 mb-4 font-bold">Sealed Items</h1>
             <p>
@@ -131,13 +130,17 @@ export const AboutPage = () => {
               translateY: !isInView2 ? translateY2 : 0,
             }}
             src={exampleNft}
-            className="w-96  hover:cursor-pointer"
+            className="w-96 hover:cursor-pointer"
             onClick={() => {
               navigate("/token/111111111111111111113");
             }}
           />
         </div>
-        <img src={downArrowLine} className="w-full h-12 -mt-3" ref={ref3} />
+        <img
+          src={downArrowLine}
+          className="w-full h-12 -mt-3 m:w-96 m:h-8"
+          ref={ref3}
+        />
         <Game>
           <div className="px-10 pt-10 pb-20">
             <StylediFrame
@@ -149,8 +152,10 @@ export const AboutPage = () => {
               data-gtm-yt-inspected-16="true"
             ></StylediFrame>
           </div>
-          <div className="ml-8 text-lg w-2/5">
-            <h1 className="text-4xl ml-8 mb-4 font-bold">About the game</h1>
+          <div className="ml-8 text-lg w-2/5 m:w-4/5 m:ml-0">
+            <h1 className="text-4xl ml-8 mb-4 font-bold m:ml-0 m:-mt-6">
+              About the game
+            </h1>
             <p className="mx-4">
               Crystals of Naramunz is an upcoming free-to-play action RPG set in
               the post-apocalyptic steampunk world of Naramunz. The game is
@@ -162,6 +167,7 @@ export const AboutPage = () => {
             </p>
           </div>
         </Game>
+        <hr className="mobile" />
       </Content>
       <hr />
     </Background>

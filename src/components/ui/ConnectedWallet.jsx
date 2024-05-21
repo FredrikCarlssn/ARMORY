@@ -1,7 +1,7 @@
 import boxBackground from "../../img/ui/box-background.png";
 import { LogOut } from "lucide-react"; // ludid react
 
-export const ConnectedWallet = ({ wallet }) => {
+export const ConnectedWallet = ({ wallet, className }) => {
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ export const ConnectedWallet = ({ wallet }) => {
         height: "100px",
         width: "520px",
       }}
-      className="flex gap-4 items-center justify-around"
+      className={`flex gap-4 items-center justify-around ${className}`}
     >
       {wallet !== "undefined" ? (
         <div>Wallet: {wallet}</div>

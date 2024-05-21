@@ -18,6 +18,9 @@
   @media screen and (min-width: 1500px) {
     min-width: 1000px;
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .menu-logo-separator,

@@ -12,9 +12,9 @@ import { ConnectedWallet } from "../../components/ui/ConnectedWallet.jsx";
 
 import softLight from "../../img/images/soft-light-fog.png";
 import vault from "../../img/images/vault.png";
-import epicSignInWhite from "../../img/buttons/epic-sign-in-white.png";
+import epicLogoWhite from "../../img/buttons/epicLogoWhite.png";
+import bigTextBox from "../../img/ui/big-text-box.png";
 import conWebLogo from "../../img/images/con-web-logo.png";
-import link from "../../img/ui/link.png";
 
 const StyledProfilePage = styled.div`
   background-image: url(${vault});
@@ -27,7 +27,8 @@ const StyledProfilePage = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 100%;
+  position: relative;
+  width: 100vw;
   max-width: 2000px;
 `;
 
@@ -45,9 +46,17 @@ const Background = styled.div`
 
 const StyledTokenList = styled.ul`
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  row-gap: 10px;
+  gap: 10px;
+  padding-top: 50px;
+  padding-bottom: 90px;
+  justify-content: center;
+
+  @media screen and (max-width: 870px) {
+    padding-bottom: 150px;
+    margin-left: -10px;
+    justify-content: center;
+  }
 `;
 
 export const ProfilePage = () => {
@@ -66,7 +75,7 @@ export const ProfilePage = () => {
   };
 
   // SIDEBAR LOGIC
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
   const [filteredNFTs, setFilteredNFTs] = useState([]);
 
   // THIRDWEB
@@ -84,8 +93,8 @@ export const ProfilePage = () => {
               isSidebarOpen={isSidebarOpen}
               nfts={nfts}
               setFilteredNFTs={setFilteredNFTs}
+              setIsSidebarOpen={setIsSidebarOpen}
             />
-
             <div
               style={{
                 marginLeft: isSidebarOpen ? "330px" : "30px",
@@ -101,7 +110,7 @@ export const ProfilePage = () => {
               />
               <div className="pt-14">
                 <div className="flex justify-center">
-                  <ConnectedWallet wallet={address} />
+                  <ConnectedWallet wallet={address} className="m:scale-50" />
                 </div>
                 <StyledTokenList>
                   {isLoading && address != "undefined" ? (
@@ -144,27 +153,20 @@ export const ProfilePage = () => {
       <ContentWrapper>
         <hr />
         <Background>
-          <div className="h-[80vh] flex flex-col items-center justify-center">
-            {/* <div className="text-4xl font-bold -mb-12 z-10 text-epicGrey to-white">
-              Sign In With EPIC Account
-            </div> */}
-            <div className="relative flex bg-[url('/src/img/images/hero-image.jpg')] bg-cover rounded-xl">
-              <div className="w-72 h-96 flex items-center justify-center relative">
-                <img
-                  src={conWebLogo}
-                  className="absolute -right-10 mt-6 top-1/4 w-96 object-contain z-10"
-                />
+          <div className="h-[80vh] flex flex-col items-center justify-center m:scale-75">
+            <div
+              className="flex flex-col items-center px-20 py-32 bg-contain bg-no-repeat bg-center"
+              style={{ backgroundImage: `url(${bigTextBox})` }}
+            >
+              <div className="w-72 flex items-center justify-center relative -mt-4">
+                <img src={conWebLogo} className=" w-60 object-contain z-10" />
               </div>
-              <div className="inset-0 bg-gradient-to-r from-transparent to-white h-96 w-36 relative">
-                <img src={link} className="absolute top-44 -right-4" alt="" />
-              </div>
-              <div className="w-96 h-96 bg-white flex items-center justify-center rounded-r-xl">
-                <div
-                  className="bg-epicGrey h-48 w-48 flex items-center justify-center rounded-md hover:scale-105 cursor-pointer transition duration-500 ease-in-out active:scale-75"
-                  onClick={loginWithEpic}
-                >
-                  <img src={epicSignInWhite} className="h-36" />
-                </div>
+              <h1 className="text-xl mb-6">Sign in with Epic Games</h1>
+              <div
+                className="h-32 w-80 flex items-center justify-center crg-button scale-125"
+                onClick={loginWithEpic}
+              >
+                <img src={epicLogoWhite} className="h-8" />
               </div>
             </div>
           </div>

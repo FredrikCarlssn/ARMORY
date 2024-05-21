@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useNFTs, useContract, useTotalCount } from "@thirdweb-dev/react";
+import { useContract, useTotalCount } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../CONST.js";
+import { fetchTokenIds, fetchNFTs } from "../services/fetchTokenIds.js";
 
 import { DisplayToken } from "../components/ui/DisplayToken.jsx";
 import { Spinner } from "../components/ui/Spinner.jsx";
 import { SortingSidebar } from "../components/MenuComponents/SortingSidebar.jsx";
-import { Expandable } from "../components/buttons/Expandable.jsx";
 
 import city from "../img/images/city-back-drop.jpg";
 import softLight from "../img/images/soft-light-fog.png";
@@ -32,8 +32,16 @@ const ContentWrapper = styled.div`
 const StyledTokenList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  row-gap: 10px;
+  gap: 10px;
   padding-top: 50px;
+  padding-bottom: 90px;
+  justify-content: center;
+
+  @media screen and (max-width: 870px) {
+    padding-bottom: 150px;
+    margin-left: -10px;
+    justify-content: center;
+  }
 `;
 
 const Background = styled.div`
@@ -51,7 +59,6 @@ const Background = styled.div`
 
 const Content = styled.div`
   @media screen and (max-width: 870px) {
-    transform: scale(0.7);
   }
 `;
 export const BrowsePage = () => {
@@ -59,38 +66,38 @@ export const BrowsePage = () => {
   const [filteredNFTs, setFilteredNFTs] = useState([]);
 
   // Sidebar state
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
 
-  // THIRDWEB
-  const nftsPerPage = 50;
+  // Pagination state
+  const nftsPerPage = 20;
   const [count, setCount] = useState(0);
   const { contract: contractItems } = useContract(ITEMS_CONTRACT);
-
-  const { data: totalCount, isLoading: isLoading2 } =
-    useTotalCount(contractItems);
+  const { data: totalCount } = useTotalCount(contractItems);
   const hasPreviousPage = count > 0;
   const hasNextPage = (count + 1) * nftsPerPage < totalCount;
   const totalPages = Math.ceil(totalCount / nftsPerPage);
-
   const [allNFTs, setAllNFTs] = useState([]);
   const [i, setI] = useState(0);
   const [displayedNfts, setDisplayedNfts] = useState([]);
 
-  const { data: nfts, isLoading } = useNFTs(contractItems, {
-    count: 100,
-    start: i * 100,
-  });
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        fetchTokenIds()
+          .then((tokenIds) => {
+            return fetchNFTs(tokenIds);
+          })
+          .then((nfts) => {
+            setAllNFTs(nfts);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
-  if (nfts) {
-    console.log(nfts);
-  }
+    fetchData();
+  }, []);
 
-  // useEffect(() => {
-  //   if (nfts && (i < totalCount / 100 || i === 0)) {
-  //     setAllNFTs(() => allNFTs.concat(nfts));
-  //     setI((prevI) => prevI + 1);
-  //   }
-  // }, [nfts]);
   useEffect(() => {
     setDisplayedNfts(
       filteredNFTs.slice(count * nftsPerPage, (count + 1) * nftsPerPage)
@@ -106,6 +113,7 @@ export const BrowsePage = () => {
             isSidebarOpen={isSidebarOpen}
             nfts={allNFTs}
             setFilteredNFTs={setFilteredNFTs}
+            setIsSidebarOpen={setIsSidebarOpen}
           />
           <Content
             style={{
@@ -115,18 +123,13 @@ export const BrowsePage = () => {
               animation: "fadeIn 0.5s",
             }}
           >
-            <Expandable
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
-              className=""
-            />
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, translateX: 0 }}
               transition={{ duration: 1 }}
               exit={{ opacity: 0 }}
             >
-              {isLoading ? (
+              {allNFTs.length == 0 ? (
                 <div className="pt-12 absolute left-[calc(50%-80px)]">
                   <Spinner />
                 </div>
@@ -144,13 +147,14 @@ export const BrowsePage = () => {
                         linkTo={`token/${token.metadata.id}`}
                         img={token.metadata.image}
                         tokenID={token.metadata.id}
+                        className=""
                       />
                     );
                   })}
                 </StyledTokenList>
               )}
-              {!isLoading2 ? (
-                <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-50px)]">
+              {filteredNFTs.length > 20 ? (
+                <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-90px)]">
                   <ArrowButton
                     direction={"left"}
                     onClick={() => setCount(count - 1)}

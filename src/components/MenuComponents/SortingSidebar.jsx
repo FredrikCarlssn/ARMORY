@@ -6,6 +6,7 @@ import { MenuSlider } from "./MenuSlider.jsx";
 import { ItemCategoryClassFilter } from "./ItemCategoryClassFilter.jsx";
 import { SortByMods } from "./SortByMods.jsx";
 import { color } from "framer-motion";
+import { Expandable } from "../buttons/Expandable.jsx";
 
 {
   /* 
@@ -17,7 +18,12 @@ import { color } from "framer-motion";
   */
 }
 
-export const SortingSidebar = ({ isSidebarOpen, nfts, setFilteredNFTs }) => {
+export const SortingSidebar = ({
+  isSidebarOpen,
+  nfts,
+  setFilteredNFTs,
+  setIsSidebarOpen,
+}) => {
   // Filter values
   const [activeCategoryClassFilters, setActiveCategoryClassFilters] = useState(
     []
@@ -57,7 +63,9 @@ export const SortingSidebar = ({ isSidebarOpen, nfts, setFilteredNFTs }) => {
       if (!nfts || activeCategoryClassFilters.length <= 0) return [];
       return nfts.filter((nft) => {
         const metadata = nft.metadata;
-        console.log("metadata.properties", metadata);
+        if (!metadata.properties) {
+          return false;
+        }
         let activeCategoryFilters = [];
         let activeSubCategoryFilters = [];
         let activeClassFilters = [];
@@ -328,86 +336,93 @@ export const SortingSidebar = ({ isSidebarOpen, nfts, setFilteredNFTs }) => {
   };
 
   return (
-    <Sidebar
-      backgroundColor="#151419"
-      className={`!absolute h-full top-0 left-0 z-50 transition-all duration-600 ${
-        isSidebarOpen ? "block translate-x-0" : "hidden -translate-x-full"
-      }`}
-      width="300px"
-      rootStyles={{
-        border: "none",
-        boxShadow: "0px 0px 10px 0px #000000",
-      }}
-    >
-      <Menu menuItemStyles={menuItemStyles}>
-        {/*  
+    <div className="!absolute h-full top-0 left-0">
+      <Expandable
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+        className="!absolute top-0 left-0 z-40 h-10 w-64"
+        style={{ transform: isSidebarOpen ? "" : "translateX(350px)" }}
+      />
+      <Sidebar
+        backgroundColor="#151419"
+        className={`!absolute h-full top-0 left-0 z-50 transition-all duration-600 ${
+          isSidebarOpen ? "block translate-x-0" : "hidden -translate-x-full"
+        }`}
+        width="300px"
+        rootStyles={{
+          border: "none",
+          boxShadow: "0px 0px 10px 0px #000000",
+        }}
+      >
+        <Menu menuItemStyles={menuItemStyles}>
+          {/*  
               Season
               Class Requirement
             */}
-        <ItemCategoryClassFilter
-          setActiveCategoryClassFilters={setActiveCategoryClassFilters}
-          defaultOpen={true}
-        />
-        <MenuSlider
-          name={"Level"}
-          value={levelFilterValue}
-          setValue={setLevelFilterValue}
-          min={0}
-          max={100}
-          defaultOpen={true}
-        />
-        <SortByMods
-          modsFilterArray={modsFilterArray}
-          setModList={setModsFilterArray}
-          defaultOpen={true}
-        />
-        <MenuSlider
-          name="Damage"
-          value={damageFilterValue}
-          setValue={setDamageFilterValue}
-        />
-        <MenuSlider
-          name="Quality"
-          value={qualityFilterValue}
-          setValue={setQualityFilterValue}
-          min={1}
-          max={5}
-        />
-        <MenuSlider
-          name="Range"
-          value={rangeFilterValue}
-          setValue={setRangeFilterValue}
-          min={0}
-          max={10}
-        />
-        <MenuCheckbox
-          name="Damage Type"
-          items={["Fire", "Cold", "Lightning", "Physical", "Aetherial"]}
-          checked={checkedDamageType}
-          setChecked={setCheckedDamageType}
-          isSidebarOpen={isSidebarOpen}
-        />
-        <MenuCheckbox
-          name="Rarity"
-          items={["Legendary", "Rare"]}
-          checked={checkedRarity}
-          setChecked={setCheckedRarity}
-          isSidebarOpen={isSidebarOpen}
-        />
-        <MenuSlider
-          name={"Attack Speed"}
-          value={attackSpeedFilterValue}
-          setValue={setAttackSpeedFilterValue}
-          min={0}
-          max={10}
-        />
+          <ItemCategoryClassFilter
+            setActiveCategoryClassFilters={setActiveCategoryClassFilters}
+            defaultOpen={true}
+          />
+          <MenuSlider
+            name={"Level"}
+            value={levelFilterValue}
+            setValue={setLevelFilterValue}
+            min={0}
+            max={100}
+            defaultOpen={true}
+          />
+          <SortByMods
+            modsFilterArray={modsFilterArray}
+            setModList={setModsFilterArray}
+            defaultOpen={true}
+          />
+          <MenuSlider
+            name="Damage"
+            value={damageFilterValue}
+            setValue={setDamageFilterValue}
+          />
+          <MenuSlider
+            name="Quality"
+            value={qualityFilterValue}
+            setValue={setQualityFilterValue}
+            min={1}
+            max={5}
+          />
+          <MenuSlider
+            name="Range"
+            value={rangeFilterValue}
+            setValue={setRangeFilterValue}
+            min={0}
+            max={10}
+          />
+          <MenuCheckbox
+            name="Damage Type"
+            items={["Fire", "Cold", "Lightning", "Physical", "Aetherial"]}
+            checked={checkedDamageType}
+            setChecked={setCheckedDamageType}
+            isSidebarOpen={isSidebarOpen}
+          />
+          <MenuCheckbox
+            name="Rarity"
+            items={["Legendary", "Rare"]}
+            checked={checkedRarity}
+            setChecked={setCheckedRarity}
+            isSidebarOpen={isSidebarOpen}
+          />
+          <MenuSlider
+            name={"Attack Speed"}
+            value={attackSpeedFilterValue}
+            setValue={setAttackSpeedFilterValue}
+            min={0}
+            max={10}
+          />
 
-        <MenuSlider
-          name="Level Requirement"
-          value={levelRequirementFilterValue}
-          setValue={setLevelRequirementFilterValue}
-        />
-        {/* 
+          <MenuSlider
+            name="Level Requirement"
+            value={levelRequirementFilterValue}
+            setValue={setLevelRequirementFilterValue}
+          />
+          {/* 
              /////////////////// Only one season for now ///////////////////
             <MenuCheckbox
               name="Item Season"
@@ -416,7 +431,8 @@ export const SortingSidebar = ({ isSidebarOpen, nfts, setFilteredNFTs }) => {
               setChecked={setCheckedItemSeason}/> 
               /////////////////// Only one season for now ///////////////////
               */}
-      </Menu>
-    </Sidebar>
+        </Menu>
+      </Sidebar>
+    </div>
   );
 };

@@ -107,7 +107,7 @@ export const ItemCard = ({ token }) => {
     "Category", //4
     "Class Requirement", //5
     "Damage Max", //6
-    "Damage Min", //7
+    "Damage Min", // 7
     "Damage Type", //8
     "Defense", //9
     "Family", //10
@@ -119,14 +119,16 @@ export const ItemCard = ({ token }) => {
     "Level Requirement", //16
     "Max Charges", //17
     "Max Durability", //18
-    "Mods", //19
-    "Originally Minted", //20
-    "Quality", //21
-    "Range", //22
+    "Originally Minted", //19
+    "Quality", //20
+    "Range", //21
+    "Rare Mods", //22
     "Rarity", //23
     "Season", //24
-    "Sub Category", //25
-    "Theme", //26
+    "Socket Mods", //25
+    "Sub Category", //26
+    "Theme", //27
+    "Uncommon Mods", //28
   ];
 
   const semanticToken = Object.entries(token.metadata.properties)
@@ -143,17 +145,34 @@ export const ItemCard = ({ token }) => {
       trait_type: "Damage Range",
       value: `${semanticToken[7].value} - ${semanticToken[6].value}`,
     },
-  ].concat(newArray(semanticToken, 21, 22, 8, 1, 23, 18));
+  ].concat(newArray(semanticToken, 21, 20, 9, 8, 1, 18));
 
-  const traits = newArray(semanticToken, 3, 4, 10, 12, 14, 15, 24, 25, 26);
-
-  const mods = semanticToken[19].value.split(",");
-
-  const implicitMods = semanticToken[11].value.split(",");
+  const traits = newArray(
+    semanticToken,
+    3,
+    4,
+    10,
+    12,
+    13,
+    14,
+    15,
+    17,
+    23,
+    25,
+    26,
+    27
+  );
 
   const aetherialMods = semanticToken[0].value.split(",");
 
-  const allMods = implicitMods.concat(aetherialMods).concat(mods);
+  const implicitMods = semanticToken[11].value.split(",");
+
+  const rareMods = semanticToken[22].value.split(",");
+
+  const socketMods = semanticToken[25].value.split(",");
+
+  const uncommonMods = semanticToken[28].value.split(",");
+
   const requirements = semanticToken
     .filter(
       (trait) =>
@@ -190,11 +209,23 @@ export const ItemCard = ({ token }) => {
             <h3 className="mt-2">
               <b>Requirements: </b>
               {requirements.map((trait, i) => {
+                if (
+                  !trait.value ||
+                  trait.value == 0 ||
+                  trait.value == "Class: , "
+                )
+                  return;
+                console.log(trait);
                 return <span key={i}>{trait.value}</span>;
               })}
             </h3>
             <div className="mt-6">
               Mods:
+              {aetherialMods
+                ? aetherialMods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })
+                : null}
               {implicitMods ? (
                 <>
                   {implicitMods.map((mod, i) => {
@@ -203,19 +234,30 @@ export const ItemCard = ({ token }) => {
                   <img src={horisontalLine} alt="" />
                 </>
               ) : null}
-              {mods ? (
+              {rareMods ? (
                 <>
-                  {mods.map((mod, i) => {
+                  {rareMods.map((mod, i) => {
                     return <p>{mod}</p>;
                   })}
                   <img src={horisontalLine} alt="" />
                 </>
               ) : null}
-              {aetherialMods
-                ? aetherialMods.map((mod, i) => {
+              {socketMods ? (
+                <>
+                  {socketMods.map((mod, i) => {
                     return <p>{mod}</p>;
-                  })
-                : null}
+                  })}
+                  <img src={horisontalLine} alt="" />
+                </>
+              ) : null}
+              {uncommonMods ? (
+                <>
+                  {uncommonMods.map((mod, i) => {
+                    return <p>{mod}</p>;
+                  })}
+                  <img src={horisontalLine} alt="" />
+                </>
+              ) : null}
             </div>
           </div>
         </div>
@@ -239,7 +281,6 @@ export const ItemCard = ({ token }) => {
           );
         })}
       </div>
-      {/* <img src={horisontalLine} className="w-full h-1 my-2" /> */}
       <StyledMetadata>
         {traits.map((trait, i) => {
           return (
