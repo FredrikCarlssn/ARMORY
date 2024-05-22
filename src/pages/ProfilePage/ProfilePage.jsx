@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { useOwnedNFTs, useContract } from "@thirdweb-dev/react";
+import { useOwnedNFTs, useContract, useTotalCount } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../../CONST.js";
 import { useState } from "react";
 import { useParams } from "react-router";
@@ -9,6 +9,7 @@ import { Spinner } from "../../components/ui/Spinner.jsx";
 import { SortingSidebar } from "../../components/MenuComponents/SortingSidebar.jsx";
 import { Expandable } from "../../components/buttons/Expandable.jsx";
 import { ConnectedWallet } from "../../components/ui/ConnectedWallet.jsx";
+import { ArrowButton } from "../../components/buttons/ArrowButton.jsx";
 
 import softLight from "../../img/images/soft-light-fog.png";
 import vault from "../../img/images/vault.png";
@@ -69,8 +70,6 @@ export const ProfilePage = () => {
 
   const loginWithEpic = async () => {
     const url = `https://www.epicgames.com/id/authorize?client_id=${process.env.REACT_APP_EPIC_CLIENT_ID}&response_type=code&scope=basic_profile&redirect_uri=${process.env.REACT_APP_EPIC_REDIRECT}`;
-    console.log(url);
-    console.log(process.env.REACT_APP_ENVIRONMENT);
     window.open(url, "_self");
   };
 
@@ -81,9 +80,19 @@ export const ProfilePage = () => {
   // THIRDWEB
   const { contract: contractItems } = useContract(ITEMS_CONTRACT);
 
-  const { nfts, isLoading } = useOwnedNFTs(contractItems, address);
+  const { data: nfts, isLoading } = useOwnedNFTs(contractItems, address);
 
-  if (address) {
+  const nftsPerPage = 20;
+  const [count, setCount] = useState(0);
+  const { data: totalCount } = useTotalCount(contractItems);
+  const hasPreviousPage = count > 0;
+  const hasNextPage = (count + 1) * nftsPerPage < totalCount;
+  const totalPages = Math.ceil(totalCount / nftsPerPage);
+  const [allNFTs, setAllNFTs] = useState([]);
+  const [i, setI] = useState(0);
+  const [displayedNfts, setDisplayedNfts] = useState([]);
+
+  if (address || address == "") {
     return (
       <StyledProfilePage>
         <ContentWrapper>
@@ -113,13 +122,15 @@ export const ProfilePage = () => {
                   <ConnectedWallet wallet={address} className="m:scale-50" />
                 </div>
                 <StyledTokenList>
-                  {isLoading && address != "undefined" ? (
+                  {isLoading && address != "undefined" && address != "" ? (
                     <Spinner className="mt-12" />
-                  ) : !nfts && address != "undefined" ? (
+                  ) : !nfts && address != "undefined" && address != "" ? (
                     <div className="flex justify-center font-bold mt-10">
                       There are no NFTs associated with your account.
                     </div>
-                  ) : filteredNFTs.length == 0 && address != "undefined" ? (
+                  ) : filteredNFTs.length == 0 &&
+                    address != "undefined" &&
+                    address != "" ? (
                     <div className="flex justify-center font-bold mt-10">
                       No NFTs were found matching your current filters.
                     </div>
@@ -139,6 +150,21 @@ export const ProfilePage = () => {
                     </>
                   )}
                 </StyledTokenList>
+                {filteredNFTs.length > 20 ? (
+                  <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-90px)]">
+                    <ArrowButton
+                      direction={"left"}
+                      onClick={() => setCount(count - 1)}
+                      disabled={!hasPreviousPage}
+                    />
+                    Page {count + 1} of {totalPages}
+                    <ArrowButton
+                      direction={"right"}
+                      onClick={() => setCount(count + 1)}
+                      disabled={!hasNextPage}
+                    />
+                  </div>
+                ) : null}
               </div>
             </div>
           </Background>

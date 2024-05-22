@@ -93,7 +93,6 @@ const Vitals = styled.div`
 `;
 
 export const ItemCard = ({ token }) => {
-  console.log(token);
   const newArray = (oldArray, ...indices) => {
     return indices.map((index) => oldArray[index]);
   };

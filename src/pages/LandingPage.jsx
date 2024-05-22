@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   position: relative;
   margin-top: 20px;
   &:hover {
-    transform: scale(1.02) !important;
+    transform: scale(0.82) !important;
   }
 `;
 

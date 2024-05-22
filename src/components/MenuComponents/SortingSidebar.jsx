@@ -5,7 +5,7 @@ import { MenuCheckbox } from "./MenuCheckbox.jsx";
 import { MenuSlider } from "./MenuSlider.jsx";
 import { ItemCategoryClassFilter } from "./ItemCategoryClassFilter.jsx";
 import { SortByMods } from "./SortByMods.jsx";
-import { color } from "framer-motion";
+import { color, m } from "framer-motion";
 import { Expandable } from "../buttons/Expandable.jsx";
 
 {
@@ -137,6 +137,7 @@ export const SortingSidebar = ({
                   )
                     bool = false;
                 }
+                break;
               case "Axe":
                 if (
                   activeSubClassFilters.includes("axe1h") ||
@@ -150,6 +151,7 @@ export const SortingSidebar = ({
                   )
                     bool = false;
                 }
+                break;
               case "Mace":
                 if (
                   activeSubClassFilters.includes("mace1h") ||
@@ -271,11 +273,12 @@ export const SortingSidebar = ({
           // If the NFT does not have all the mods in the modList, exclude it. Check the min and max values of the mods
           if (
             !modsFilterArray.every((filterMod) => {
+              console.log(filterMod);
               return formattedItemMods.some(
                 (itemMod) =>
                   filterMod.mod == itemMod.mod &&
-                  itemMod.value >= filterMod.min &&
-                  itemMod.value <= filterMod.max
+                  (filterMod.min == "" || itemMod.value >= filterMod.min) &&
+                  (filterMod.max == "" || itemMod.value <= filterMod.max)
               );
             })
           ) {

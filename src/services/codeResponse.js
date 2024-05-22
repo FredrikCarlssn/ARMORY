@@ -36,6 +36,8 @@ export const codeResponse = () => {
       } else if (response.status == 204) {
         window.location.href = "/#/profile";
         localStorage.setItem("walletAddress", "undefined");
+      } else if (response.status == 401) {
+        window.location.href = "/#/401";
       }
     });
   } catch (error) {

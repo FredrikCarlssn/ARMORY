@@ -24,11 +24,12 @@ export const MenuCheckbox = ({ items, checked, setChecked, name }) => {
 
   return (
     <SubMenu label={name}>
-      {items.map((item) => (
+      {items.map((item, i) => (
         <Checkbox
           checked={checked[item]}
           onChange={() => onChange(item)}
           name={item}
+          key={i}
         />
       ))}
     </SubMenu>

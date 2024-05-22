@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SubMenu } from "react-pro-sidebar";
 import mods from "./mods.json";
 import { Plus } from "lucide-react";
-import { m } from "framer-motion";
 import { ModButton } from "../buttons/ModButton";
 import { InputNode } from "../ui/InputNode";
 
@@ -47,13 +46,12 @@ export const SortByMods = ({ modsFilterArray, setModList, defaultOpen }) => {
 
   const handleAddMod = (event) => {
     event.preventDefault();
-    console.log(inputValue1 <= inputValue2);
     if (
       selectedValue &&
-      inputValue1 &&
-      inputValue2 &&
       !isModAlreadyAdded(selectedValue) &&
-      inputValue1 <= inputValue2
+      ((inputValue1 == 0 && inputValue2 == 0) ||
+        inputValue1 <= inputValue2 ||
+        inputValue2 == 0)
     ) {
       const newMod = {
         mod: selectedValue,
@@ -65,6 +63,7 @@ export const SortByMods = ({ modsFilterArray, setModList, defaultOpen }) => {
       setInputValue1("");
       setInputValue2("");
     } else {
+      console.log(inputValue1);
       setError(true);
       setError2(true);
       setTimeout(() => {
@@ -83,7 +82,7 @@ export const SortByMods = ({ modsFilterArray, setModList, defaultOpen }) => {
     <SubMenu label="Mods" defaultOpen={defaultOpen}>
       {modsFilterArray.length > 0 ? (
         <div
-          className="grid grid-cols-4 p-1 h-[41px] text-sm mb-1 justify-center items-center"
+          className="grid grid-cols-5 p-1 h-[41px] text-sm mb-1 justify-center items-center"
           style={{
             background: `url(${boxBakgroundSelectedSmall})`,
             filter: "saturate(0.4)",
@@ -92,9 +91,9 @@ export const SortByMods = ({ modsFilterArray, setModList, defaultOpen }) => {
             borderCollapse: "collapse",
           }}
         >
-          <div className="col-span-2 pl-1">Name:</div>
-          <div className="pl-1">Min</div>
-          <div className="pl-1">Max</div>
+          <div className="col-span-3 pl-1">Name:</div>
+          <div className="">Min</div>
+          <div className="">Max</div>
         </div>
       ) : null}
       {modsFilterArray.map((mod) => (

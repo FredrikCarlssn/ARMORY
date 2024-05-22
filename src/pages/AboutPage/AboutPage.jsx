@@ -96,7 +96,7 @@ export const AboutPage = () => {
             className="absolute -bottom-6 right-0 h-[500px] w-[300px]"
           />
         </div>
-        <img src={upArrowLine} className="w-full -my-3 h-12 m:w-96" />
+        <img src={upArrowLine} className="w-full -my-3 h-12" />
         <div
           ref={ref2}
           className="flex justify-center min-h-[527px] bg-lightBlue bg-[url('/src/img/images/dungeon.png')] bg-blend-soft-light bg-cover p-20 -mt-3 m:flex-col m:p-10"
@@ -138,7 +138,7 @@ export const AboutPage = () => {
         </div>
         <img
           src={downArrowLine}
-          className="w-full h-12 -mt-3 m:w-96 m:h-8"
+          className="w-full h-12 -mt-3 m:h-8"
           ref={ref3}
         />
         <Game>
