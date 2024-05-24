@@ -1,15 +1,15 @@
 import { styled } from "styled-components";
 import { useOwnedNFTs, useContract, useTotalCount } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../../CONST.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 import { DisplayToken } from "../../components/ui/DisplayToken.jsx";
 import { Spinner } from "../../components/ui/Spinner.jsx";
 import { SortingSidebar } from "../../components/MenuComponents/SortingSidebar.jsx";
-import { Expandable } from "../../components/buttons/Expandable.jsx";
 import { ConnectedWallet } from "../../components/ui/ConnectedWallet.jsx";
 import { ArrowButton } from "../../components/buttons/ArrowButton.jsx";
+import { thirdWebIPFSLink } from "../../services/IPFSLink";
 
 import softLight from "../../img/images/soft-light-fog.png";
 import vault from "../../img/images/vault.png";
@@ -49,14 +49,13 @@ const StyledTokenList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding-top: 50px;
-  padding-bottom: 90px;
   justify-content: center;
+  padding: 50px 30px 90px 30px;
 
   @media screen and (max-width: 870px) {
-    padding-bottom: 150px;
-    margin-left: -10px;
+    padding-bottom: 100px;
     justify-content: center;
+    padding: 0px 30px 90px 30px;
   }
 `;
 
@@ -87,10 +86,20 @@ export const ProfilePage = () => {
   const { data: totalCount } = useTotalCount(contractItems);
   const hasPreviousPage = count > 0;
   const hasNextPage = (count + 1) * nftsPerPage < totalCount;
-  const totalPages = Math.ceil(totalCount / nftsPerPage);
+  const totalPages = Math.ceil(filteredNFTs.length / nftsPerPage);
   const [allNFTs, setAllNFTs] = useState([]);
   const [i, setI] = useState(0);
   const [displayedNfts, setDisplayedNfts] = useState([]);
+
+  useEffect(() => {
+    setDisplayedNfts(
+      filteredNFTs.slice(count * nftsPerPage, (count + 1) * nftsPerPage)
+    );
+  }, [count, filteredNFTs]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 100, behavior: "smooth" });
+  }, []);
 
   if (address || address == "") {
     return (
@@ -98,30 +107,29 @@ export const ProfilePage = () => {
         <ContentWrapper>
           <hr />
           <Background>
-            <SortingSidebar
-              isSidebarOpen={isSidebarOpen}
-              nfts={nfts}
-              setFilteredNFTs={setFilteredNFTs}
-              setIsSidebarOpen={setIsSidebarOpen}
-            />
-            <div
-              style={{
-                marginLeft: isSidebarOpen ? "330px" : "30px",
-                marginRight: "20px",
-                transition: "all 0.5s",
-                animation: "fadeIn 0.5s",
-              }}
-            >
-              <Expandable
+            <div className="flex">
+              <SortingSidebar
                 isSidebarOpen={isSidebarOpen}
+                nfts={nfts}
+                setFilteredNFTs={setFilteredNFTs}
                 setIsSidebarOpen={setIsSidebarOpen}
-                className={""}
               />
-              <div className="pt-14">
-                <div className="flex justify-center">
+              <div
+                className="relative flex items-center flex-col justify-start"
+                style={{
+                  transition: "all 0.5s",
+                  animation: "fadeIn 0.5s",
+                  width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
+                }}
+              >
+                <div className="flex justify-center mt-8">
                   <ConnectedWallet wallet={address} className="m:scale-50" />
                 </div>
-                <StyledTokenList>
+                <StyledTokenList
+                  style={{
+                    width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
+                  }}
+                >
                   {isLoading && address != "undefined" && address != "" ? (
                     <Spinner className="mt-12" />
                   ) : !nfts && address != "undefined" && address != "" ? (
@@ -136,7 +144,7 @@ export const ProfilePage = () => {
                     </div>
                   ) : (
                     <>
-                      {filteredNFTs.map((token, i) => {
+                      {displayedNfts.map((token, i) => {
                         return (
                           <DisplayToken
                             name={token.metadata.name}
@@ -154,13 +162,19 @@ export const ProfilePage = () => {
                   <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-90px)]">
                     <ArrowButton
                       direction={"left"}
-                      onClick={() => setCount(count - 1)}
+                      onClick={() => {
+                        setCount(count - 1);
+                        window.scrollTo({ top: 100, behavior: "smooth" });
+                      }}
                       disabled={!hasPreviousPage}
                     />
                     Page {count + 1} of {totalPages}
                     <ArrowButton
                       direction={"right"}
-                      onClick={() => setCount(count + 1)}
+                      onClick={() => {
+                        setCount(count + 1);
+                        window.scrollTo({ top: 100, behavior: "smooth" });
+                      }}
                       disabled={!hasNextPage}
                     />
                   </div>

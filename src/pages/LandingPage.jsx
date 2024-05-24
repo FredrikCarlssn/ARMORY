@@ -28,6 +28,7 @@ const StyledDiv = styled.div`
   padding-bottom: 100px;
   padding: 10px 30px;
   border-radius: 10px;
+  filter: drop-shadow(0 0 20px #001f22);
   @media screen and (max-width: 600px) {
     transform: scale(0.5);
   }
@@ -122,7 +123,7 @@ export const LandingPage = () => {
                     placeholder="Search by wallet address or token id"
                   />
                   {error ? (
-                    <p className="text-red-500 text-sm absolute top-96 animate-pulse">
+                    <p className="text-red-500 text-sm absolute top-96 pt-1 animate-pulse">
                       {error}
                     </p>
                   ) : null}

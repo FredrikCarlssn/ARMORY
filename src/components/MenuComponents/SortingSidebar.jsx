@@ -339,16 +339,15 @@ export const SortingSidebar = ({
   };
 
   return (
-    <div className="!absolute h-full top-0 left-0">
+    <div className="top-0 left-0">
       <Expandable
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-        className="!absolute top-0 left-0 z-40 h-10 w-64"
-        style={{ transform: isSidebarOpen ? "" : "translateX(350px)" }}
+        className="!absolute top-0 left-0 z-40 h-10 w-64 transition-all duration-500 ease-out"
       />
       <Sidebar
         backgroundColor="#151419"
-        className={`!absolute h-full top-0 left-0 z-50 transition-all duration-600 ${
+        className={`h-full top-0 left-0 z-50 animate-smooth-right ${
           isSidebarOpen ? "block translate-x-0" : "hidden -translate-x-full"
         }`}
         width="300px"

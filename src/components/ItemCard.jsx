@@ -30,6 +30,7 @@ const StyledCard = styled.div`
   padding: 80px 50px;
   transform: scale(0.8);
   font-size: 1.15rem;
+  filter: drop-shadow(0 0 20px #a3a3a336);
 `;
 
 const StyledImageDiv = styled.div`
@@ -93,6 +94,7 @@ const Vitals = styled.div`
 `;
 
 export const ItemCard = ({ token }) => {
+  console.log(token);
   const newArray = (oldArray, ...indices) => {
     return indices.map((index) => oldArray[index]);
   };
@@ -139,28 +141,40 @@ export const ItemCard = ({ token }) => {
       return newTrait;
     });
 
-  let vitals = [
-    {
-      trait_type: "Damage Range",
-      value: `${semanticToken[7].value} - ${semanticToken[6].value}`,
-    },
-  ].concat(newArray(semanticToken, 21, 20, 9, 8, 1, 18));
-
-  const traits = newArray(
-    semanticToken,
-    3,
-    4,
-    10,
-    12,
-    13,
-    14,
-    15,
-    17,
-    23,
-    25,
-    26,
-    27
+  let damageRange;
+  if (semanticToken[7].value == "0" || semanticToken[6].value == "0") {
+    damageRange = [
+      {
+        trait_type: "Damage Range",
+        value: `Undefined`,
+      },
+    ];
+  } else {
+    damageRange = [
+      {
+        trait_type: "Damage Range",
+        value: `${semanticToken[7].value} - ${semanticToken[6].value}`,
+      },
+    ];
+  }
+  const vitals = damageRange.concat(
+    newArray(semanticToken, 21, 20, 9, 8, 1, 18)
   );
+  const traits = newArray(semanticToken, 3, 4, 10, 12, 13, 14, 15, 23, 26);
+  const allTraits = vitals.concat(traits);
+  const filteredTraits = allTraits.filter(
+    (trait) =>
+      trait.value != "Undefined" &&
+      trait.value != 0 &&
+      trait.value != "" &&
+      trait.value != null &&
+      trait.value != undefined &&
+      trait.value != "0"
+  );
+  const displayedTraitsUpper = filteredTraits.slice(0, 7);
+  const displayedTraitsLower = filteredTraits.slice(7, filteredTraits.length);
+  console.log(displayedTraitsUpper);
+  console.log(displayedTraitsLower);
 
   const aetherialMods = semanticToken[0].value.split(",");
 
@@ -214,34 +228,33 @@ export const ItemCard = ({ token }) => {
                   trait.value == "Class: , "
                 )
                   return;
-                console.log(trait);
                 return <span key={i}>{trait.value}</span>;
               })}
             </h3>
             <div className="mt-6">
               Mods:
-              {aetherialMods
+              {aetherialMods != ""
                 ? aetherialMods.map((mod, i) => {
-                    return <p>{mod}</p>;
+                    return <p key={i}>{mod}</p>;
                   })
                 : null}
-              {implicitMods ? (
+              {implicitMods != "" ? (
                 <>
                   {implicitMods.map((mod, i) => {
-                    return <p>{mod}</p>;
+                    return <p key={i}>{mod}</p>;
                   })}
                   <img src={horisontalLine} alt="" />
                 </>
               ) : null}
-              {rareMods ? (
+              {rareMods != "" ? (
                 <>
                   {rareMods.map((mod, i) => {
-                    return <p>{mod}</p>;
+                    return <p key={i}>{mod}</p>;
                   })}
                   <img src={horisontalLine} alt="" />
                 </>
               ) : null}
-              {socketMods ? (
+              {socketMods != "" ? (
                 <>
                   {socketMods.map((mod, i) => {
                     return <p>{mod}</p>;
@@ -249,7 +262,7 @@ export const ItemCard = ({ token }) => {
                   <img src={horisontalLine} alt="" />
                 </>
               ) : null}
-              {uncommonMods ? (
+              {uncommonMods != "" ? (
                 <>
                   {uncommonMods.map((mod, i) => {
                     return <p>{mod}</p>;
@@ -272,7 +285,7 @@ export const ItemCard = ({ token }) => {
       </StyledImageDiv>
       <img src={upArrowLine} className="w-full h-10 my-2" />
       <div className="bg-[url('/src/img/ui/vitalsBg.png')] bg-cover h-62 pt-4">
-        {vitals.map((trait, i) => {
+        {displayedTraitsUpper.map((trait, i) => {
           return (
             <Vitals key={i}>
               {trait.trait_type}: {trait.value}
@@ -281,7 +294,8 @@ export const ItemCard = ({ token }) => {
         })}
       </div>
       <StyledMetadata>
-        {traits.map((trait, i) => {
+        {displayedTraitsLower.map((trait, i) => {
+          if (trait.value == "Undefined") return;
           return (
             <TraitBox key={i}>
               {trait.trait_type}: {trait.value}

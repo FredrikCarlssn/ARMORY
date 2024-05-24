@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useContract, useTotalCount } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../CONST.js";
@@ -8,10 +7,11 @@ import { fetchTokenIds, fetchNFTs } from "../services/fetchTokenIds.js";
 import { DisplayToken } from "../components/ui/DisplayToken.jsx";
 import { Spinner } from "../components/ui/Spinner.jsx";
 import { SortingSidebar } from "../components/MenuComponents/SortingSidebar.jsx";
+import { ArrowButton } from "../components/buttons/ArrowButton.jsx";
+import { thirdWebIPFSLink } from "../services/IPFSLink";
 
 import city from "../img/images/city-back-drop.jpg";
 import softLight from "../img/images/soft-light-fog.png";
-import { ArrowButton } from "../components/buttons/ArrowButton.jsx";
 
 const StyledProfilePage = styled.div`
   background-image: url(${city});
@@ -32,14 +32,12 @@ const ContentWrapper = styled.div`
 const StyledTokenList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  padding-top: 50px;
-  padding-bottom: 90px;
+  gap: 14px;
   justify-content: center;
+  padding: 50px 30px 90px 30px;
 
   @media screen and (max-width: 870px) {
-    padding-bottom: 150px;
-    margin-left: -10px;
+    padding-bottom: 100px;
     justify-content: center;
   }
 `;
@@ -57,10 +55,6 @@ const Background = styled.div`
   }
 `;
 
-const Content = styled.div`
-  @media screen and (max-width: 870px) {
-  }
-`;
 export const BrowsePage = () => {
   // Filtered data array
   const [filteredNFTs, setFilteredNFTs] = useState([]);
@@ -104,72 +98,81 @@ export const BrowsePage = () => {
     );
   }, [count, filteredNFTs]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 100, behavior: "smooth" });
+  }, []);
+
   return (
     <StyledProfilePage>
       <ContentWrapper>
         <hr />
         <Background>
-          <SortingSidebar
-            isSidebarOpen={isSidebarOpen}
-            nfts={allNFTs}
-            setFilteredNFTs={setFilteredNFTs}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
-          <Content
-            style={{
-              marginLeft: isSidebarOpen ? "330px" : "30px",
-              marginRight: "20px",
-              transition: "all 0.3s",
-              animation: "fadeIn 0.5s",
-            }}
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, translateX: 0 }}
-              transition={{ duration: 1 }}
-              exit={{ opacity: 0 }}
+          <div className="flex">
+            <SortingSidebar
+              isSidebarOpen={isSidebarOpen}
+              nfts={allNFTs}
+              setFilteredNFTs={setFilteredNFTs}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+            <div
+              className="relative flex items-center justify-center w-full"
+              style={{
+                transition: "all 0.3s",
+                animation: "fadeIn 0.5s",
+                width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
+              }}
             >
               {allNFTs.length == 0 ? (
-                <div className="pt-12 absolute left-[calc(50%-80px)]">
+                <div className="pt-12">
                   <Spinner />
                 </div>
               ) : displayedNfts.length == 0 ? (
-                <div className="absolute left-[calc(50%-120px)] top-32 font-bold">
+                <div className="font-bold">
                   No NFTs were found matching your current filters.
                 </div>
               ) : (
-                <StyledTokenList>
+                <StyledTokenList
+                  className=""
+                  style={{
+                    width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
+                  }}
+                >
                   {displayedNfts.map((token, i) => {
                     return (
                       <DisplayToken
                         name={token.metadata.name}
                         key={i}
                         linkTo={`token/${token.metadata.id}`}
-                        img={token.metadata.image}
+                        img={thirdWebIPFSLink(token.metadata.image)}
                         tokenID={token.metadata.id}
-                        className=""
                       />
                     );
                   })}
                 </StyledTokenList>
               )}
-              {filteredNFTs.length > 20 ? (
-                <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-90px)]">
-                  <ArrowButton
-                    direction={"left"}
-                    onClick={() => setCount(count - 1)}
-                    disabled={!hasPreviousPage}
-                  />
-                  Page {count + 1} of {totalPages}
-                  <ArrowButton
-                    direction={"right"}
-                    onClick={() => setCount(count + 1)}
-                    disabled={!hasNextPage}
-                  />
-                </div>
-              ) : null}
-            </motion.div>
-          </Content>
+            </div>
+            {filteredNFTs.length > 20 ? (
+              <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-90px)]">
+                <ArrowButton
+                  direction={"left"}
+                  onClick={() => {
+                    setCount(count - 1);
+                    window.scrollTo({ top: 100, behavior: "smooth" });
+                  }}
+                  disabled={!hasPreviousPage}
+                />
+                Page {count + 1} of {totalPages}
+                <ArrowButton
+                  direction={"right"}
+                  onClick={() => {
+                    setCount(count + 1);
+                    window.scrollTo({ top: 100, behavior: "smooth" });
+                  }}
+                  disabled={!hasNextPage}
+                />
+              </div>
+            ) : null}
+          </div>
         </Background>
         <hr />
       </ContentWrapper>

@@ -8,7 +8,7 @@ export const Layout = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className="m:-mt-16">
         <AnimatePresence>
           <Outlet />
         </AnimatePresence>

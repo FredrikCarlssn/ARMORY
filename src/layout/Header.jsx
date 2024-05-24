@@ -17,7 +17,9 @@ export const Header = () => {
         <div className="menu-bar desktop">
           <div className="menu-logo-separator">
             <div className="menu-logo">
-              <img src={gamelogo} alt="Logo" />
+              <NavLink to={"/"}>
+                <img src={gamelogo} alt="Logo" />
+              </NavLink>
             </div>
             <div className="menu-separator"></div>
           </div>
