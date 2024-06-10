@@ -1,4 +1,4 @@
-import boxBackground from "../../img/ui/box-background.png";
+import boxBackground from "../../img/ui/box-background.webp";
 import { LogOut } from "lucide-react"; // ludid react
 
 export const ConnectedWallet = ({ wallet, className }) => {

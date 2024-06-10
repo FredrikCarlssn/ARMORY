@@ -5,10 +5,10 @@ import { useRef } from "react";
 
 import { SearchPage } from "./SearchPage";
 
-import exampleNft from "../../img/images/example-nft.png";
-import nexus from "../../img/images/nexus.png";
-import downArrowLine from "../../img/ui/downArrowLineBlue.png";
-import upArrowLine from "../../img/ui/upArrowLineBlue.png";
+import exampleNft from "../../img/images/example-nft.webp";
+import nexus from "../../img/images/nexus.webp";
+import downArrowLine from "../../img/ui/downArrowLineBlue.webp";
+import upArrowLine from "../../img/ui/upArrowLineBlue.webp";
 
 const Background = styled.div`
   display: flex;
@@ -99,7 +99,7 @@ export const AboutPage = () => {
         <img src={upArrowLine} className="w-full -my-3 h-12" />
         <div
           ref={ref2}
-          className="flex justify-center min-h-[527px] bg-lightBlue bg-[url('/src/img/images/dungeon.png')] bg-blend-soft-light bg-cover p-20 -mt-3 m:flex-col m:p-10"
+          className="flex justify-center min-h-[527px] bg-lightBlue bg-[url('/src/img/images/dungeon.webp')] bg-blend-soft-light bg-cover p-20 -mt-3 m:flex-col m:p-10"
         >
           <motion.div
             initial={{ opacity: 0, x: -300 }}

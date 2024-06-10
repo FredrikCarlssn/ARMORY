@@ -5,8 +5,8 @@ import { Plus } from "lucide-react";
 import { ModButton } from "../buttons/ModButton";
 import { InputNode } from "../ui/InputNode";
 
-import boxBakgroundSelectedSmall from "../../img/ui/box-background-selected-small.png";
-import boxBakgroundSelected from "../../img/ui/box-background-selected.png";
+import boxBakgroundSelectedSmall from "../../img/ui/box-background-selected-small.webp";
+import boxBakgroundSelected from "../../img/ui/box-background-selected.webp";
 
 export const SortByMods = ({ modsFilterArray, setModList, defaultOpen }) => {
   const [selectedValue, setSelectedValue] = useState("");

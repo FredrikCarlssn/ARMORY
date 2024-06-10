@@ -1,9 +1,9 @@
 import { Slider } from "@mui/material";
 import { SubMenu } from "react-pro-sidebar";
 
-import nodeDefault from "../../img/buttons/node/node-default.png";
-import nodeHover from "../../img/buttons/node/node-hover.png";
-import nodeActive from "../../img/buttons/node/node-active.png";
+import nodeDefault from "../../img/buttons/node/node-default.webp";
+import nodeHover from "../../img/buttons/node/node-hover.webp";
+import nodeActive from "../../img/buttons/node/node-active.webp";
 
 {
   /* <MenuSlider

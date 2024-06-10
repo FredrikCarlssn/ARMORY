@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useContract, useTotalCount } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../CONST.js";
 import { fetchTokenIds, fetchNFTs } from "../services/fetchTokenIds.js";
+import { motion } from "framer-motion";
 
 import { DisplayToken } from "../components/ui/DisplayToken.jsx";
 import { Spinner } from "../components/ui/Spinner.jsx";
@@ -10,8 +11,8 @@ import { SortingSidebar } from "../components/MenuComponents/SortingSidebar.jsx"
 import { ArrowButton } from "../components/buttons/ArrowButton.jsx";
 import { thirdWebIPFSLink } from "../services/IPFSLink";
 
-import city from "../img/images/city-back-drop.jpg";
-import softLight from "../img/images/soft-light-fog.png";
+import city from "../img/images/city-back-drop.webp";
+import softLight from "../img/images/soft-light-fog.webp";
 
 const StyledProfilePage = styled.div`
   background-image: url(${city});
@@ -29,16 +30,23 @@ const ContentWrapper = styled.div`
   max-width: 2000px;
 `;
 
-const StyledTokenList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+const StyledTokenList = styled(motion.ul)`
+  display: grid;
   justify-content: center;
+  align-content: start;
+  gap: 5px;
   padding: 50px 30px 90px 30px;
+  width: 100%;
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  grid-auto-rows: 251px;
+  align-content: start;
+  justify-items: center;
 
   @media screen and (max-width: 870px) {
     padding-bottom: 100px;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+    grid-auto-rows: 189px;
   }
 `;
 
@@ -47,8 +55,9 @@ const Background = styled.div`
   background-image: url(${softLight});
   background-size: cover;
   background-color: #1b1a20;
-  position: relative;
   min-height: 80vh;
+  position: relative;
+  height: 100%;
 
   @media screen and (max-width: 870px) {
     padding: 0px;
@@ -107,7 +116,7 @@ export const BrowsePage = () => {
       <ContentWrapper>
         <hr />
         <Background>
-          <div className="flex">
+          <div className="flex h-full">
             <SortingSidebar
               isSidebarOpen={isSidebarOpen}
               nfts={allNFTs}
@@ -115,11 +124,11 @@ export const BrowsePage = () => {
               setIsSidebarOpen={setIsSidebarOpen}
             />
             <div
-              className="relative flex items-center justify-center w-full"
+              className="flex items-start justify-center"
               style={{
                 transition: "all 0.3s",
                 animation: "fadeIn 0.5s",
-                width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
+                width: isSidebarOpen ? "calc(100% - 300px)" : "100%",
               }}
             >
               {allNFTs.length == 0 ? (
@@ -127,25 +136,32 @@ export const BrowsePage = () => {
                   <Spinner />
                 </div>
               ) : displayedNfts.length == 0 ? (
-                <div className="font-bold">
+                <div className="font-bold mt-36">
                   No NFTs were found matching your current filters.
                 </div>
               ) : (
                 <StyledTokenList
-                  className=""
-                  style={{
-                    width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 1,
+                    type: "spring",
+                    damping: 16,
                   }}
                 >
                   {displayedNfts.map((token, i) => {
                     return (
-                      <DisplayToken
-                        name={token.metadata.name}
-                        key={i}
-                        linkTo={`token/${token.metadata.id}`}
-                        img={thirdWebIPFSLink(token.metadata.image)}
-                        tokenID={token.metadata.id}
-                      />
+                      <motion.li layoutId={`item-${token.metadata.id}`}>
+                        <DisplayToken
+                          name={token.metadata.name}
+                          key={i}
+                          linkTo={`token/${token.metadata.id}`}
+                          img={thirdWebIPFSLink(token.metadata.image)}
+                          tokenID={token.metadata.id}
+                        />
+                      </motion.li>
                     );
                   })}
                 </StyledTokenList>

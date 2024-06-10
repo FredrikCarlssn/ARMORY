@@ -1,7 +1,7 @@
-import nodeDefault from "../../img/buttons/node/node-default1.png";
-import nodeHover from "../../img/buttons/node/node-hover1.png";
-import nodeActive from "../../img/buttons/node/node-active1.png";
-import nodeError from "../../img/buttons/node/node-error1.png";
+import nodeDefault from "../../img/buttons/node/node-default1.webp";
+import nodeHover from "../../img/buttons/node/node-hover1.webp";
+import nodeActive from "../../img/buttons/node/node-active1.webp";
+import nodeError from "../../img/buttons/node/node-error1.webp";
 
 import { useState } from "react";
 

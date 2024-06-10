@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Search } from "lucide-react";
 import { Input } from "../../components/ui/Input";
 
-import horisontalLine from "../../img/ui/Line-fade-300.png";
+import horisontalLine from "../../img/ui/Line-fade-300.webp";
 
 const StyledHl = styled.img`
   width: 700px;
@@ -79,11 +79,11 @@ export const SearchPage = () => {
   return (
     <>
       <section
-        className="w-full relative min-h-screen bg-slate-800 overflow-hidden bg-[url('/src/img/images/merchant-banner.png')] bg-cover"
+        className="w-full relative min-h-screen bg-slate-800 overflow-hidden bg-[url('/src/img/images/merchant-banner.webp')] bg-cover"
         id="welcome"
       >
         <motion.div
-          className="absolute inset-0 bg-cover bg-[url('/src/img/images/heavy-fog.png')]"
+          className="absolute inset-0 bg-cover bg-[url('/src/img/images/heavy-fog.webp')]"
           style={{ y }}
         />
         <div className="relative flex flex-col items-center justify-center h-full my-10 pt-20">
@@ -101,7 +101,7 @@ export const SearchPage = () => {
           >
             <motion.div
               alt="card"
-              className="bg-[url('/src/img/ui/card.png')] bg-cover h-96 w-80 flex justify-start flex-col pt-4"
+              className="bg-[url('/src/img/ui/card.webp')] bg-cover h-96 w-80 flex justify-start flex-col pt-4"
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 2, delay: 0.5 }}
@@ -118,7 +118,7 @@ export const SearchPage = () => {
             </motion.div>
             <motion.div
               alt="card"
-              className="bg-[url('/src/img/ui/card.png')] bg-cover h-96 w-80 flex justify-start flex-col pt-4 relative overflow-hidden"
+              className="bg-[url('/src/img/ui/card.webp')] bg-cover h-96 w-80 flex justify-start flex-col pt-4 relative overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0, scale: scale2 }}
               transition={{ duration: 2.5 }}
@@ -181,7 +181,7 @@ export const SearchPage = () => {
             </motion.div>
             <motion.div
               alt="card"
-              className="bg-[url('/src/img/ui/card.png')] bg-cover h-96 w-80 justify-start flex-col pt-4"
+              className="bg-[url('/src/img/ui/card.webp')] bg-cover h-96 w-80 justify-start flex-col pt-4"
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 2, delay: 0.5 }}

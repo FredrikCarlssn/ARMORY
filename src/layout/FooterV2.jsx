@@ -1,6 +1,6 @@
-import crglogo from "../img/crg/crg-logo.png";
-import eyeGuard from "../img/images/naramunz-eye-guard.png";
-import closeModal from "../img/buttons/closeModal.png";
+import crglogo from "../img/crg/crg-logo.webp";
+import eyeGuard from "../img/images/naramunz-eye-guard.webp";
+import closeModal from "../img/buttons/closeModal.webp";
 
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -36,7 +36,7 @@ export const FooterV2 = () => {
           id="my_modal_5"
           className="modal modal-bottom sm:modal-middle flex items-center justify-center"
         >
-          <div className="modal-box bg-[url('/src/img/ui/modal/modal6.png')] bg-contain bg-no-repeat bg-transparent h-[23.5rem] w-[18.5rem] !rounded-none">
+          <div className="modal-box bg-[url('/src/img/ui/modal/modal6.webp')] bg-contain bg-no-repeat bg-transparent h-[23.5rem] w-[18.5rem] !rounded-none">
             <div
               className="absolute bg-contain right-1 top-1 h-6 w-6 z-50 cursor-pointer"
               style={{ backgroundImage: `url(${closeModal})` }}

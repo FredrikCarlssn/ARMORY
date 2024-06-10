@@ -1,7 +1,7 @@
-import boxBackground from "../../img/ui/box-background.png";
-import boxBackgroundHover from "../../img/ui/box-background-hover.png";
-import boxBackgroundActive from "../../img/ui/box-background-selected.png";
-import boxBackgroundError from "../../img/ui/box-background-error.png";
+import boxBackground from "../../img/ui/box-background.webp";
+import boxBackgroundHover from "../../img/ui/box-background-hover.webp";
+import boxBackgroundActive from "../../img/ui/box-background-selected.webp";
+import boxBackgroundError from "../../img/ui/box-background-error.webp";
 
 import { useState } from "react";
 

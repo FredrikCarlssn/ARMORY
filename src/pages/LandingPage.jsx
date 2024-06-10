@@ -7,7 +7,7 @@ import { ITEMS_CONTRACT, ABI_ITEMS } from "../CONST";
 import { Web3 } from "web3";
 import { Search } from "lucide-react";
 
-import gamelogo from "../img/images/armory.png";
+import gamelogo from "../img/images/armory.webp";
 
 import { codeResponse } from "../services/codeResponse";
 
@@ -95,7 +95,7 @@ export const LandingPage = () => {
     <>
       <div className="relative flex justify-center items-center overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-cover bg-[url('/src/img/images/armory_v1.png')]"
+          className="absolute inset-0 bg-cover bg-[url('/src/img/images/armory_v1.webp')]"
           ref={ref}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -114,7 +114,7 @@ export const LandingPage = () => {
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center"
               >
-                <div className="bg-[url('/src/img/ui/headline.png')] h-[98px] bg-cover w-[600px] flex justify-center">
+                <div className="bg-[url('/src/img/ui/headline.webp')] h-[98px] bg-cover w-[600px] flex justify-center">
                   <input
                     type="text"
                     value={input}
