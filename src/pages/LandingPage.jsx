@@ -7,7 +7,7 @@ import { ITEMS_CONTRACT, ABI_ITEMS } from "../CONST";
 import { Web3 } from "web3";
 import { Search } from "lucide-react";
 
-import gamelogo from "../img/images/armory.webp";
+import gamelogo from "../img/crg/armorylogov5.webp";
 
 import { codeResponse } from "../services/codeResponse";
 
@@ -109,7 +109,7 @@ export const LandingPage = () => {
             exit={{ opacity: 0 }}
           >
             <StyledDiv>
-              <img className="h-80 max-w-none" src={gamelogo} alt="city" />
+              <img className="h-60 max-w-none" src={gamelogo} alt="city" />
               <form
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center"

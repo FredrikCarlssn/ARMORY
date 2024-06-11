@@ -153,10 +153,12 @@ export const BrowsePage = () => {
                 >
                   {displayedNfts.map((token, i) => {
                     return (
-                      <motion.li layoutId={`item-${token.metadata.id}`}>
+                      <motion.li
+                        layoutId={`item-${token.metadata.id}`}
+                        key={token.metadata.id}
+                      >
                         <DisplayToken
                           name={token.metadata.name}
-                          key={i}
                           linkTo={`token/${token.metadata.id}`}
                           img={thirdWebIPFSLink(token.metadata.image)}
                           tokenID={token.metadata.id}

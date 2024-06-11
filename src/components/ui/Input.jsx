@@ -29,7 +29,7 @@ export const Input = ({ placeholder, value, onChange, error, className }) => {
   return (
     <input
       placeholder={placeholder}
-      className={`bg-transparent appearance-none outline-none text-xs text-center no-spinner bg-contain bg-no-repeat transition-all duration-200 ${className}`}
+      className={`bg-transparent appearance-none outline-none text-center no-spinner bg-contain bg-no-repeat transition-all duration-200 ${className}`}
       style={{
         backgroundImage: error
           ? `url(${boxBackgroundError})`
@@ -39,8 +39,6 @@ export const Input = ({ placeholder, value, onChange, error, className }) => {
           ? `url(${boxBackgroundHover})`
           : `url(${boxBackground})`,
       }}
-      min={0}
-      type="number"
       value={value}
       onChange={onChange}
       onMouseEnter={onMouseEnter}

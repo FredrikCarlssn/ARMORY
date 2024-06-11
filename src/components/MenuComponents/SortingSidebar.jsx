@@ -7,6 +7,8 @@ import { ItemCategoryClassFilter } from "./ItemCategoryClassFilter.jsx";
 import { SortByMods } from "./SortByMods.jsx";
 import { color, m } from "framer-motion";
 import { Expandable } from "../buttons/Expandable.jsx";
+import { Input } from "../ui/Input.jsx";
+import { SubMenu } from "react-pro-sidebar";
 
 {
   /* 
@@ -25,6 +27,7 @@ export const SortingSidebar = ({
   setIsSidebarOpen,
 }) => {
   // Filter values
+  const [searchTerm, setSearchTerm] = useState("");
   const [activeCategoryClassFilters, setActiveCategoryClassFilters] = useState(
     []
   );
@@ -48,6 +51,17 @@ export const SortingSidebar = ({
   });
   const [modsFilterArray, setModsFilterArray] = useState([]);
 
+  // Update searchTerm 1 second after inputValue changes
+  const [searchTermInputValue, setSearchTermInputValue] = useState("");
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearchTerm(searchTermInputValue);
+    }, 1000);
+
+    // Clear the timeout when inputValue changes or when the component unmounts
+    return () => clearTimeout(timeoutId);
+  }, [searchTermInputValue]);
+
   /////////////////// Only one season for now ///////////////////
   // const [checkedItemSeason, setCheckedItemSeason] = useState({
   //   "Open Beta": false,
@@ -69,6 +83,15 @@ export const SortingSidebar = ({
         let activeCategoryFilters = [];
         let activeSubCategoryFilters = [];
         let activeClassFilters = [];
+
+        // filter by searchTerm
+        if (
+          searchTerm &&
+          !metadata.name.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+          return false;
+        }
+
         // Filter by Category and Class
         // Filter "category"
         activeCategoryFilters = Object.keys(
@@ -294,6 +317,7 @@ export const SortingSidebar = ({
     setFilteredNFTs(filterNFTs(nfts));
   }, [
     nfts,
+    searchTerm,
     activeCategoryClassFilters,
     levelRequirementFilterValue,
     damageFilterValue,
@@ -361,8 +385,29 @@ export const SortingSidebar = ({
               Season
               Class Requirement
             */}
+          <SubMenu label="Search Items" defaultOpen="true">
+            <Input
+              placeholder={"Name..."}
+              value={searchTermInputValue}
+              onChange={(e) => setSearchTermInputValue(e.target.value)}
+              className="w-[300px] h-[60px] text-md"
+            />
+          </SubMenu>
+          <SortByMods
+            modsFilterArray={modsFilterArray}
+            setModList={setModsFilterArray}
+            defaultOpen={true}
+          />
           <ItemCategoryClassFilter
             setActiveCategoryClassFilters={setActiveCategoryClassFilters}
+            defaultOpen={true}
+          />
+          <MenuCheckbox
+            name="Rarity"
+            items={["Legendary", "Rare"]}
+            checked={checkedRarity}
+            setChecked={setCheckedRarity}
+            isSidebarOpen={isSidebarOpen}
             defaultOpen={true}
           />
           <MenuSlider
@@ -371,13 +416,9 @@ export const SortingSidebar = ({
             setValue={setLevelFilterValue}
             min={0}
             max={100}
-            defaultOpen={true}
+            defaultOpen={false}
           />
-          <SortByMods
-            modsFilterArray={modsFilterArray}
-            setModList={setModsFilterArray}
-            defaultOpen={true}
-          />
+
           <MenuSlider
             name="Damage"
             value={damageFilterValue}
@@ -402,13 +443,6 @@ export const SortingSidebar = ({
             items={["Fire", "Cold", "Lightning", "Physical", "Aetherial"]}
             checked={checkedDamageType}
             setChecked={setCheckedDamageType}
-            isSidebarOpen={isSidebarOpen}
-          />
-          <MenuCheckbox
-            name="Rarity"
-            items={["Legendary", "Rare"]}
-            checked={checkedRarity}
-            setChecked={setCheckedRarity}
             isSidebarOpen={isSidebarOpen}
           />
           <MenuSlider

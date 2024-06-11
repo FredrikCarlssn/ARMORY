@@ -100,7 +100,7 @@ export const SortByMods = ({ modsFilterArray, setModList, defaultOpen }) => {
         <ModButton key={mod.mod} mod={mod} handleRemoveMod={handleRemoveMod} />
       ))}
       <div
-        className="overflow-hidden text-sm items-center h-[58px] flex justify-center gap-1 p-1 mt-1"
+        className="overflow-hidden text-sm items-center h-[58px] flex justify-center gap-1 p-1"
         style={{
           background: `url(${boxBakgroundSelected})`,
           filter: "saturate(0.4)",
