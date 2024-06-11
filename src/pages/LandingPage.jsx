@@ -114,7 +114,7 @@ export const LandingPage = () => {
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center"
               >
-                <div className="bg-[url('/src/img/ui/headline.webp')] h-[98px] bg-cover w-[600px] flex justify-center">
+                <div className="bg-[url('/src/img/ui/headline.webp')] h-[98px] bg-cover w-[600px] flex justify-center relative">
                   <input
                     type="text"
                     value={input}
@@ -123,7 +123,7 @@ export const LandingPage = () => {
                     placeholder="Search by wallet address or token id"
                   />
                   {error ? (
-                    <p className="text-red-500 text-sm absolute top-96 pt-1 animate-pulse">
+                    <p className="text-red-500 text-sm absolute top-[52px] pt-1 animate-pulse">
                       {error}
                     </p>
                   ) : null}

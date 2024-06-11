@@ -25,9 +25,6 @@ const StyledP = styled.p`
 const StyledDiv = styled.div`
   height: 251px;
   width: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   flex-direction: column;
   transform-origin: top left;
   background-image: url(${CardBackground});
@@ -69,7 +66,7 @@ const StyledIPFS = styled.img`
   transition: 0.5s ease;
 `;
 
-export const DisplayToken = ({ name, linkTo, img, tokenID, className }) => {
+export const DisplayToken = ({ name, linkTo, img, className }) => {
   const ref = useRef();
   const containerRef = useRef();
   useEffect(() => {
@@ -81,20 +78,18 @@ export const DisplayToken = ({ name, linkTo, img, tokenID, className }) => {
   }, [name]);
 
   return (
-    <div>
+    <StyledDiv className={`${className}`} ref={ref}>
       <NavLink
-        className=""
+        className="flex justify-center items-center flex-col"
         to={`/${linkTo}`}
         onClick={() => {
           window.scrollTo({ top: 100, behavior: "smooth" });
         }}
       >
-        <StyledDiv className={`${className}`} ref={ref}>
-          <StyledIPFS className="itemImage" src={img} />
-          <StyledImg src={horisontalLine} alt={name} />
-          <StyledP>{name}</StyledP>
-        </StyledDiv>
+        <StyledIPFS className="itemImage" src={img} />
+        <StyledImg src={horisontalLine} alt={name} />
+        <StyledP>{name}</StyledP>
       </NavLink>
-    </div>
+    </StyledDiv>
   );
 };

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useContract, useTotalCount } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../CONST.js";
 import { fetchTokenIds, fetchNFTs } from "../services/fetchTokenIds.js";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { DisplayToken } from "../components/ui/DisplayToken.jsx";
 import { Spinner } from "../components/ui/Spinner.jsx";
@@ -41,11 +41,10 @@ const StyledTokenList = styled(motion.ul)`
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
   grid-auto-rows: 251px;
   align-content: start;
-  justify-items: center;
 
   @media screen and (max-width: 870px) {
     padding-bottom: 100px;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 150px));
     grid-auto-rows: 189px;
   }
 `;
@@ -72,7 +71,7 @@ export const BrowsePage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
 
   // Pagination state
-  const nftsPerPage = 20;
+  const nftsPerPage = 30;
   const [count, setCount] = useState(0);
   const { contract: contractItems } = useContract(ITEMS_CONTRACT);
   const { data: totalCount } = useTotalCount(contractItems);
@@ -82,6 +81,8 @@ export const BrowsePage = () => {
   const [allNFTs, setAllNFTs] = useState([]);
   const [i, setI] = useState(0);
   const [displayedNfts, setDisplayedNfts] = useState([]);
+
+  console.log("allNFTs", allNFTs);
 
   useEffect(() => {
     async function fetchData() {
@@ -123,10 +124,10 @@ export const BrowsePage = () => {
               setFilteredNFTs={setFilteredNFTs}
               setIsSidebarOpen={setIsSidebarOpen}
             />
-            <div
+            <motion.div
+              transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
               className="flex items-start justify-center"
               style={{
-                transition: "all 0.3s",
                 animation: "fadeIn 0.5s",
                 width: isSidebarOpen ? "calc(100% - 300px)" : "100%",
               }}
@@ -140,35 +141,41 @@ export const BrowsePage = () => {
                   No NFTs were found matching your current filters.
                 </div>
               ) : (
-                <StyledTokenList
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 1,
-                    type: "spring",
-                    damping: 16,
-                  }}
-                >
-                  {displayedNfts.map((token, i) => {
-                    return (
-                      <motion.li
-                        layoutId={`item-${token.metadata.id}`}
-                        key={token.metadata.id}
-                      >
-                        <DisplayToken
-                          name={token.metadata.name}
-                          linkTo={`token/${token.metadata.id}`}
-                          img={thirdWebIPFSLink(token.metadata.image)}
-                          tokenID={token.metadata.id}
-                        />
-                      </motion.li>
-                    );
-                  })}
-                </StyledTokenList>
+                <AnimatePresence>
+                  <StyledTokenList
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      duration: 1,
+                      type: "spring",
+                      damping: 16,
+                    }}
+                  >
+                    {displayedNfts.map((token, i) => {
+                      return (
+                        <motion.li
+                          layoutId={`item-${token.metadata.id}`}
+                          key={token.metadata.id}
+                          transition={{
+                            duration: 0.5,
+                            ease: [0.04, 0.62, 0.23, 0.98],
+                          }}
+                        >
+                          <DisplayToken
+                            name={token.metadata.name}
+                            linkTo={`token/${token.metadata.id}`}
+                            img={thirdWebIPFSLink(token.metadata.image)}
+                            tokenID={token.metadata.id}
+                          />
+                        </motion.li>
+                      );
+                    })}
+                  </StyledTokenList>
+                </AnimatePresence>
               )}
-            </div>
+            </motion.div>
             {filteredNFTs.length > 20 ? (
               <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-90px)]">
                 <ArrowButton
