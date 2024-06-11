@@ -5,7 +5,6 @@ import { MenuCheckbox } from "./MenuCheckbox.jsx";
 import { MenuSlider } from "./MenuSlider.jsx";
 import { ItemCategoryClassFilter } from "./ItemCategoryClassFilter.jsx";
 import { SortByMods } from "./SortByMods.jsx";
-import { color, m } from "framer-motion";
 import { Expandable } from "../buttons/Expandable.jsx";
 import { Input } from "../ui/Input.jsx";
 import { SubMenu } from "react-pro-sidebar";
@@ -74,6 +73,7 @@ export const SortingSidebar = ({
 
   useEffect(() => {
     const filterNFTs = (nfts) => {
+      console.log(activeCategoryClassFilters);
       if (!nfts || activeCategoryClassFilters.length <= 0) return [];
       return nfts.filter((nft) => {
         const metadata = nft.metadata;
@@ -113,23 +113,24 @@ export const SortingSidebar = ({
           );
           if (
             activeSubCategoryFilters.length > 0 &&
-            !activeSubCategoryFilters.includes(metadata.properties.subCategory)
+            !activeSubCategoryFilters.includes(
+              metadata.properties.subCategory
+            ) &&
+            metadata.properties.category == "Weapon"
           ) {
             return false;
           }
         }
 
-        // Filter "class"
-        if (
-          activeCategoryFilters.length > 0 &&
-          activeSubCategoryFilters.length > 0
-        ) {
+        // Filter "itemClass"
+        if (activeCategoryFilters.length > 0) {
           activeClassFilters = Object.keys(
             activeCategoryClassFilters.itemClass
           ).filter((key) => activeCategoryClassFilters.itemClass[key] === true);
           if (
             activeClassFilters.length > 0 &&
             !activeClassFilters.includes(metadata.properties.itemClass)
+            && metadata.properties.category == 
           ) {
             return false;
           }
@@ -138,7 +139,8 @@ export const SortingSidebar = ({
         // Filter "subClass"
         if (
           activeCategoryFilters.length > 0 &&
-          activeSubCategoryFilters.length > 0
+          activeSubCategoryFilters.length > 0 &&
+          metadata.properties.category == "Weapon"
         ) {
           let activeSubClassFilters = Object.keys(
             activeCategoryClassFilters.subClass

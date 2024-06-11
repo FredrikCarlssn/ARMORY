@@ -79,16 +79,13 @@ export const BrowsePage = () => {
   const hasNextPage = (count + 1) * nftsPerPage < totalCount;
   const totalPages = Math.ceil(totalCount / nftsPerPage);
   const [allNFTs, setAllNFTs] = useState([]);
-  const [i, setI] = useState(0);
   const [displayedNfts, setDisplayedNfts] = useState([]);
-
-  console.log("allNFTs", allNFTs);
 
   useEffect(() => {
     async function fetchData() {
       try {
         fetchTokenIds()
-          .then((tokenIds) => {
+          .then(async (tokenIds) => {
             return fetchNFTs(tokenIds);
           })
           .then((nfts) => {
