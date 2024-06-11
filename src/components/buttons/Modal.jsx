@@ -39,9 +39,9 @@ export const Modal = ({ list, buttonText }) => {
         {buttonText}
       </button>
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box bg-[url('/src/img/ui/modal/modal6.png')] bg-cover bg-transparent h-[36.5rem] !rounded-none">
+        <div className="modal-box bg-[url('/src/img/ui/modal/modal6.webp')] bg-cover bg-transparent h-[36.5rem] !rounded-none">
           <div
-            className="absolute bg-[('/src/img/buttons/closeModal.png')] bg-cover right-4 top-3 h-8 w-8 cursor-pointer"
+            className="absolute bg-[('/src/img/buttons/closeModal.webp')] bg-cover right-4 top-3 h-8 w-8 cursor-pointer"
             onClick={() => document.getElementById("my_modal_5").close()}
           ></div>
           <div className="overflow-y-scroll h-[28.8rem] mt-7">

@@ -11,11 +11,11 @@ import { ConnectedWallet } from "../../components/ui/ConnectedWallet.jsx";
 import { ArrowButton } from "../../components/buttons/ArrowButton.jsx";
 import { thirdWebIPFSLink } from "../../services/IPFSLink";
 
-import softLight from "../../img/images/soft-light-fog.png";
-import vault from "../../img/images/vault.png";
-import epicLogoWhite from "../../img/buttons/epicLogoWhite.png";
-import bigTextBox from "../../img/ui/big-text-box.png";
-import conWebLogo from "../../img/images/con-web-logo.png";
+import softLight from "../../img/images/soft-light-fog.webp";
+import vault from "../../img/images/vault.webp";
+import epicLogoWhite from "../../img/buttons/epicLogoWhite.webp";
+import bigTextBox from "../../img/ui/big-text-box.webp";
+import conWebLogo from "../../img/images/con-web-logo.webp";
 
 const StyledProfilePage = styled.div`
   background-image: url(${vault});
@@ -37,8 +37,11 @@ const Background = styled.div`
   background-image: url(${softLight});
   background-size: cover;
   position: relative;
+  max-width: 100%;
   background-color: #1b1a20;
   min-height: 80vh;
+  height: 100%;
+  overflow: hidden;
 
   @media screen and (max-width: 870px) {
     padding: 0px;
@@ -46,16 +49,18 @@ const Background = styled.div`
 `;
 
 const StyledTokenList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
   justify-content: center;
+  align-content: start;
+  gap: 10px;
   padding: 50px 30px 90px 30px;
+  width: 100%;
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
 
   @media screen and (max-width: 870px) {
     padding-bottom: 100px;
-    justify-content: center;
-    padding: 0px 30px 90px 30px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
   }
 `;
 
@@ -95,7 +100,7 @@ export const ProfilePage = () => {
     setDisplayedNfts(
       filteredNFTs.slice(count * nftsPerPage, (count + 1) * nftsPerPage)
     );
-  }, [count, filteredNFTs]);
+  }, [count, filteredNFTs, nfts]);
 
   useEffect(() => {
     window.scrollTo({ top: 100, behavior: "smooth" });
@@ -107,7 +112,7 @@ export const ProfilePage = () => {
         <ContentWrapper>
           <hr />
           <Background>
-            <div className="flex">
+            <div className="flex h-full">
               <SortingSidebar
                 isSidebarOpen={isSidebarOpen}
                 nfts={nfts}
@@ -115,49 +120,45 @@ export const ProfilePage = () => {
                 setIsSidebarOpen={setIsSidebarOpen}
               />
               <div
-                className="relative flex items-center flex-col justify-start"
+                className="flex items-center flex-col justify-start"
                 style={{
                   transition: "all 0.5s",
                   animation: "fadeIn 0.5s",
-                  width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
+                  width: isSidebarOpen ? "calc(100% - 300px)" : "100%",
                 }}
               >
                 <div className="flex justify-center mt-8">
                   <ConnectedWallet wallet={address} className="m:scale-50" />
                 </div>
-                <StyledTokenList
-                  style={{
-                    width: isSidebarOpen ? "calc(100vw - 300px)" : "100vw",
-                  }}
-                >
-                  {isLoading && address != "undefined" && address != "" ? (
-                    <Spinner className="mt-12" />
-                  ) : !nfts && address != "undefined" && address != "" ? (
-                    <div className="flex justify-center font-bold mt-10">
-                      There are no NFTs associated with your account.
-                    </div>
-                  ) : filteredNFTs.length == 0 &&
-                    address != "undefined" &&
-                    address != "" ? (
-                    <div className="flex justify-center font-bold mt-10">
-                      No NFTs were found matching your current filters.
-                    </div>
-                  ) : (
-                    <>
-                      {displayedNfts.map((token, i) => {
-                        return (
-                          <DisplayToken
-                            name={token.metadata.name}
-                            key={i}
-                            linkTo={`token/${token.metadata.id}`}
-                            img={token.metadata.image}
-                            tokenID={token.metadata.id}
-                          />
-                        );
-                      })}
-                    </>
-                  )}
-                </StyledTokenList>
+                {isLoading && address != "undefined" && address != "" ? (
+                  <div className="flex justify-center mt-8">
+                    <Spinner className="mt-12m" />
+                  </div>
+                ) : !nfts && address != "undefined" && address != "" ? (
+                  <div className="flex justify-center font-bold mt-10 w-full">
+                    There are no NFTs associated with your account.
+                  </div>
+                ) : filteredNFTs.length == 0 &&
+                  address != "undefined" &&
+                  address != "" ? (
+                  <div className="flex justify-center font-bold mt-10 w-full">
+                    No NFTs were found matching your current filters.
+                  </div>
+                ) : (
+                  <StyledTokenList>
+                    {displayedNfts.map((token, i) => {
+                      return (
+                        <DisplayToken
+                          name={token.metadata.name}
+                          key={i}
+                          linkTo={`token/${token.metadata.id}`}
+                          img={token.metadata.image}
+                          tokenID={token.metadata.id}
+                        />
+                      );
+                    })}
+                  </StyledTokenList>
+                )}
                 {filteredNFTs.length > 20 ? (
                   <div className="flex justify-center items-center gap-4 absolute bottom-4 left-[calc(50%-90px)]">
                     <ArrowButton

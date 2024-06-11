@@ -1,5 +1,5 @@
-import arrowNormal from "../../img/buttons/arrows/arrow-btn-default-up.png";
-import arrowHover from "../../img/buttons/arrows/arrow-btn-hover-up.png";
+import arrowNormal from "../../img/buttons/arrows/arrow-btn-default-up.webp";
+import arrowHover from "../../img/buttons/arrows/arrow-btn-hover-up.webp";
 import { useState } from "react";
 
 {

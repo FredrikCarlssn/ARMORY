@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import { useContract, useNFT } from "@thirdweb-dev/react";
 import { ITEMS_CONTRACT } from "../../CONST.js";
 import { motion } from "framer-motion";
 
 import { Spinner } from "../../components/ui/Spinner.jsx";
 import { ItemCard } from "../../components/ItemCard.jsx";
+import { fetchNFT } from "../../services/fetchTokenIds.js";
 
-import conMap from "../../img/images/con-map.jpg";
-import CardBackground from "../../img/ui/big-text-box.png";
+import conMap from "../../img/images/con-map.webp";
+import CardBackground from "../../img/ui/big-text-box.webp";
+import { useEffect, useState } from "react";
 
 const StyledClaimTokenPage = styled.div`
   background-image: url(${conMap});
@@ -50,16 +51,43 @@ const BigCard = styled.div`
 
 export const DisplayOwnedToken = () => {
   const tokenId = useParams().tokenId;
-  const { contract } = useContract(ITEMS_CONTRACT);
-  const { data: nft, isLoading, error } = useNFT(contract, tokenId);
+  const [nft, setNft] = useState(undefined);
+  const [count, setCount] = useState(0);
 
-  if (isLoading)
+  useEffect(() => {
+    {
+      (async () => {
+        const fetchedNft = await fetchNFT(tokenId);
+        if (
+          fetchedNft.owner == "0x0000000000000000000000000000000000000000" &&
+          count < 3
+        ) {
+          setTimeout(() => {
+            setCount(count + 1);
+          }, 5000);
+        }
+        if (
+          fetchedNft.owner == "0x0000000000000000000000000000000000000000" &&
+          count >= 3
+        ) {
+          let newValue = fetchedNft;
+          newValue.metadata.uri = "notFound";
+          setNft(newValue);
+        }
+        if (!fetchedNft.owner == "0x0000000000000000000000000000000000000000") {
+          setNft(fetchedNft);
+        }
+      })();
+    }
+  }, [count]);
+
+  if (!nft || (nft && nft.metadata.uri.length <= 0))
     return (
       <StyledClaimTokenPage>
         <Spinner />
       </StyledClaimTokenPage>
     );
-  if (error || !nft.metadata.properties) {
+  if (nft.metadata.uri === "notFound") {
     return (
       <StyledClaimTokenPage>
         <motion.div

@@ -1,7 +1,7 @@
-import boxBackground from "../../img/ui/box-background.png";
-import boxBackgroundHover from "../../img/ui/box-background-hover.png";
-import boxBackgroundActive from "../../img/ui/box-background-selected.png";
-import boxBackgroundError from "../../img/ui/box-background-error.png";
+import boxBackground from "../../img/ui/box-background.webp";
+import boxBackgroundHover from "../../img/ui/box-background-hover.webp";
+import boxBackgroundActive from "../../img/ui/box-background-selected.webp";
+import boxBackgroundError from "../../img/ui/box-background-error.webp";
 
 import { useState } from "react";
 
@@ -29,7 +29,7 @@ export const Input = ({ placeholder, value, onChange, error, className }) => {
   return (
     <input
       placeholder={placeholder}
-      className={`bg-transparent appearance-none outline-none text-xs text-center no-spinner bg-contain bg-no-repeat transition-all duration-200 ${className}`}
+      className={`bg-transparent appearance-none outline-none text-center no-spinner bg-contain bg-no-repeat transition-all duration-200 ${className}`}
       style={{
         backgroundImage: error
           ? `url(${boxBackgroundError})`
@@ -39,8 +39,6 @@ export const Input = ({ placeholder, value, onChange, error, className }) => {
           ? `url(${boxBackgroundHover})`
           : `url(${boxBackground})`,
       }}
-      min={0}
-      type="number"
       value={value}
       onChange={onChange}
       onMouseEnter={onMouseEnter}

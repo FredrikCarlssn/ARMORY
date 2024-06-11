@@ -1,5 +1,5 @@
-import expandable from "../../img/buttons/arrows/expandable.png";
-import expanded from "../../img/buttons/arrows/expanded.png";
+import expandable from "../../img/buttons/arrows/expandable.webp";
+import expanded from "../../img/buttons/arrows/expanded.webp";
 import { useState } from "react";
 
 {

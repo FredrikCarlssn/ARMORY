@@ -2,8 +2,8 @@ import { styled } from "styled-components";
 import React, { useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-import horisontalLine from "../../img/ui/Line-fade-300.png";
-import CardBackground from "../../img/ui/big-text-box.png";
+import horisontalLine from "../../img/ui/Line-fade-300.webp";
+import CardBackground from "../../img/ui/big-text-box.webp";
 import { motion } from "framer-motion";
 
 const StyledImg = styled.img`
@@ -25,9 +25,6 @@ const StyledP = styled.p`
 const StyledDiv = styled.div`
   height: 251px;
   width: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   flex-direction: column;
   transform-origin: top left;
   background-image: url(${CardBackground});
@@ -50,6 +47,12 @@ const StyledDiv = styled.div`
   @media screen and (max-width: 870px) {
     transform: scale(0.75);
     margin: 0px;
+    &:hover {
+      transform: scale(0.77);
+      & > .itemImage {
+        transform: scale(1.05);
+      }
+    }
   }
 `;
 
@@ -63,7 +66,7 @@ const StyledIPFS = styled.img`
   transition: 0.5s ease;
 `;
 
-export const DisplayToken = ({ name, linkTo, img, tokenID, className }) => {
+export const DisplayToken = ({ name, linkTo, img, className }) => {
   const ref = useRef();
   const containerRef = useRef();
   useEffect(() => {
@@ -75,27 +78,18 @@ export const DisplayToken = ({ name, linkTo, img, tokenID, className }) => {
   }, [name]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-      key={tokenID}
-      ref={containerRef}
-    >
+    <StyledDiv className={`${className}`} ref={ref}>
       <NavLink
-        className=""
+        className="flex justify-center items-center flex-col"
         to={`/${linkTo}`}
         onClick={() => {
           window.scrollTo({ top: 100, behavior: "smooth" });
         }}
       >
-        <StyledDiv className={`${className}`} ref={ref}>
-          <StyledIPFS className="itemImage" src={img} />
-          <StyledImg src={horisontalLine} alt={name} />
-          <StyledP>{name}</StyledP>
-        </StyledDiv>
+        <StyledIPFS className="itemImage" src={img} />
+        <StyledImg src={horisontalLine} alt={name} />
+        <StyledP>{name}</StyledP>
       </NavLink>
-    </motion.div>
+    </StyledDiv>
   );
 };

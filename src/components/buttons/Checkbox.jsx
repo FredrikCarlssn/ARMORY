@@ -1,6 +1,6 @@
-import checkboxActive from "../../img/buttons/node/node-active.png";
-import checkboxDefault from "../../img/buttons/node/node-default.png";
-import checkboxHover from "../../img/buttons/node/node-hover.png";
+import checkboxActive from "../../img/buttons/node/node-active.webp";
+import checkboxDefault from "../../img/buttons/node/node-default.webp";
+import checkboxHover from "../../img/buttons/node/node-hover.webp";
 
 export const Checkbox = ({ checked, onChange, name, level }) => {
   return (

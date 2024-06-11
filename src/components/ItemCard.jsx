@@ -1,9 +1,9 @@
 import { styled, keyframes } from "styled-components";
 
-import CardBackground from "../img/ui/big-text-box.png";
-import horisontalLine from "../img/ui/Line-fade-300.png";
-import downArrowLine from "../img/ui/downArrowLine.png";
-import upArrowLine from "../img/ui/upArrowLine.png";
+import CardBackground from "../img/ui/big-text-box.webp";
+import horisontalLine from "../img/ui/Line-fade-300.webp";
+import downArrowLine from "../img/ui/downArrowLine.webp";
+import upArrowLine from "../img/ui/upArrowLine.webp";
 import { useNavigate } from "react-router-dom";
 import { ITEMS_CONTRACT } from "../CONST";
 
@@ -34,6 +34,7 @@ const StyledCard = styled.div`
 `;
 
 const StyledImageDiv = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
 `;
@@ -173,8 +174,6 @@ export const ItemCard = ({ token }) => {
   );
   const displayedTraitsUpper = filteredTraits.slice(0, 7);
   const displayedTraitsLower = filteredTraits.slice(7, filteredTraits.length);
-  console.log(displayedTraitsUpper);
-  console.log(displayedTraitsLower);
 
   const aetherialMods = semanticToken[0].value.split(",");
 
@@ -204,6 +203,9 @@ export const ItemCard = ({ token }) => {
 
   return (
     <StyledCard>
+      <p className="text-red-700 text-center mb-2">
+        All NFTs exist solely on the Testnet and have no real value.
+      </p>
       <StyledImageDiv>
         <div
           className="absolute left-2 -top-9 h-12 w-20 font-extrabold text-4xl cursor-pointer"
@@ -257,7 +259,7 @@ export const ItemCard = ({ token }) => {
               {socketMods != "" ? (
                 <>
                   {socketMods.map((mod, i) => {
-                    return <p>{mod}</p>;
+                    return <p key={i}>{mod}</p>;
                   })}
                   <img src={horisontalLine} alt="" />
                 </>
@@ -265,7 +267,7 @@ export const ItemCard = ({ token }) => {
               {uncommonMods != "" ? (
                 <>
                   {uncommonMods.map((mod, i) => {
-                    return <p>{mod}</p>;
+                    return <p key={i}>{mod}</p>;
                   })}
                   <img src={horisontalLine} alt="" />
                 </>
@@ -275,7 +277,7 @@ export const ItemCard = ({ token }) => {
         </div>
         <StyledImage src={token.metadata.image} />
         <div
-          className="bg-[url('/src/img/buttons/sphere.png')] bg-cover h-16 w-40 absolute top-[408px] right-14 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
+          className="bg-[url('/src/img/buttons/sphere.webp')] bg-cover h-16 w-40 absolute bottom-2 right-3 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
           onClick={() =>
             window.open(
               `https://testnet.sphere.market/beam-testnet/nft/${ITEMS_CONTRACT}/${token.metadata.id}`
@@ -284,7 +286,7 @@ export const ItemCard = ({ token }) => {
         ></div>
       </StyledImageDiv>
       <img src={upArrowLine} className="w-full h-10 my-2" />
-      <div className="bg-[url('/src/img/ui/vitalsBg.png')] bg-cover h-62 pt-4">
+      <div className="bg-[url('/src/img/ui/vitalsBg.webp')] bg-cover h-62 pt-4">
         {displayedTraitsUpper.map((trait, i) => {
           return (
             <Vitals key={i}>

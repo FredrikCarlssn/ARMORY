@@ -1,7 +1,7 @@
 export const codeResponse = () => {
   const code = new URLSearchParams(window.location.search).get("code");
-  const url = "https://naramunzapi-dev.azurewebsites.net/api/token/epic";
-  const url2 = "https://naramunzapi-dev.azurewebsites.net/api/users/wallet";
+  const url = "https://naramunzapi-beta.azurewebsites.net/api/token/epic";
+  const url2 = "https://naramunzapi-beta.azurewebsites.net/api/users/wallet";
   const authHeaderValue = btoa(
     "xyza7891JqURqLDsngnChqqfNdWvDsup:3TozrQC77uKxyjiqE0cNfgqkFoOBqzL2hdkxueaUoFs"
   );
@@ -29,6 +29,7 @@ export const codeResponse = () => {
           Authorization: auth_header_value,
         },
       });
+      console.log(response);
       if (response.status == 200) {
         const jsonResponse = await response.text();
         localStorage.setItem("walletAddress", jsonResponse);
@@ -37,7 +38,7 @@ export const codeResponse = () => {
         window.location.href = "/#/profile";
         localStorage.setItem("walletAddress", "undefined");
       } else if (response.status == 401) {
-        window.location.href = "/#/401";
+        window.location.href = "/#/";
       }
     });
   } catch (error) {

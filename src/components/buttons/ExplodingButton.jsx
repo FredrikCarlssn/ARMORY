@@ -1,4 +1,4 @@
-<div className="p-8 bg-[url('/src/img/ui/modal/modal6.png')] h-[600px] bg-contain w-[400px] bg-no-repeat">
+<div className="p-8 bg-[url('/src/img/ui/modal/modal6.webp')] h-[600px] bg-contain w-[400px] bg-no-repeat">
   <h1 className="text-4xl font-bold text-center mt-16 mb-6">Connect</h1>
   <div className="buttons">
     <button

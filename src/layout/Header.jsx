@@ -14,11 +14,14 @@ export const Header = () => {
   return (
     <>
       <StyledHeader>
-        <div className="menu-bar desktop">
+        <div className="menu-bar desktop relative">
           <div className="menu-logo-separator">
             <div className="menu-logo">
               <NavLink to={"/"}>
                 <img src={gamelogo} alt="Logo" />
+                <p className="absolute top-11 left-28 text-[#665148] font-semibold text-lg">
+                  Testnet
+                </p>
               </NavLink>
             </div>
             <div className="menu-separator"></div>

@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import crglogo from "../img/crg/crg-logo.png";
-import xlogo from "../img/crg/x-logo.png";
-import instagramlogo from "../img/crg/instagram-logo.png";
-import mediumlogo from "../img/crg/medium-logo.png";
-import discordlogo from "../img/crg/discord-logo.png";
+import crglogo from "../img/crg/crg-logo.webp";
+import xlogo from "../img/crg/x-logo.webp";
+import instagramlogo from "../img/crg/instagram-logo.webp";
+import mediumlogo from "../img/crg/medium-logo.webp";
+import discordlogo from "../img/crg/discord-logo.webp";
 
 const StyledWrapper = styled.div`
   @media screen and (max-width: 870px) {

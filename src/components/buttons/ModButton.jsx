@@ -1,5 +1,5 @@
 import { useState } from "react";
-import removeCursor from "../../img/buttons/removeCursor.png";
+import removeCursor from "../../img/buttons/removeCursor.webp";
 
 export const ModButton = ({ mod, handleRemoveMod }) => {
   return (
