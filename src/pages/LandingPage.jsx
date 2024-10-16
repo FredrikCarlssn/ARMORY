@@ -7,13 +7,12 @@ import { ITEMS_CONTRACT, ABI_ITEMS } from "../CONST";
 import { Web3 } from "web3";
 import { Search } from "lucide-react";
 
-import gamelogo from "../img/crg/armorylogov5.webp";
+import CrystalFall from "../img/crg/CrystalFall.svg";
 
 import { codeResponse } from "../services/codeResponse";
 
 const StyledButton = styled.button`
   position: relative;
-  margin-top: 20px;
   &:hover {
     transform: scale(0.82) !important;
   }
@@ -109,7 +108,11 @@ export const LandingPage = () => {
             exit={{ opacity: 0 }}
           >
             <StyledDiv>
-              <img className="h-60 max-w-none" src={gamelogo} alt="city" />
+              <img
+                className="h-60 max-w-none drop-shadow-[0_0_50px_rgba(0,0,0,1)] m:h-40"
+                src={CrystalFall}
+                alt="Logo"
+              />
               <form
                 onSubmit={handleSubmit}
                 className="flex flex-col items-center"
@@ -128,7 +131,7 @@ export const LandingPage = () => {
                     </p>
                   ) : null}
                 </div>
-                <StyledButton className="crg-button text-lg scale-[0.8]">
+                <StyledButton className="stylized-crg-button text-lg scale-[0.8]">
                   <Search strokeWidth={3} />
                 </StyledButton>
               </form>

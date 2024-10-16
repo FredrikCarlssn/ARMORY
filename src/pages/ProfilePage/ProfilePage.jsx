@@ -15,7 +15,7 @@ import softLight from "../../img/images/soft-light-fog.webp";
 import vault from "../../img/images/vault.webp";
 import epicLogoWhite from "../../img/buttons/epicLogoWhite.webp";
 import bigTextBox from "../../img/ui/big-text-box.webp";
-import conWebLogo from "../../img/images/con-web-logo.webp";
+import CrystalFall from "../../img/crg/CrystalFall.svg";
 
 const StyledProfilePage = styled.div`
   background-image: url(${vault});
@@ -200,11 +200,14 @@ export const ProfilePage = () => {
               style={{ backgroundImage: `url(${bigTextBox})` }}
             >
               <div className="w-72 flex items-center justify-center relative -mt-4">
-                <img src={conWebLogo} className=" w-60 object-contain z-10" />
+                <img
+                  src={CrystalFall}
+                  className=" w-60 object-contain z-10 mb-2"
+                />
               </div>
               <h1 className="text-xl mb-6">Sign in with Epic Games</h1>
               <div
-                className="h-32 w-80 flex items-center justify-center crg-button scale-125"
+                className="h-32 w-80 flex items-center justify-center stylized-crg-button scale-125"
                 onClick={loginWithEpic}
               >
                 <img src={epicLogoWhite} className="h-8" />

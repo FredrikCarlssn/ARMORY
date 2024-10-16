@@ -8,7 +8,7 @@ module.exports = {
         lightBlue: "#2D3142",
         grey: "#77716E",
         epicGrey: "#2F2D2E",
-        page: "#1b1a20",
+        page: "#AE9877",
         text: "#C7C4C3",
         cyan: "#10CAE0",
         b7a99c: "#b7a99c",

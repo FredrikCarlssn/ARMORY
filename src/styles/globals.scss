@@ -42,10 +42,10 @@ body {
 .crg-button {
   font-family: inherit;
   font-size: 20px;
-  width: 200px;
+  width: 240px;
   height: 56px;
   background-color: rgba(255, 255, 255, 0);
-  background-image: url(../img/buttons/main/button-default.webp);
+  background-image: url(../img/ui/Button_Highlight.svg);
   background-size: contain;
   background-repeat: no-repeat;
   color: #c7c4c3;
@@ -55,13 +55,36 @@ body {
   justify-content: center;
   align-items: center;
   &:hover {
-    color: #e7e8e8;
-    background-image: url(../img/buttons/main/button-hover.webp);
+    filter: saturate(1.8) brightness(1.1);
   }
   &:active {
     color: rgb(255, 255, 255);
-    filter: brightness(1.1);
+    filter: brightness(1.2);
     transition: none;
+  }
+}
+
+.gold-gradient {
+  background-image: linear-gradient(
+    rgb(190, 161, 114) 0%,
+    rgb(219, 198, 143) 40%,
+    rgb(140, 99, 66) 70%,
+    rgb(90, 74, 49) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stylized-crg-button {
+  @extend .crg-button;
+  background-image: url(../img/ui/stylized-button.svg);
+  width: 300px;
+  height: 95px;
+  &:hover {
+    filter: saturate(1.3);
+  }
+  &:active {
+    filter: brightness(1.2);
   }
 }
 

@@ -73,7 +73,6 @@ export const SortingSidebar = ({
 
   useEffect(() => {
     const filterNFTs = (nfts) => {
-      console.log(activeCategoryClassFilters);
       if (!nfts || activeCategoryClassFilters.length <= 0) return [];
       return nfts.filter((nft) => {
         const metadata = nft.metadata;
@@ -130,7 +129,6 @@ export const SortingSidebar = ({
           if (
             activeClassFilters.length > 0 &&
             !activeClassFilters.includes(metadata.properties.itemClass)
-            && metadata.properties.category == 
           ) {
             return false;
           }
@@ -387,9 +385,9 @@ export const SortingSidebar = ({
               Season
               Class Requirement
             */}
-          <SubMenu label="Search Items" defaultOpen="true">
+          <SubMenu label="Search" defaultOpen="true">
             <Input
-              placeholder={"Name..."}
+              placeholder={"Item Name..."}
               value={searchTermInputValue}
               onChange={(e) => setSearchTermInputValue(e.target.value)}
               className="w-[300px] h-[60px] text-md"

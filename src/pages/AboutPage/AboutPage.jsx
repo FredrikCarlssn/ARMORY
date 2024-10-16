@@ -6,10 +6,8 @@ import { useRef } from "react";
 import { SearchPage } from "./SearchPage";
 
 import exampleNft from "../../img/images/example-nft.webp";
-import nexus from "../../img/images/nexus.webp";
-import downArrowLine from "../../img/ui/downArrowLineBlue.webp";
-import upArrowLine from "../../img/ui/upArrowLineBlue.webp";
-
+import nexus from "../../img/images/Nexus.svg";
+import bigFrame from "../../img/ui/bigFrame.svg";
 const Background = styled.div`
   display: flex;
   justify-content: center;
@@ -96,51 +94,48 @@ export const AboutPage = () => {
             className="absolute -bottom-6 right-0 h-[500px] w-[300px]"
           />
         </div>
-        <img src={upArrowLine} className="w-full -my-3 h-12" />
         <div
-          ref={ref2}
-          className="flex justify-center min-h-[527px] bg-lightBlue bg-[url('/src/img/images/dungeon.webp')] bg-blend-soft-light bg-cover p-20 -mt-3 m:flex-col m:p-10"
+          className="relative w-full h-auto bg-cover bg-top pt-36 pb-20"
+          style={{ backgroundImage: `url(${bigFrame})` }}
         >
-          <motion.div
-            initial={{ opacity: 0, x: -300 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-            className="flex flex-col justify-center mr-10 text-lg w-4/12 m:w-full m:mb-8"
+          <div
+            ref={ref2}
+            className="relative z-10 flex justify-center h-full m:flex-col m:p-10"
           >
-            <h1 className="text-4xl ml-4 mb-4 font-bold">Sealed Items</h1>
-            <p>
-              (Feature Coming Soon)
-              <br />
-              Imbued with the resilience to transcend seasonal resets, sealed
-              items offer their holders the power of trade in the bustling open
-              market. Venture into the heart of the artisan shop, where items
-              are imbued with newfound power, enhancing their quality and
-              rarity, unlocking hidden modifications and amplifying their stats,
-              unveiling untold power in the mystical world. Manipulate the
-              essence of your weapon, rerolling and appending affixes, to morph
-              its abilities and shape your destiny in the realms.
-            </p>
-          </motion.div>
-          <motion.img
-            initial={{ opacity: 0, x: 300 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-            style={{
-              scale: scale2,
-              translateY: !isInView2 ? translateY2 : 0,
-            }}
-            src={exampleNft}
-            className="w-96 hover:cursor-pointer"
-            onClick={() => {
-              navigate("/token/111111111111111111113");
-            }}
-          />
+            <motion.div
+              initial={{ opacity: 0, x: -300 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.5, delay: 0.5 }}
+              className="flex flex-col justify-center mr-10 text-lg w-4/12 m:w-full m:mb-8"
+            >
+              <h1 className="text-4xl ml-4 mb-4 font-bold">Sealed Items</h1>
+              <p>
+                Imbued with the resilience to transcend seasonal resets, sealed
+                items offer their holders the power of trade in the bustling
+                open market. Venture into the heart of the artisan shop, where
+                items are imbued with newfound power, enhancing their quality
+                and rarity, unlocking hidden modifications and amplifying their
+                stats, unveiling untold power in the mystical world. Manipulate
+                the essence of your weapon, rerolling and appending affixes, to
+                morph its abilities and shape your destiny in the realms.
+              </p>
+            </motion.div>
+            <motion.img
+              initial={{ opacity: 0, x: 300 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.5, delay: 0.5 }}
+              style={{
+                scale: scale2,
+                translateY: !isInView2 ? translateY2 : 0,
+              }}
+              src={exampleNft}
+              className="mt-8 w-64 hover:cursor-pointer"
+              onClick={() => {
+                navigate("/token/111111111111111111113");
+              }}
+            />
+          </div>
         </div>
-        <img
-          src={downArrowLine}
-          className="w-full h-12 -mt-3 m:h-8"
-          ref={ref3}
-        />
         <Game>
           <div className="px-10 pt-10 pb-20">
             <StylediFrame

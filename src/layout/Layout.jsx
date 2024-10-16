@@ -1,15 +1,18 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
-import { FooterV2 } from "./FooterV2";
+import { MobileHeader } from "./MobileHeader";
+import { Footer } from "./Footer";
 
 export const Layout = () => {
   return (
     <>
       <Header />
-      <main className="m:-mt-16">
+      <MobileHeader />
+      <main>
         <Outlet />
       </main>
-      <FooterV2 />
+      <hr />
+      <Footer />
     </>
   );
 };

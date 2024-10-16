@@ -277,7 +277,7 @@ export const ItemCard = ({ token }) => {
         </div>
         <StyledImage src={token.metadata.image} />
         <div
-          className="bg-[url('/src/img/buttons/sphere.webp')] bg-cover h-16 w-40 absolute bottom-2 right-3 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
+          className="bg-[url('/src/img/buttons/sphere.webp')] bg-cover h-16 w-40 absolute top-[329px] right-2 cursor-pointer border-2 hover:border-4 transition-all rounded-md bg-center"
           onClick={() =>
             window.open(
               `https://testnet.sphere.market/beam-testnet/nft/${ITEMS_CONTRACT}/${token.metadata.id}`

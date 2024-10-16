@@ -5,10 +5,11 @@ import styled from "styled-components";
 import { Search } from "lucide-react";
 import { Input } from "../../components/ui/Input";
 
-import horisontalLine from "../../img/ui/Line-fade-300.webp";
+import separatorLine from "../../img/ui/separator-line.svg";
 
 const StyledHl = styled.img`
   width: 700px;
+  z-index: 10;
 `;
 
 export const SearchPage = () => {
@@ -87,12 +88,11 @@ export const SearchPage = () => {
           style={{ y }}
         />
         <div className="relative flex flex-col items-center justify-center h-full my-10 pt-20">
-          <h1 className="relative text-4xl font-bold text-center">
+          <h1 className="relative text-4xl font-bold text-center -mb-2">
             Journey into Knowledge
           </h1>
-          <StyledHl src={horisontalLine} />
-          <br />
-          <p className="text-center text-xl w-2/4">
+          <StyledHl src={separatorLine} />
+          <p className="text-center text-xl w-2/4 ">
             Explore the treasure trove
           </p>
           <div
@@ -101,7 +101,7 @@ export const SearchPage = () => {
           >
             <motion.div
               alt="card"
-              className="bg-[url('/src/img/ui/card.webp')] bg-cover h-96 w-80 flex justify-start flex-col pt-4"
+              className="bg-[url('/src/img/ui/card.svg')] bg-contain bg-no-repeat h-[410px] w-80 flex justify-start flex-col pt-4"
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 2, delay: 0.5 }}
@@ -118,7 +118,7 @@ export const SearchPage = () => {
             </motion.div>
             <motion.div
               alt="card"
-              className="bg-[url('/src/img/ui/card.webp')] bg-cover h-96 w-80 flex justify-start flex-col pt-4 relative overflow-hidden"
+              className="bg-[url('/src/img/ui/card.svg')] bg-contain bg-no-repeat h-[410px] w-80 flex justify-start flex-col pt-4 relative overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0, scale: scale2 }}
               transition={{ duration: 2.5 }}
@@ -181,7 +181,7 @@ export const SearchPage = () => {
             </motion.div>
             <motion.div
               alt="card"
-              className="bg-[url('/src/img/ui/card.webp')] bg-cover h-96 w-80 justify-start flex-col pt-4"
+              className="bg-[url('/src/img/ui/card.svg')] bg-contain h-[410px] w-80 justify-start flex-col pt-4 bg-no-repeat"
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 2, delay: 0.5 }}

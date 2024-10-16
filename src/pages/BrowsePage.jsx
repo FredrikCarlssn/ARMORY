@@ -77,7 +77,7 @@ export const BrowsePage = () => {
   const { data: totalCount } = useTotalCount(contractItems);
   const hasPreviousPage = count > 0;
   const hasNextPage = (count + 1) * nftsPerPage < totalCount;
-  const totalPages = Math.ceil(totalCount / nftsPerPage);
+  const totalPages = Math.ceil(totalCount / filteredNFTs.length);
   const [allNFTs, setAllNFTs] = useState([]);
   const [displayedNfts, setDisplayedNfts] = useState([]);
 
@@ -103,7 +103,14 @@ export const BrowsePage = () => {
     setDisplayedNfts(
       filteredNFTs.slice(count * nftsPerPage, (count + 1) * nftsPerPage)
     );
+    window.scrollTo({ top: 100, behavior: "smooth" });
   }, [count, filteredNFTs]);
+  useEffect(() => {
+    if (displayedNfts.length == 0) {
+      setCount(0);
+    }
+    window.scrollTo({ top: 100, behavior: "smooth" });
+  }, [displayedNfts]);
 
   useEffect(() => {
     window.scrollTo({ top: 100, behavior: "smooth" });
